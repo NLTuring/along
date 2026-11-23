@@ -1,0 +1,95 @@
+/* Along craft additions: the existing paper, ink and terracotta palette. */
+.craft-online [hidden] { display: none !important; }
+.craft-online .craft-preview { width: 100%; align-self: stretch; }
+.craft-online [data-variant].stamp { align-self: flex-start; transform: none; }
+/* A bigger stage: nearly square on a phone, so the keepsake (and its photo) fills the screen width. */
+.craft-online .craft-online-stage {
+  width: calc(100% + 2 * var(--page-x, 20px)); margin: 0 calc(var(--page-x, 20px) * -1);
+  height: min(118vw, 64vh); height: min(118vw, 64dvh); min-height: 300px; max-height: 620px;
+  position: relative; display: block; overflow: hidden; perspective: none;
+  border-radius: var(--r-26, 26px); border: 1px solid var(--line, #ded8cd);
+  background: radial-gradient(ellipse at 50% 48%, #fffdf7 0%, #f2ebdf 65%, #e9dfd0 100%);
+  touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
+  cursor: grab;
+}
+.craft-online .craft-online-stage:active { cursor: grabbing; }
+.craft-online-stage:focus-visible, .craft-mask canvas:focus-visible { outline: 3px solid var(--accent, #b24a2c); outline-offset: 3px; }
+.craft-webgl { display: block; width: 100%; height: 100%; }
+.craft-flat-preview { display: block; width: 100%; height: 100%; object-fit: contain; }
+.craft-online .craft-controls { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; justify-content: center; }
+.craft-online .craft-controls .btn { flex: 1 1 90px; padding-inline: 8px; }
+.craft-panel { width: 100%; padding: 16px; display: flex; flex-direction: column; gap: 12px; border: 1px solid var(--line, #ded8cd); border-radius: var(--r-20, 20px); background: var(--surface, #fffdf8); }
+.craft-panel .btn, .craft-online .flow-body > .btn { width: 100%; }
+.craft-panel h3, .craft-panel p { margin: 0; }
+.craft-action-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.craft-action-row > .btn { flex: 1 1 140px; width: auto; min-height: var(--tap, 48px); height: auto; padding: 12px; white-space: normal; }
+.craft-online .btn { white-space: normal; overflow-wrap: anywhere; }
+.craft-hold { display: flex; align-items: center; gap: 12px; font-size: var(--fs-13, 13px); width: 100%; }
+.craft-hold progress { flex: 1; width: 40%; height: 9px; accent-color: #b24a2c; }
+.craft-online .note { line-height: 1.65; }
+.craft-sizes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.craft-sizes label { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.craft-sizes .input { width: 100%; min-width: 0; }
+.craft-mask canvas { width: 100%; height: auto; aspect-ratio: auto; display: block; border-radius: 10px; touch-action: none; background: #eee5d9; }
+.craft-mask-image { position: relative; width: 100%; }
+.craft-detection { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.craft-detection-box { fill: none; stroke: #fff; stroke-width: 2; stroke-dasharray: 6 4; vector-effect: non-scaling-stroke; }
+.craft-detection-polygon { fill: none; stroke: #136f63; stroke-width: 2; vector-effect: non-scaling-stroke; }
+.craft-mask input[type=range] { width: 100%; min-height: var(--tap, 48px); accent-color: #b24a2c; }
+.craft-mask [aria-pressed=true] { background: var(--ink, #1b1813); color: #fffdf8; }
+.craft-mask { display: flex; flex-direction: column; gap: 12px; }
+/* Real / anime: one control, two states; the model above swaps in place. */
+.craft-segmented { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; border-radius: var(--r-pill, 999px); background: var(--line, #ded8cd); }
+.craft-segment { min-height: var(--tap, 48px); border: 0; border-radius: var(--r-pill, 999px); background: transparent; color: var(--ink, #1b1813); font: inherit; font-weight: 600; cursor: pointer; }
+.craft-segment[aria-pressed=true] { background: var(--surface, #fffdf8); box-shadow: 0 1px 3px rgba(27,24,19,.18); }
+.craft-segment:disabled { opacity: .5; cursor: default; }
+.craft-segment:focus-visible { outline: 3px solid var(--accent, #b24a2c); outline-offset: 2px; }
+.craft-switch { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; min-height: var(--tap, 48px); cursor: pointer; }
+.craft-switch__text { display: flex; flex-direction: column; gap: 4px; }
+.craft-switch input { order: 2; flex: 0 0 auto; appearance: none; -webkit-appearance: none; width: 52px; height: 30px; margin: 0; border-radius: 999px; background: var(--line, #ded8cd); position: relative; cursor: pointer; transition: background .2s; }
+.craft-switch input::after { content: ''; position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: #fffdf8; box-shadow: 0 1px 3px rgba(27,24,19,.3); transition: transform .2s; }
+.craft-switch input:checked { background: var(--accent, #b24a2c); }
+.craft-switch input:checked::after { transform: translateX(22px); }
+.craft-switch input:disabled { opacity: .5; cursor: default; }
+.craft-switch input:focus-visible { outline: 3px solid var(--accent, #b24a2c); outline-offset: 2px; }
+@media (forced-colors: active) { .craft-switch input { border: 1px solid CanvasText; } .craft-switch input::after { background: CanvasText; } .craft-segment[aria-pressed=true] { outline: 2px solid Highlight; } }
+.craft-consent {
+  position: fixed; z-index: 110; inset: auto 0 0; max-width: 520px; max-height: 90dvh; overflow: auto; margin: auto;
+  padding: 24px 20px calc(24px + var(--safe-bottom, 0px)); border-radius: 26px 26px 0 0;
+  background: var(--surface, #fffdf8); color: var(--ink, #1b1813); box-shadow: 0 0 0 100vmax rgba(27,24,19,.55);
+  display: flex; flex-direction: column; gap: 16px; border: 1px solid var(--line, #ded8cd);
+}
+.craft-consent-check { display: flex; align-items: flex-start; gap: 12px; line-height: 1.6; }
+.craft-consent-check input { flex: 0 0 24px; width: 24px; height: 24px; margin-top: 4px; accent-color: #b24a2c; }
+@media (min-width: 560px) { .craft-online .craft-online-stage { width: 100%; margin: 0; border-radius: var(--r-26, 26px); } }
+.craft-online .craft-controls--zoom .btn { flex: 1 1 64px; font-size: 22px; font-weight: 600; }
+@media (prefers-reduced-motion: reduce) { .craft-online * { transition: none !important; } }
+
+/* Floating AI window: stays above the page while anime style or person finding runs. */
+.craft-ai {
+  position: fixed; z-index: 30; left: 12px; right: 12px; margin: 0 auto; max-width: 496px;
+  bottom: calc(var(--safe-bottom, 0px) + 88px);
+  display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 4px 12px; align-items: center;
+  padding: 14px 16px; border-radius: 22px; color: var(--ink, #1b1813);
+  box-shadow: 0 10px 30px rgba(27, 24, 19, .22);
+  animation: craft-ai-in 260ms var(--ease-out, ease-out) both;
+}
+.craft-ai[hidden] { display: none; }
+:root[data-craft-step='done'] .craft-ai { bottom: calc(var(--safe-bottom, 0px) + 16px); }
+.craft-ai__spin {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 3px solid rgba(178, 74, 44, .22); border-top-color: var(--accent, #b24a2c);
+  animation: craft-ai-spin .9s linear infinite;
+}
+.craft-ai.is-failed .craft-ai__spin { animation: none; border-color: var(--danger, #a3361f); border-top-color: var(--danger, #a3361f); position: relative; }
+.craft-ai.is-failed .craft-ai__spin::after { content: '!'; position: absolute; inset: 0; display: grid; place-items: center; font-weight: 700; color: var(--danger, #a3361f); font-size: 15px; }
+.craft-ai__copy { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.craft-ai__copy strong { font-size: var(--fs-15, 15px); line-height: 1.35; }
+.craft-ai__copy .t-small { color: var(--body, #4a443b); line-height: 1.45; }
+.craft-ai__actions { grid-column: 1 / -1; display: flex; justify-content: flex-end; gap: 8px; margin-top: 6px; }
+.craft-ai__actions .btn { width: auto; height: auto; min-height: 40px; padding: 0 18px; border-radius: 999px; font-size: var(--fs-15, 15px); }
+.craft-ai__actions .btn--outline { background: transparent; color: var(--ink, #1b1813); border: 1.5px solid var(--ink, #1b1813); }
+@keyframes craft-ai-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes craft-ai-spin { to { transform: rotate(360deg); } }
+:root[data-motion='reduced'] .craft-ai, :root[data-motion='reduced'] .craft-ai__spin { animation: none; }
+@media (prefers-reduced-motion: reduce) { .craft-ai, .craft-ai__spin { animation: none; } }

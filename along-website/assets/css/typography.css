@@ -1,0 +1,84 @@
+/* Along typography — Source Serif 4 for English, Noto Serif SC for Chinese */
+
+@font-face {
+  font-family: 'Source Serif 4';
+  src: url('/assets/fonts/source-serif-4-latin.woff2') format('woff2');
+  font-weight: 200 900;
+  font-stretch: 75% 125%;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Serif SC';
+  src: url('/assets/fonts/noto-serif-sc-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* Typography scale */
+.t-display {
+  font-family: var(--font-serif-zh);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.t-display:lang(en) {
+  font-family: var(--font-serif-en);
+  font-weight: 600;
+}
+
+.t-title {
+  font-family: var(--font-serif-zh);
+  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.t-title:lang(en) {
+  font-family: var(--font-serif-en);
+  font-weight: 500;
+}
+
+.t-heading {
+  font-family: var(--font-serif-zh);
+  font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.t-heading:lang(en) {
+  font-family: var(--font-serif-en);
+  font-weight: 500;
+}
+
+.t-body {
+  font-family: var(--font-system);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.t-small {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.t-caption {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  opacity: 0.72;
+}
+
+/* Chinese-English mixed text */
+:lang(zh) {
+  font-family: var(--font-system), var(--font-serif-zh);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-serif-zh);
+}
+
+h1:lang(en), h2:lang(en), h3:lang(en) {
+  font-family: var(--font-serif-en);
+}

@@ -1,0 +1,74 @@
+name: along
+services:
+  database:
+    image: postgres:17-bookworm
+    environment:
+      POSTGRES_DB: along
+      POSTGRES_USER: along
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set a strong database password}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U along -d along"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+  redis:
+    image: redis:7.4-alpine
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "${REDIS_PASSWORD:?Set a strong Redis password}"]
+    environment:
+      REDISCLI_AUTH: ${REDIS_PASSWORD}
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+  api:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.server
+    env_file: production.env
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 3001
+      DATABASE_URL: postgresql://along:${POSTGRES_PASSWORD}@database:5432/along
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379
+    depends_on:
+      database:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+  worker:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.server
+    command: ["node", "dist/worker-main.js"]
+    env_file: production.env
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://along:${POSTGRES_PASSWORD}@database:5432/along
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379
+    depends_on:
+      database:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+  web:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.web
+    ports:
+      - "127.0.0.1:8080:8080"
+    depends_on:
+      - api
+    restart: unless-stopped
+volumes:
+  pgdata:
+  redisdata:

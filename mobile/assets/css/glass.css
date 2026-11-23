@@ -1,0 +1,126 @@
+/* InsTrip mobile — glass.
+   One tint, three thicknesses, three textures. Rules of use:
+   - at most three blurred panels on screen, never inside a scrolling list;
+   - thin glass carries ink text or icons only;
+   - secondary text colour never sits on glass unless paper is behind it. */
+
+.glass {
+  --_alpha: var(--glass-2-alpha);
+  --_blur: var(--glass-2-blur);
+  --_sat: var(--glass-2-sat);
+  position: relative;
+  isolation: isolate;
+  background:
+    linear-gradient(var(--glass-light-angle), rgba(255, 255, 255, .30), rgba(255, 255, 255, 0) 46%),
+    rgba(var(--glass-rgb), var(--_alpha));
+  -webkit-backdrop-filter: blur(var(--_blur)) saturate(var(--_sat));
+  backdrop-filter: blur(var(--_blur)) saturate(var(--_sat));
+  box-shadow: var(--glass-edge), var(--glass-shadow);
+  color: var(--ink);
+}
+
+/* Fine grain so the surface reads as glass, not plastic, and gradients do not band. */
+.glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: .035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.glass--1 { --_alpha: var(--glass-1-alpha); --_blur: var(--glass-1-blur); --_sat: var(--glass-1-sat); }
+.glass--2 { --_alpha: var(--glass-2-alpha); --_blur: var(--glass-2-blur); --_sat: var(--glass-2-sat); }
+.glass--3 { --_alpha: var(--glass-3-alpha); --_blur: var(--glass-3-blur); --_sat: var(--glass-3-sat); }
+
+/* Reeded glass: "not ready yet" or "not unlocked yet". Vertical flutes over a soft blur. */
+.glass--reeded {
+  --_alpha: .34;
+  --_blur: 10px;
+  --_sat: 1.05;
+  background:
+    repeating-linear-gradient(90deg,
+      rgba(255, 255, 255, .34) 0 1px,
+      rgba(255, 255, 255, .06) 1px 4px,
+      rgba(27, 24, 19, .035) 4px 7px),
+    rgba(var(--glass-rgb), var(--_alpha));
+}
+
+/* Slides aside when the thing behind it is ready. */
+.glass--reeded.is-clearing {
+  transition: transform var(--t-reeded) var(--ease-out), opacity var(--t-reeded) var(--ease-out);
+  transform: translateX(104%);
+  opacity: 0;
+}
+
+/* Glass over the native map: web blur cannot reach the native layer, so no blur here. */
+.glass--over-map {
+  --_alpha: .82;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+/* Fallbacks: no blur support, user asked for less transparency, low-end device, senior mode. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass { --_alpha: var(--glass-solid-alpha); }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass {
+    --_alpha: var(--glass-solid-alpha);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+:root[data-glass='solid'] .glass {
+  --_alpha: var(--glass-solid-alpha);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+/* Low-memory phones: only the bottom navigation keeps its blur. */
+:root[data-glass='lite'] .glass:not(.nav) {
+  --_alpha: var(--glass-solid-alpha);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+:root[data-glass='solid'] .glass--reeded,
+:root[data-glass='lite'] .glass--reeded {
+  background:
+    repeating-linear-gradient(90deg, rgba(27, 24, 19, .05) 0 1px, transparent 1px 7px),
+    rgba(var(--glass-rgb), var(--glass-solid-alpha));
+}
+
+/* Window shapes: image masks for the three product layers. */
+.window {
+  position: relative;
+  overflow: hidden;
+  background: var(--line);
+  box-shadow: var(--glass-edge), var(--glass-shadow);
+}
+
+.window > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.window--porthole { aspect-ratio: 3 / 4; border-radius: 42% / 31%; }  /* arrive: aircraft window */
+.window--moon { aspect-ratio: 1; border-radius: 50%; }                 /* together: moon gate */
+.window--frame { aspect-ratio: 9 / 16; border-radius: var(--r-26); }   /* take home: viewfinder */
+
+/* A pane of light across a window, following the sun. Decorative. */
+.window::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(var(--glass-light-angle), rgba(255, 255, 255, .22), rgba(255, 255, 255, 0) 42%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .5);
+}

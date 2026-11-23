@@ -1,0 +1,109 @@
+/* Sky gradient with logo watermark */
+.sky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  background: linear-gradient(180deg, var(--sky-start), var(--sky-end));
+  z-index: 0;
+  transition: background var(--t-slow) var(--ease-glass);
+}
+
+.sky::after {
+  content: '';
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  width: min(240px, 30vw);
+  height: min(105px, 13vw);
+  background: url('/assets/img/brand/Along-Logo-透明底.png') center/contain no-repeat;
+  opacity: var(--logo-opacity);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+[data-sky='night'] .sky::after {
+  mix-blend-mode: screen;
+  filter: invert(1);
+}
+
+/* Glass morphism components */
+.glass {
+  background: var(--glass-medium);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+}
+
+.glass--thin {
+  background: var(--glass-thin);
+}
+
+.glass--thick {
+  background: var(--glass-thick);
+}
+
+/* Window shapes from Along mobile */
+.window {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.window--porthole {
+  aspect-ratio: 3 / 4;
+  border-radius: 24px;
+}
+
+.window--moon-gate {
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+.window--frame {
+  aspect-ratio: 9 / 16;
+  border-radius: 12px;
+}
+
+.window img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Opening shade animation */
+@keyframes shade-open {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-104%);
+  }
+}
+
+@keyframes draw-stroke {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Responsive spacing */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-3);
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 var(--space-4);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 var(--space-5);
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "along-promo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Along 一起游 · 介绍视频（Remotion 工程）",
+  "scripts": {
+    "dev": "remotion studio src/index.ts",
+    "render": "remotion render src/index.ts AlongPromo out/along-promo.mp4",
+    "still": "remotion still src/index.ts AlongPromo"
+  },
+  "dependencies": {
+    "@react-three/fiber": "9.1.2",
+    "@remotion/cli": "4.0.484",
+    "@remotion/three": "4.0.484",
+    "@remotion/zod-types": "4.0.484",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "remotion": "4.0.484",
+    "three": "0.170.0",
+    "zod": "4.3.6"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.17",
+    "@types/three": "0.170.0",
+    "typescript": "6.0.3"
+  }
+}

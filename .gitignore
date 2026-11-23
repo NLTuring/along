@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build output and generated artifacts
+server/dist/
+_build/
+along-banner/out/
+along-poster/out/
+along-promo/out/
+along-banner/work/
+along-poster/work/
+along-promo/capture/apk-web/
+along-promo/capture/probe/
+along-promo/capture/recon/
+__pycache__/
+*.pyc
+
+# Local runtime data
+server/.data/
+server/.local-data/
+*.log
+
+# Secrets and local configuration
+.env
+.env.*
+*.env
+!*.env.example
+!**/*.env.example
+.android-local/
+_signing/
+*.p12
+*.keystore
+*.apk
+keystore-password.txt
+Along-网站分享包-Windows/
+ai.local.json
+
+# Local tooling and scratch directories
+_tools/
+_downloads/
+_inspect/
+apk-unpacked/
+.claude/
+.zcode/
+%D%/
+%T%/
+{
+
+# Event-specific source artwork (not part of the public repo)
+along-banner/assets/src/official-kv-7000.png

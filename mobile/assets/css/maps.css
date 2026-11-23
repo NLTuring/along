@@ -1,0 +1,15 @@
+/* Along — map surface and accessible route controls. */
+.page--map { padding-bottom: 48px; }
+.map-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.map-actions .btn { flex: 1; min-width: 140px; }
+.map-view { height: 360px; width: 100%; overflow: hidden; position: relative; margin-block: 16px; background: #e8e9e2; }
+.map-placeholder { display: grid; place-content: center; text-align: center; padding: 32px; min-height: 300px; color: var(--ink-2, #666158); }
+.map-form, .map-route { padding: 20px; margin-block: 20px; }
+.map-route .btn { margin-top: 12px; }
+.map-route a { text-align: center; text-decoration: none; }
+.map-route [data-instructions] { max-height: 260px; overflow: auto; }
+.map-form select, .map-route select { width: 100%; }
+.page--map [data-results]:empty { display: none; }
+.page--map [data-results] .row { text-align: left; overflow-wrap: anywhere; }
+@media (min-width: 760px) { .map-view { height: 460px; } }
+.senior .map-view { height: 300px; }

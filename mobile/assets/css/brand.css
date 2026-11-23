@@ -1,0 +1,35 @@
+/* Along's supplied mark lives in the sky, not in another empty header row. */
+:root { --brand-mark: url('../img/brand/along-ink.png'); --brand-opacity: .065; }
+:root[data-sky='night'] { --brand-mark: url('../img/brand/along-light.png'); --brand-opacity: .085; }
+.sky { overflow: hidden; }
+.sky::after {
+  content: '';
+  position: absolute;
+  top: calc(var(--safe-top) + 12px);
+  right: max(20px, calc((100vw - 480px) / 2));
+  width: clamp(150px, 55vw, 258px);
+  height: min(104px, calc(var(--sky-h) - 10px));
+  background: var(--brand-mark) right center / contain no-repeat;
+  opacity: var(--brand-opacity);
+  pointer-events: none;
+  display: none;
+}
+/* Only tab pages whose sky holds just the local-time line show the mark. The arrival
+   porthole fills the Trip sky, and workflow or community headers can span the whole
+   width (native map included), so a mark there would sit behind a photo, link or title. */
+:root[data-nav='shown']:is([data-route='friends'], [data-route='stories'], [data-route='you'],
+  [data-route='orders'], [data-route='library'], [data-route='saved'], [data-route='crafts'],
+  [data-route='support'], [data-route='trip'][data-stage='plan']) .sky::after { display: block; }
+:root[data-route='friends'], :root[data-route='stories'], :root[data-route='you'],
+:root[data-route='orders'], :root[data-route='library'], :root[data-route='saved'],
+:root[data-route='crafts'] { --sky-h: 80px; }
+.skyline { top: calc(var(--safe-top) + 17px); }
+.page--tab { padding-top: calc(var(--safe-top) + var(--sky-h) + 2px); }
+:root.senior .sky::after { opacity: .035; }
+:root.senior[data-sky='night'] .sky::after { opacity: .055; }
+/* Never reopen the native-map transparency aperture with an all-page background. */
+:root[data-native-map='active'] .sky { display: none; }
+/* Narrow phones: keep the mark clear of the local-time line. */
+@media (max-width: 360px) {
+  .sky::after { width: 150px; right: 12px; }
+}

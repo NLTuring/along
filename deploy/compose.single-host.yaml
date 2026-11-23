@@ -1,0 +1,30 @@
+# Single-host small deployment. Run WITH compose.yaml; uses durable private disk, not development mode.
+services:
+  database:
+    mem_limit: 512m
+    cpus: 0.4
+  redis:
+    mem_limit: 128m
+    cpus: 0.2
+  api:
+    environment:
+      STORAGE_DRIVER: filesystem
+      PRIVATE_STORAGE_DIR: /var/lib/along/private
+    volumes:
+      - /opt/along/shared/private:/var/lib/along/private
+    mem_limit: 512m
+    cpus: 0.5
+  worker:
+    environment:
+      STORAGE_DRIVER: filesystem
+      PRIVATE_STORAGE_DIR: /var/lib/along/private
+      WORKER_CONCURRENCY: 1
+    volumes:
+      - /opt/along/shared/private:/var/lib/along/private
+    mem_limit: 768m
+    cpus: 0.7
+  web:
+    ports: !override
+      - "127.0.0.1:4338:8080"
+    mem_limit: 96m
+    cpus: 0.2

@@ -1,0 +1,119 @@
+/* The map host is UNDER the WebView. All rules are limited to this page state. */
+:root[data-native-map='active'] { background: var(--paper, #f6f3ec); }
+:root[data-native-map='active'] body { background: var(--paper, #f6f3ec); }
+:root[data-native-map='active'] .sky { display: none; }
+/* One screen tall: the map keeps its place and only the sheet under it scrolls, so reading
+   the directions never moves (and never re-measures) the native map. */
+:root[data-native-map='active'] .page--native-map {
+  background: transparent;
+  height: 100vh;
+  height: 100dvh;
+  padding-bottom: 0;
+  gap: var(--sp-8, 8px);
+}
+:root[data-native-map='active'] .page--native-map .topbar { color: var(--ink); flex: none; }
+:root[data-native-map='active'] .native-map-panel { background: var(--paper, #f6f3ec); }
+:root[data-native-map='active'] .native-map-intro { flex: none; display: flex; flex-direction: column; gap: var(--sp-12, 12px); }
+:root[data-native-map='active'] .native-map-intro [hidden],
+:root[data-native-map='active'] .native-map-sheet [hidden] { display: none !important; }
+:root[data-native-map='active'] .native-map-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-8, 8px) var(--sp-12, 12px); }
+:root[data-native-map='active'] .native-map-actions .btn { flex: 1 1 140px; white-space: normal; text-align: center; }
+:root[data-native-map='active'] .native-map-city { flex: 1 1 110px; }
+:root[data-native-map='active'] .native-map-status { min-height: 1.5em; overflow-wrap: anywhere; }
+:root[data-native-map='active'] .native-map-viewport {
+  position: relative;
+  flex: none;
+  height: 38vh;
+  height: 38dvh;
+  min-height: 200px;
+  max-height: 420px;
+  margin: 0 calc(var(--page-x, 20px) * -1);
+  overflow: hidden;
+  border-radius: 0;
+  border: 0;
+  background: var(--paper, #f6f3ec);
+}
+:root[data-native-map='active'] .native-map-placeholder {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: 24px;
+  text-align: center;
+  color: var(--muted-strong);
+  background: var(--paper, #f6f3ec);
+  border: 1px solid var(--line, #ddd7cb);
+}
+:root[data-native-map='active'] .native-map-sheet {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-12, 12px);
+  padding: var(--sp-4, 4px) 0 calc(var(--safe-bottom, 0px) + var(--sp-24, 24px));
+}
+:root[data-native-map='active'] .native-map-sheet > p:empty,
+:root[data-native-map='active'] .native-map-route > p:empty,
+:root[data-native-map='active'] .native-map-results:empty,
+:root[data-native-map='active'] .native-map-steps:empty { display: none; }
+:root[data-native-map='active'] .native-map-sheet .field { display: flex; flex-direction: column; gap: 6px; flex: none; }
+:root[data-native-map='active'] .native-map-search { display: flex; align-items: flex-end; gap: var(--sp-8, 8px); }
+:root[data-native-map='active'] .native-map-search .field { flex: 1 1 auto; }
+:root[data-native-map='active'] .native-map-search .btn { flex: none; height: var(--btn-h, 52px); }
+:root[data-native-map='active'] .native-map-search .input { background: var(--surface, #fffdf8); }
+
+/* Search results: tap the place to go there; the text button makes it the start instead. */
+:root[data-native-map='active'] .native-map-results { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--line, #ddd7cb); }
+:root[data-native-map='active'] .native-map-result { display: flex; align-items: center; gap: var(--sp-8, 8px); border-top: 1px solid var(--line, #ddd7cb); }
+:root[data-native-map='active'] .native-map-result__main {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-12, 12px);
+  padding: var(--sp-8, 8px) 0;
+  text-align: start;
+  color: var(--ink);
+}
+:root[data-native-map='active'] .native-map-result__pin { flex: none; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; color: var(--body); background: var(--surface, #fffdf8); border: 1px solid var(--line, #ddd7cb); }
+:root[data-native-map='active'] .native-map-result__text { min-width: 0; display: flex; flex-direction: column; overflow-wrap: anywhere; }
+:root[data-native-map='active'] .native-map-result__text > strong { font-weight: 600; font-size: var(--fs-15, 15px); }
+:root[data-native-map='active'] .native-map-result__text > small { font-size: var(--fs-13, 13px); color: var(--body); }
+:root[data-native-map='active'] .native-map-result__main[aria-pressed='true'] .native-map-result__pin { color: #fff; background: var(--accent, #b24a2c); border-color: var(--accent, #b24a2c); }
+:root[data-native-map='active'] .native-map-result__start { flex: none; min-height: var(--tap, 44px); padding: 0 var(--sp-4, 4px); white-space: nowrap; }
+
+:root[data-native-map='active'] .native-map-route { flex: none; display: flex; flex-direction: column; gap: var(--sp-12, 12px); padding: var(--sp-16, 16px); }
+:root[data-native-map='active'] .native-map-route > h2,
+:root[data-native-map='active'] .native-map-route > p { margin: 0; overflow-wrap: anywhere; }
+:root[data-native-map='active'] .native-map-route .btn { white-space: normal; text-align: center; }
+:root[data-native-map='active'] .native-map-summary { color: var(--ink); font-weight: 600; }
+:root[data-native-map='active'] .native-map-steps { margin: 0; padding: 0 0 0 1.6em; display: flex; flex-direction: column; gap: var(--sp-8, 8px); color: var(--ink); line-height: 1.5; }
+:root[data-native-map='active'] .native-map-step--arrive { font-weight: 600; }
+:root[data-native-map='active'] .native-map-step--more { list-style: none; color: var(--body); }
+:root[data-native-map='active'] .native-map-mask { display: none; }
+
+/* With the keyboard up there is little room: give the sheet most of it. */
+@media (max-height: 520px) {
+  :root[data-native-map='active'] .native-map-viewport { height: 26vh; height: 26dvh; min-height: 120px; }
+}
+
+/* Fail closed until a genuine native ready callback and a valid clipped rect. */
+:root[data-native-map='active'][data-native-map-aperture='open'],
+:root[data-native-map='active'][data-native-map-aperture='open'] body,
+:root[data-native-map='active'][data-native-map-aperture='open'] #app,
+:root[data-native-map='active'][data-native-map-aperture='open'] .native-map-viewport { background: transparent; }
+:root[data-native-map='active'][data-native-map-aperture='open'] .native-map-placeholder { visibility: hidden; }
+:root[data-native-map='active'][data-native-map-aperture='open'] .native-map-mask {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+:root[data-native-map='active'] .native-map-mask i { position: absolute; display: block; background: var(--paper, #f6f3ec); }
+:root[data-native-map='active'] .native-map-mask__top { left: 0; right: 0; top: 0; height: var(--native-map-y); }
+:root[data-native-map='active'] .native-map-mask__bottom { left: 0; right: 0; top: calc(var(--native-map-y) + var(--native-map-height)); bottom: 0; }
+:root[data-native-map='active'] .native-map-mask__left { left: 0; width: var(--native-map-x); top: var(--native-map-y); height: var(--native-map-height); }
+:root[data-native-map='active'] .native-map-mask__right { left: calc(var(--native-map-x) + var(--native-map-width)); right: 0; top: var(--native-map-y); height: var(--native-map-height); }

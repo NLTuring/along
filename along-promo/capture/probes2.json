@@ -1,0 +1,8 @@
+[
+ {"route": "trip", "lang": "zh", "shot": "zh-p-cmd.png", "actions": [["click", "[data-assistant-fab]"], ["wait", 700], ["fill", "[data-xy-input]", "切换成英文"], ["click", "[data-xy-send]"], ["wait", 2000]], "max": 20},
+ {"route": "trip", "shot": "p-mic.png", "actions": [["click", "[data-assistant-fab]"], ["wait", 700], ["click", "[data-xy-mic]"], ["wait", 900]], "max": 20},
+ {"route": "stories", "shot": "p-examples.png", "actions": [["click", "[data-mode=examples]"], ["wait", 1200]], "max": 20},
+ {"route": "trip", "shot": "p-craft1.png", "actions": [["click", "[data-lens]"], ["wait", 700], ["click", "[data-capture=craft]"], ["wait", 1500]], "max": 30},
+ {"route": "you", "shot": "p-signin.png", "actions": [["click", "[data-signin]"], ["wait", 900]], "max": 20},
+ {"route": "studio", "shot": "p-studio.png", "max": 25}
+]

@@ -1,0 +1,85 @@
+/* Along website — design tokens from Along mobile app v2.7.0 */
+
+:root {
+  /* Colors from Along mobile: paper, ink, seal red, sage green */
+  --paper: #F7F2E8;
+  --paper-content: #FFFDF8;
+  --ink: #1B1813;
+  --seal: #B24A2C;
+  --sage: #5F6F5A;
+  
+  /* Glass system: three thickness levels */
+  --glass-thin: rgba(255, 253, 248, 0.72);
+  --glass-medium: rgba(255, 253, 248, 0.85);
+  --glass-thick: rgba(255, 253, 248, 0.92);
+  --glass-blur: 24px;
+  --glass-border: rgba(27, 24, 19, 0.08);
+  
+  /* Sky states: follow destination local time and weather */
+  --sky-dawn-start: #F5D9C8;
+  --sky-dawn-end: #A8C8E1;
+  --sky-day-start: #87CEEB;
+  --sky-day-end: #E0F6FF;
+  --sky-dusk-start: #FFB88C;
+  --sky-dusk-end: #9B6B9E;
+  --sky-night-start: #1A2332;
+  --sky-night-end: #0D1821;
+  --sky-rain: rgba(138, 154, 168, 0.45);
+  --sky-cloudy: rgba(200, 208, 218, 0.35);
+  
+  /* Logo watermark opacity (on sky) */
+  --logo-day-opacity: 0.065;
+  --logo-night-opacity: 0.085;
+  
+  /* Typography */
+  --font-serif-zh: "Noto Serif SC", "SimSun", serif;
+  --font-serif-en: "Source Serif 4", "Georgia", serif;
+  --font-system: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  
+  /* Spacing scale (8px base) */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 48px;
+  --space-6: 64px;
+  
+  /* Window shapes */
+  --window-porthole-ratio: 0.75; /* 3:4 vertical */
+  --window-moon-gate: 1; /* perfect circle */
+  --window-frame-ratio: 0.5625; /* 9:16 vertical */
+  
+  /* Transitions */
+  --ease-snap: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-glass: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --t-fast: 200ms;
+  --t-base: 350ms;
+  --t-slow: 600ms;
+}
+
+/* Sky time ranges (local destination time):
+   Dawn:    05:30 - 07:00
+   Day:     07:00 - 17:30
+   Dusk:    17:30 - 19:00
+   Night:   19:00 - 05:30
+*/
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #2A2621;
+    --paper-content: #36322B;
+    --ink: #E8E4DC;
+    --glass-border: rgba(232, 228, 220, 0.12);
+  }
+}
+
+/* Reduced transparency fallback */
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --glass-thin: var(--paper-content);
+    --glass-medium: var(--paper-content);
+    --glass-thick: var(--paper-content);
+    --glass-blur: 0px;
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "along-website",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:three": "node tools/bundle-three.mjs",
+    "build:fonts": "node tools/subset-fonts.mjs",
+    "build": "npm run build:three && npm run build:fonts",
+    "serve": "node tools/serve.mjs",
+    "dev": "npm run build && npm run serve"
+  },
+  "dependencies": {
+    "three": "^0.170.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}

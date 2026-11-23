@@ -1,0 +1,4 @@
+[
+ {"route": "you", "shot": "p-craft3.png", "actions": [["click", "[data-signin]"], ["wait", 700], ["click", "[data-local-experience]"], ["wait", 900], ["press", "Escape"], ["wait", 500], ["goto", "#/trip"], ["click", "[data-lens]"], ["wait", 700], ["click", "[data-capture=craft]"], ["wait", 1500], ["click", "[data-samples]"], ["wait", 1200], ["click", "[data-photo=sample_along_shanghai_friends]"], ["wait", 1200]], "max": 40},
+ {"route": "studio", "shot": "p-film2.png", "actions": [["click", "[data-samples]"], ["wait", 1000], ["click", "[data-photo=sample_along_shanghai_friends]"], ["click", "[data-photo=sample_poi_yuyuan]"], ["click", "[data-photo=sample_poi_ferry]"], ["click", "[data-photo=sample_poi_westbund]"], ["wait", 400], ["click", "[data-make]"], ["wait", 2500]], "max": 30}
+]

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>记忆馆 · Along 一起游</title>
+  <meta name="description" content="Along 记忆馆 — 旅程故事与地点档案的 3D 空间">
+  <link rel="icon" href="/assets/img/brand/app-icon.png">
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/reset.css">
+  <link rel="stylesheet" href="/assets/css/typography.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/archive.css">
+</head>
+<body>
+  <!-- Sky background -->
+  <div class="sky" id="sky"></div>
+
+  <main class="archive">
+    <div class="container">
+      <!-- Header -->
+      <header class="archive__header glass">
+        <nav style="text-align: left; margin-bottom: var(--space-3);">
+          <a href="/" style="opacity: 0.72; font-size: 0.875rem;">← 返回首页</a>
+        </nav>
+        <h1 class="t-title archive__title">记忆馆</h1>
+        <p class="t-body archive__subtitle">
+          旅程故事与地点档案，保存在 3D 空间里。<br>
+          拖动旋转，点击档案打开阅读，盖章收藏。
+        </p>
+      </header>
+
+      <!-- 3D Scene -->
+      <div class="archive-scene">
+        <canvas id="archiveCanvas"></canvas>
+        
+        <!-- Loading indicator -->
+        <div class="archive-loading" id="archiveLoading">
+          <div class="spinner"></div>
+        </div>
+
+        <!-- Controls -->
+        <div class="archive__controls glass">
+          <button class="control-btn" id="resetView" aria-label="重置视角">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+              <path d="M21 3v5h-5"/>
+            </svg>
+          </button>
+          
+          <button class="control-btn" id="autoRotate" aria-label="自动旋转">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Archive info panel -->
+        <aside class="archive-info glass--thick" id="archiveInfo">
+          <h3 class="archive-info__title" id="infoTitle">档案标题</h3>
+          <p class="archive-info__meta" id="infoMeta">城市 · 类别</p>
+          <div class="archive-info__actions">
+            <button class="archive-info__btn" id="openArchive">
+              打开阅读
+            </button>
+            <button class="archive-info__btn archive-info__btn--secondary" id="stampArchive">
+              盖章
+            </button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <!-- Archive detail modal -->
+  <div class="archive-detail" id="archiveDetail">
+    <article class="archive-detail__content glass--thick">
+      <button class="archive-detail__close" id="closeDetail" aria-label="关闭">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M2 2l12 12M14 2L2 14"/>
+        </svg>
+      </button>
+
+      <header class="archive-detail__header">
+        <h2 class="t-heading archive-detail__title" id="detailTitle">档案标题</h2>
+        <div class="archive-detail__meta">
+          <span id="detailCity">城市</span>
+          <span id="detailCategory">类别</span>
+          <span id="detailDate">日期</span>
+        </div>
+      </header>
+
+      <div class="archive-detail__body t-body" id="detailBody">
+        <p>档案内容加载中...</p>
+      </div>
+
+      <footer class="archive-detail__footer">
+        <div class="stamp-indicator">
+          <svg class="stamp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 11l3 3L22 4"/>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+          </svg>
+          <span id="stampStatus">点击盖章收藏</span>
+        </div>
+        <button class="btn btn--primary" id="stampInDetail">
+          盖章收藏
+        </button>
+      </footer>
+    </article>
+  </div>
+
+  <script type="module" src="/assets/js/archive.js"></script>
+</body>
+</html>

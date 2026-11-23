@@ -1,0 +1,1232 @@
+{
+ "_note": "App screenshots (390 CSS px wide, @2x). rects in CSS px of the screenshot. placeholder=false means real.",
+ "screens": {
+  "zh-trip": {
+   "file": "apk/zh-trip.png",
+   "w": 390,
+   "h": 844,
+   "rects": {
+    "lens": {
+     "x": 167,
+     "y": 764,
+     "w": 56,
+     "h": 56
+    },
+    "nav": {
+     "x": 0,
+     "y": 768,
+     "w": 390,
+     "h": 76
+    },
+    "fab": {
+     "x": 314,
+     "y": 696,
+     "w": 60,
+     "h": 60
+    }
+   },
+   "placeholder": false
+  },
+  "en-trip": {
+   "file": "apk/en-trip.png",
+   "w": 390,
+   "h": 844,
+   "rects": {
+    "lens": {
+     "x": 167,
+     "y": 764,
+     "w": 56,
+     "h": 56
+    },
+    "nav": {
+     "x": 0,
+     "y": 768,
+     "w": 390,
+     "h": 76
+    },
+    "fab": {
+     "x": 314,
+     "y": 696,
+     "w": 60,
+     "h": 60
+    }
+   },
+   "placeholder": false
+  },
+  "zh-assistant": {
+   "file": "apk/zh-assistant.png",
+   "w": 390,
+   "h": 844,
+   "rects": {
+    "sheet": {
+     "x": 0,
+     "y": 500,
+     "w": 390,
+     "h": 345
+    },
+    "chips": {
+     "x": 20,
+     "y": 712,
+     "w": 73,
+     "h": 44
+    },
+    "mic": {
+     "x": 298,
+     "y": 776,
+     "w": 44,
+     "h": 44
+    },
+    "input": {
+     "x": 20,
+     "y": 768,
+     "w": 270,
+     "h": 52
+    }
+   },
+   "placeholder": false
+  },
+  "en-assistant": {
+   "file": "apk/en-assistant.png",
+   "w": 390,
+   "h": 844,
+   "rects": {
+    "sheet": {
+     "x": 0,
+     "y": 432,
+     "w": 390,
+     "h": 412
+    },
+    "chips": {
+     "x": 20,
+     "y": 712,
+     "w": 121,
+     "h": 44
+    },
+    "mic": {
+     "x": 298,
+     "y": 776,
+     "w": 44,
+     "h": 44
+    },
+    "input": {
+     "x": 20,
+     "y": 768,
+     "w": 270,
+     "h": 52
+    }
+   },
+   "placeholder": false
+  },
+  "en-assistant-translate": {
+   "file": "apk/en-assistant-translate.png",
+   "w": 390,
+   "h": 844,
+   "rects": {
+    "lens": {
+     "x": 167,
+     "y": 764,
+     "w": 56,
+     "h": 56
+    },
+    "nav": {
+     "x": 0,
+     "y": 768,
+     "w": 390,
+     "h": 76
+    },
+    "fab": {
+     "x": 314,
+     "y": 696,
+     "w": 60,
+     "h": 60
+    }
+   },
+   "placeholder": false
+  },
+  "en-trip-form": {
+   "file": "apk/en-trip-form.png",
+   "w": 390,
+   "h": 844,
+   "rects": {
+    "date": {
+     "x": 41,
+     "y": 193,
+     "w": 183,
+     "h": 52
+    },
+    "time": {
+     "x": 232,
+     "y": 193,
+     "w": 117,
+     "h": 52
+    },
+    "cta": {
+     "x": 41,
+     "y": 497,
+     "w": 308,
+     "h": 52
+    },
+    "city": {
+     "x": 41,
+     "y": 327,
+     "w": 101,
+     "h": 44
+    },
+    "days": {
+     "x": 45,
+     "y": 429,
+     "w": 100,
+     "h": 44
+    }
+   },
+   "placeholder": false
+  },
+  "en-trip-form-2": {
+   "file": "apk/en-trip-form-2.png",
+   "w": 390,
+   "h": 844,
+   "rects": {
+    "cta": {
+     "x": 41,
+     "y": 1131,
+     "w": 308,
+     "h": 52
+    },
+    "back": {
+     "x": 41,
+     "y": 552,
+     "w": 154,
+     "h": 44
+    }
+   },
+   "placeholder": false
+  },
+  "en-plan-day1": {
+   "file": "apk/en-plan-day1.png",
+   "w": 390,
+   "h": 1525,
+   "rects": {
+    "stop1": {
+     "x": 20,
+     "y": 464,
+     "w": 350,
+     "h": 138
+    },
+    "stop1-time": {
+     "x": 20,
+     "y": 472,
+     "w": 44,
+     "h": 26
+    },
+    "stop1-cost": {
+     "x": 96,
+     "y": 570,
+     "w": 208,
+     "h": 20
+    },
+    "stop2": {
+     "x": 20,
+     "y": 625,
+     "w": 350,
+     "h": 113
+    },
+    "stop2-time": {
+     "x": 20,
+     "y": 633,
+     "w": 44,
+     "h": 26
+    },
+    "stop2-cost": {
+     "x": 96,
+     "y": 706,
+     "w": 208,
+     "h": 20
+    },
+    "stop3": {
+     "x": 20,
+     "y": 761,
+     "w": 350,
+     "h": 113
+    },
+    "stop3-time": {
+     "x": 20,
+     "y": 769,
+     "w": 44,
+     "h": 26
+    },
+    "stop3-cost": {
+     "x": 96,
+     "y": 842,
+     "w": 208,
+     "h": 20
+    },
+    "stop4": {
+     "x": 20,
+     "y": 897,
+     "w": 350,
+     "h": 138
+    },
+    "stop4-time": {
+     "x": 20,
+     "y": 905,
+     "w": 44,
+     "h": 26
+    },
+    "stop4-cost": {
+     "x": 96,
+     "y": 1003,
+     "w": 208,
+     "h": 20
+    },
+    "leg1": {
+     "x": 20,
+     "y": 440,
+     "w": 350,
+     "h": 24
+    },
+    "leg2": {
+     "x": 20,
+     "y": 601,
+     "w": 350,
+     "h": 24
+    },
+    "leg3": {
+     "x": 20,
+     "y": 737,
+     "w": 350,
+     "h": 24
+    },
+    "leg4": {
+     "x": 20,
+     "y": 873,
+     "w": 350,
+     "h": 24
+    },
+    "tab1": {
+     "x": 24,
+     "y": 318,
+     "w": 111,
+     "h": 44
+    },
+    "tab2": {
+     "x": 139,
+     "y": 318,
+     "w": 111,
+     "h": 44
+    },
+    "tab3": {
+     "x": 255,
+     "y": 318,
+     "w": 111,
+     "h": 44
+    }
+   },
+   "placeholder": false
+  },
+  "en-plan-day2": {
+   "file": "apk/en-plan-day2.png",
+   "w": 390,
+   "h": 1566,
+   "rects": {
+    "stop1": {
+     "x": 20,
+     "y": 464,
+     "w": 350,
+     "h": 154
+    },
+    "stop1-time": {
+     "x": 20,
+     "y": 472,
+     "w": 44,
+     "h": 26
+    },
+    "stop1-cost": {
+     "x": 96,
+     "y": 545,
+     "w": 208,
+     "h": 20
+    },
+    "stop1-warning": {
+     "x": 96,
+     "y": 566,
+     "w": 208,
+     "h": 39
+    },
+    "stop2": {
+     "x": 20,
+     "y": 641,
+     "w": 350,
+     "h": 113
+    },
+    "stop2-time": {
+     "x": 20,
+     "y": 649,
+     "w": 44,
+     "h": 26
+    },
+    "stop2-cost": {
+     "x": 96,
+     "y": 722,
+     "w": 208,
+     "h": 20
+    },
+    "stop3": {
+     "x": 20,
+     "y": 777,
+     "w": 350,
+     "h": 138
+    },
+    "stop3-time": {
+     "x": 20,
+     "y": 785,
+     "w": 44,
+     "h": 26
+    },
+    "stop3-cost": {
+     "x": 96,
+     "y": 883,
+     "w": 208,
+     "h": 20
+    },
+    "stop4": {
+     "x": 20,
+     "y": 938,
+     "w": 350,
+     "h": 138
+    },
+    "stop4-time": {
+     "x": 20,
+     "y": 946,
+     "w": 44,
+     "h": 26
+    },
+    "stop4-cost": {
+     "x": 96,
+     "y": 1044,
+     "w": 208,
+     "h": 20
+    },
+    "leg1": {
+     "x": 20,
+     "y": 440,
+     "w": 350,
+     "h": 24
+    },
+    "leg2": {
+     "x": 20,
+     "y": 617,
+     "w": 350,
+     "h": 24
+    },
+    "leg3": {
+     "x": 20,
+     "y": 753,
+     "w": 350,
+     "h": 24
+    },
+    "leg4": {
+     "x": 20,
+     "y": 914,
+     "w": 350,
+     "h": 24
+    },
+    "tab1": {
+     "x": 24,
+     "y": 318,
+     "w": 111,
+     "h": 44
+    },
+    "tab2": {
+     "x": 139,
+     "y": 318,
+     "w": 111,
+     "h": 44
+    },
+    "tab3": {
+     "x": 255,
+     "y": 318,
+     "w": 111,
+     "h": 44
+    }
+   },
+   "placeholder": false
+  },
+  "en-plan-day3": {
+   "file": "apk/en-plan-day3.png",
+   "w": 390,
+   "h": 1228,
+   "rects": {
+    "stop1": {
+     "x": 20,
+     "y": 464,
+     "w": 350,
+     "h": 113
+    },
+    "stop1-time": {
+     "x": 20,
+     "y": 472,
+     "w": 44,
+     "h": 26
+    },
+    "stop1-cost": {
+     "x": 96,
+     "y": 545,
+     "w": 208,
+     "h": 20
+    },
+    "stop2": {
+     "x": 20,
+     "y": 600,
+     "w": 350,
+     "h": 138
+    },
+    "stop2-time": {
+     "x": 20,
+     "y": 608,
+     "w": 44,
+     "h": 26
+    },
+    "stop2-cost": {
+     "x": 96,
+     "y": 706,
+     "w": 208,
+     "h": 20
+    },
+    "leg1": {
+     "x": 20,
+     "y": 440,
+     "w": 350,
+     "h": 24
+    },
+    "leg2": {
+     "x": 20,
+     "y": 576,
+     "w": 350,
+     "h": 24
+    },
+    "tab1": {
+     "x": 24,
+     "y": 318,
+     "w": 111,
+     "h": 44
+    },
+    "tab2": {
+     "x": 139,
+     "y": 318,
+     "w": 111,
+     "h": 44
+    },
+    "tab3": {
+     "x": 255,
+     "y": 318,
+     "w": 111,
+     "h": 44
+    }
+   },
+   "placeholder": false
+  },
+  "en-poi-yuyuan": {
+   "file": "apk/en-poi-yuyuan.png",
+   "w": 390,
+   "h": 844,
+   "rects": {
+    "sheet": {
+     "x": 0,
+     "y": 118,
+     "w": 390,
+     "h": 726
+    },
+    "photo": {
+     "x": 20,
+     "y": 182,
+     "w": 350,
+     "h": 219
+    },
+    "directions": {
+     "x": 20,
+     "y": 674,
+     "w": 350,
+     "h": 52
+    },
+    "driver": {
+     "x": 20,
+     "y": 794,
+     "w": 350,
+     "h": 52
+    },
+    "save": {
+     "x": 20,
+     "y": 734,
+     "w": 350,
+     "h": 52
+    }
+   },
+   "placeholder": false
+  },
+  "en-driver-card": {
+   "file": "apk/en-driver-card.png",
+   "w": 390,
+   "h": 844,
+   "rects": {},
+   "placeholder": false
+  },
+  "en-friends": {
+   "file": "apk/en-friends.png",
+   "w": 390,
+   "h": 844,
+   "rects": {
+    "lens": {
+     "x": 167,
+     "y": 764,
+     "w": 56,
+     "h": 56
+    },
+    "nav": {
+     "x": 0,
+     "y": 768,
+     "w": 390,
+     "h": 76
+    },
+    "fab": {
+     "x": 314,
+     "y": 696,
+     "w": 60,
+     "h": 60
+    },
+    "card1": {
+     "x": 251,
+     "y": 574,
+     "w": 104,
+     "h": 44
+    },
+    "card2": {
+     "x": 251,
+     "y": 755,
+     "w": 104,
+     "h": 44
+    },
+    "card3": {
+     "x": 251,
+     "y": 935,
+     "w": 104,
+     "h": 44
+    }
+   },
+   "placeholder": false
+  },
+  "en-guide-jiajia": {
+   "file": "apk/en-guide-jiajia.png",
+   "w": 390,
+   "h": 844,
+   "rects": {
+    "photo": {
+     "x": 87,
+     "y": 68,
+     "w": 217,
+     "h": 217
+    },
+    "book": {
+     "x": 20,
+     "y": 780,
+     "w": 350,
+     "h": 52
+    },
+    "slot": {
+     "x": 20,
+     "y": 734,
+     "w": 145,
+     "h": 44
+    }
+   },
+   "placeholder": false
+  },
+  "en-guide-zhangmin": {
+   "file": "apk/en-guide-zhangmin.png",
+   "w": 390,
+   "h": 844,
+   "rects": {
+    "photo": {
+     "x": 87,
+     "y": 68,
+     "w": 217,
+     "h": 217
+    },
+    "book": {
+     "x": 20,
+     "y": 780,
+     "w": 350,
+     "h": 52
+    },
+    "slot": {
+     "x": 20,
+     "y": 650,
+     "w": 145,
+     "h": 44
+    }
+   },
+   "placeholder": false
+  },
+  "en-guide-junjie": {
+   "file": "apk/en-guide-junjie.png",
+   "w": 390,
+   "h": 844,
+   "rects": {
+    "photo": {
+     "x": 87,
+     "y": 68,
+     "w": 217,
+     "h": 217
+    },
+    "book": {
+     "x": 20,
+     "y": 780,
+     "w": 350,
+     "h": 52
+    },
+    "slot": {
+     "x": 20,
+     "y": 650,
+     "w": 145,
+     "h": 44
+    }
+   },
+   "placeholder": false
+  },
+  "en-checkout": {
+   "file": "apk/en-checkout.png",
+   "w": 390,
+   "h": 844,
+   "rects": {
+    "demo": {
+     "x": 37,
+     "y": 486,
+     "w": 316,
+     "h": 52
+    }
+   },
+   "placeholder": false
+  },
+  "en-booked": {
+   "file": "apk/en-booked.png",
+   "w": 390,
+   "h": 844,
+   "rects": {
+    "stamp": {
+     "x": 271,
+     "y": 89,
+     "w": 86,
+     "h": 28
+    }
+   },
+   "placeholder": false
+  },
+  "en-support": {
+   "file": "apk/en-support.png",
+   "w": 390,
+   "h": 844,
+   "rects": {},
+   "placeholder": false
+  },
+  "en-lens-menu": {
+   "file": "apk/en-lens-menu.png",
+   "w": 390,
+   "h": 844,
+   "rects": {
+    "sheet": {
+     "x": 0,
+     "y": 502,
+     "w": 390,
+     "h": 343
+    },
+    "photo": {
+     "x": 20,
+     "y": 566,
+     "w": 350,
+     "h": 58
+    },
+    "craft": {
+     "x": 20,
+     "y": 683,
+     "w": 350,
+     "h": 79
+    },
+    "story": {
+     "x": 20,
+     "y": 761,
+     "w": 350,
+     "h": 59
+    }
+   },
+   "placeholder": false
+  },
+  "en-stories": {
+   "file": "apk/en-stories.png",
+   "w": 390,
+   "h": 844,
+   "rects": {
+    "lens": {
+     "x": 167,
+     "y": 764,
+     "w": 56,
+     "h": 56
+    },
+    "nav": {
+     "x": 0,
+     "y": 768,
+     "w": 390,
+     "h": 76
+    },
+    "fab": {
+     "x": 314,
+     "y": 696,
+     "w": 60,
+     "h": 60
+    }
+   },
+   "placeholder": false
+  },
+  "en-post-bund": {
+   "file": "apk/en-post-bund.png",
+   "w": 390,
+   "h": 844,
+   "rects": {},
+   "placeholder": false
+  },
+  "en-share-bund": {
+   "file": "apk/en-share-bund.png",
+   "w": 390,
+   "h": 844,
+   "rects": {
+    "polaroid": {
+     "x": 111,
+     "y": 182,
+     "w": 168,
+     "h": 216
+    },
+    "tiktok": {
+     "x": 20,
+     "y": 770,
+     "w": 350,
+     "h": 52
+    },
+    "caption": {
+     "x": 86,
+     "y": 444,
+     "w": 218,
+     "h": 37
+    },
+    "publish": {
+     "x": 20,
+     "y": 655,
+     "w": 350,
+     "h": 52
+    }
+   },
+   "placeholder": false
+  },
+  "en-craft-real": {
+   "file": "apk/en-craft-real.png",
+   "w": 390,
+   "h": 844,
+   "rects": {
+    "model": {
+     "x": 0,
+     "y": 193,
+     "w": 390,
+     "h": 460
+    },
+    "style-real": {
+     "x": 41,
+     "y": 1351,
+     "w": 152,
+     "h": 44
+    },
+    "style-anime": {
+     "x": 197,
+     "y": 1351,
+     "w": 152,
+     "h": 44
+    },
+    "next": {
+     "x": 117,
+     "y": 780,
+     "w": 253,
+     "h": 52
+    },
+    "magnet": {
+     "x": 20,
+     "y": 1665,
+     "w": 171,
+     "h": 152
+    },
+    "keychain": {
+     "x": 199,
+     "y": 1665,
+     "w": 171,
+     "h": 152
+    },
+    "raise": {
+     "x": 301,
+     "y": 1567,
+     "w": 52,
+     "h": 30
+    }
+   },
+   "placeholder": false
+  },
+  "en-craft-anime": {
+   "file": "apk/en-craft-anime.png",
+   "w": 390,
+   "h": 844,
+   "rects": {
+    "model": {
+     "x": 0,
+     "y": 193,
+     "w": 390,
+     "h": 460
+    },
+    "style-real": {
+     "x": 41,
+     "y": 1351,
+     "w": 152,
+     "h": 44
+    },
+    "style-anime": {
+     "x": 197,
+     "y": 1351,
+     "w": 152,
+     "h": 44
+    },
+    "next": {
+     "x": 117,
+     "y": 780,
+     "w": 253,
+     "h": 52
+    },
+    "magnet": {
+     "x": 20,
+     "y": 1646,
+     "w": 171,
+     "h": 152
+    },
+    "keychain": {
+     "x": 199,
+     "y": 1646,
+     "w": 171,
+     "h": 152
+    },
+    "raise": {
+     "x": 301,
+     "y": 1547,
+     "w": 52,
+     "h": 30
+    }
+   },
+   "placeholder": false
+  },
+  "en-craft-hold": {
+   "file": "apk/en-craft-hold.png",
+   "w": 390,
+   "h": 844,
+   "rects": {
+    "model": {
+     "x": 0,
+     "y": 193,
+     "w": 390,
+     "h": 460
+    },
+    "style-real": {
+     "x": 41,
+     "y": 1378,
+     "w": 152,
+     "h": 44
+    },
+    "style-anime": {
+     "x": 197,
+     "y": 1378,
+     "w": 152,
+     "h": 44
+    },
+    "next": {
+     "x": 117,
+     "y": 780,
+     "w": 253,
+     "h": 52
+    },
+    "magnet": {
+     "x": 20,
+     "y": 1693,
+     "w": 171,
+     "h": 152
+    },
+    "keychain": {
+     "x": 199,
+     "y": 1693,
+     "w": 171,
+     "h": 152
+    },
+    "raise": {
+     "x": 301,
+     "y": 1594,
+     "w": 52,
+     "h": 30
+    }
+   },
+   "placeholder": false
+  },
+  "en-make-order": {
+   "file": "apk/en-make-order.png",
+   "w": 390,
+   "h": 844,
+   "rects": {},
+   "placeholder": false
+  },
+  "en-crafts-library": {
+   "file": "apk/en-crafts-library.png",
+   "w": 390,
+   "h": 844,
+   "rects": {
+    "lens": {
+     "x": 167,
+     "y": 764,
+     "w": 56,
+     "h": 56
+    },
+    "nav": {
+     "x": 0,
+     "y": 768,
+     "w": 390,
+     "h": 76
+    },
+    "fab": {
+     "x": 314,
+     "y": 696,
+     "w": 60,
+     "h": 60
+    }
+   },
+   "placeholder": false
+  },
+  "zh-assistant-cmd": {
+   "file": "apk/zh-assistant-cmd.png",
+   "w": 390,
+   "h": 844,
+   "rects": {
+    "input": {
+     "x": 20,
+     "y": 772,
+     "w": 270,
+     "h": 48
+    },
+    "send": {
+     "x": 350,
+     "y": 794,
+     "w": 20,
+     "h": 27
+    }
+   },
+   "placeholder": false
+  },
+  "en-plan-view": {
+   "file": "apk/en-plan-view.png",
+   "w": 390,
+   "h": 844,
+   "rects": {
+    "lens": {
+     "x": 167,
+     "y": 764,
+     "w": 56,
+     "h": 56
+    },
+    "nav": {
+     "x": 0,
+     "y": 768,
+     "w": 390,
+     "h": 76
+    },
+    "fab": {
+     "x": 314,
+     "y": 696,
+     "w": 60,
+     "h": 60
+    }
+   },
+   "placeholder": false
+  },
+  "en-stories-full": {
+   "file": "apk/en-stories-full.png",
+   "w": 390,
+   "h": 4602,
+   "rects": {},
+   "placeholder": false
+  },
+  "en-story-bund": {
+   "file": "apk/en-story-bund.png",
+   "w": 390,
+   "h": 844,
+   "rects": {},
+   "placeholder": false
+  },
+  "en-craft-real-full": {
+   "file": "apk/en-craft-real-full.png",
+   "w": 390,
+   "h": 2180,
+   "rects": {
+    "model": {
+     "x": 0,
+     "y": 193,
+     "w": 390,
+     "h": 460
+    },
+    "style-real": {
+     "x": 41,
+     "y": 1351,
+     "w": 152,
+     "h": 44
+    },
+    "style-anime": {
+     "x": 197,
+     "y": 1351,
+     "w": 152,
+     "h": 44
+    },
+    "next": {
+     "x": 117,
+     "y": 780,
+     "w": 253,
+     "h": 52
+    },
+    "magnet": {
+     "x": 20,
+     "y": 1665,
+     "w": 171,
+     "h": 152
+    },
+    "keychain": {
+     "x": 199,
+     "y": 1665,
+     "w": 171,
+     "h": 152
+    },
+    "raise": {
+     "x": 301,
+     "y": 1567,
+     "w": 52,
+     "h": 30
+    }
+   },
+   "placeholder": false
+  },
+  "en-craft-anime-full": {
+   "file": "apk/en-craft-anime-full.png",
+   "w": 390,
+   "h": 2161,
+   "rects": {
+    "model": {
+     "x": 0,
+     "y": 193,
+     "w": 390,
+     "h": 460
+    },
+    "style-real": {
+     "x": 41,
+     "y": 1351,
+     "w": 152,
+     "h": 44
+    },
+    "style-anime": {
+     "x": 197,
+     "y": 1351,
+     "w": 152,
+     "h": 44
+    },
+    "next": {
+     "x": 117,
+     "y": 780,
+     "w": 253,
+     "h": 52
+    },
+    "magnet": {
+     "x": 20,
+     "y": 1646,
+     "w": 171,
+     "h": 152
+    },
+    "keychain": {
+     "x": 199,
+     "y": 1646,
+     "w": 171,
+     "h": 152
+    },
+    "raise": {
+     "x": 301,
+     "y": 1547,
+     "w": 52,
+     "h": 30
+    }
+   },
+   "placeholder": false
+  },
+  "en-craft-step3": {
+   "file": "apk/en-craft-step3.png",
+   "w": 390,
+   "h": 844,
+   "rects": {
+    "model": {
+     "x": 0,
+     "y": 193,
+     "w": 390,
+     "h": 460
+    },
+    "next": {
+     "x": 117,
+     "y": 780,
+     "w": 253,
+     "h": 52
+    }
+   },
+   "placeholder": false
+  },
+  "en-craft-step4": {
+   "file": "apk/en-craft-step4.png",
+   "w": 390,
+   "h": 844,
+   "rects": {
+    "model": {
+     "x": 0,
+     "y": 193,
+     "w": 390,
+     "h": 460
+    },
+    "save": {
+     "x": 20,
+     "y": 1830,
+     "w": 350,
+     "h": 52
+    },
+    "download": {
+     "x": 20,
+     "y": 1898,
+     "w": 171,
+     "h": 74
+    }
+   },
+   "placeholder": false
+  },
+  "en-make-order-full": {
+   "file": "apk/en-make-order-full.png",
+   "w": 390,
+   "h": 844,
+   "rects": {},
+   "placeholder": false
+  },
+  "en-film": {
+   "file": "apk/en-film.png",
+   "w": 390,
+   "h": 844,
+   "rects": {},
+   "placeholder": false
+  }
+ },
+ "videos": {}
+}

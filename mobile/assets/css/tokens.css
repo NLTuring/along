@@ -1,0 +1,101 @@
+/* InsTrip mobile — design tokens.
+   Base colours, type scale, spacing and radii are copied from the product
+   spec (01-产品功能策划书 §5.2) and must not drift from it.
+   Additions made by the mobile design plan are marked "mobile". */
+
+:root {
+  /* colour (spec §5.2) */
+  --paper: #F7F2E8;
+  --surface: #FFFDF8;
+  --ink: #1B1813;
+  --body: #3F3A32;
+  --muted: #8B8375;          /* icons, rules and text >= 20px only: 3.36:1 on paper */
+  --muted-strong: #6F685C;   /* mobile: small secondary text, 4.94:1 on paper */
+  --line: #E5DCCB;
+  --accent: #B24A2C;
+  --accent-soft: #F2E2D8;
+  --sage: #5F6F5A;
+  --danger: #A8322B;
+
+  /* type */
+  --font-serif: 'Source Serif 4', 'Together Song', Georgia, 'Noto Serif CJK SC', 'Songti SC', serif;
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans CJK SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --fs-36: 36px;
+  --fs-26: 26px;
+  --fs-20: 20px;
+  --fs-16: 16px;
+  --fs-15: 15px;
+  --fs-13: 13px;
+  --fs-12: 12px;
+  --fs-11: 11px;
+  --fs-10: 10px;
+
+  /* spacing (spec §5.2) */
+  --sp-4: 4px;
+  --sp-8: 8px;
+  --sp-12: 12px;
+  --sp-16: 16px;
+  --sp-20: 20px;
+  --sp-24: 24px;
+  --sp-32: 32px;
+  --page-x: 20px;
+
+  /* radii (spec §5.2) */
+  --r-12: 12px;
+  --r-16: 16px;
+  --r-20: 20px;
+  --r-26: 26px;
+  --r-pill: 999px;
+
+  /* controls */
+  --btn-h: 52px;
+  --tap: 44px;
+  --nav-h: 64px;
+  --lens: 56px;
+
+  /* glass (mobile): one tint, three thicknesses */
+  --glass-rgb: 255, 253, 248;
+  --glass-1-alpha: .56;
+  --glass-1-blur: 12px;
+  --glass-1-sat: 1.1;
+  --glass-2-alpha: .72;
+  --glass-2-blur: 22px;
+  --glass-2-sat: 1.15;
+  --glass-3-alpha: .86;
+  --glass-3-blur: 32px;
+  --glass-3-sat: 1.2;
+  --glass-solid-alpha: .94;  /* fallback when blur is unavailable or switched off */
+  --glass-edge: inset 0 1px 0 rgba(255, 255, 255, .85), inset 0 -1px 0 rgba(255, 255, 255, .28), 0 0 0 1px rgba(27, 24, 19, .06);
+  --glass-shadow: 0 8px 24px rgba(60, 42, 20, .08), 0 1px 2px rgba(60, 42, 20, .05);
+  --glass-light-angle: 140deg; /* moved by sky.js: morning light from the left, afternoon from the right */
+
+  /* sky (mobile): set per state below, driven by sky.js */
+  --sky-top: #DCE8EC;
+  --sky-horizon: #F7F2E8;
+  --sky-ink: #1B1813;
+  --sky-h: 180px;
+
+  /* motion */
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+  --ease-snap: cubic-bezier(.2, .8, .2, 1);
+  --ease-in: cubic-bezier(.4, 0, 1, 1);
+  --t-press: 120ms;
+  --t-state: 220ms;
+  --t-sheet-in: 360ms;
+  --t-sheet-out: 240ms;
+  --t-shared: 420ms;
+  --t-reeded: 520ms;
+  --t-sky: 1200ms;
+
+  /* safe areas */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Sky states: destination local time and weather. */
+:root[data-sky='dawn']     { --sky-top: #DDE3EA; --sky-horizon: #F6E3D3; --sky-ink: #1B1813; }
+:root[data-sky='day']      { --sky-top: #DCE8EC; --sky-horizon: #F7F2E8; --sky-ink: #1B1813; }
+:root[data-sky='dusk']     { --sky-top: #C9CBD8; --sky-horizon: #F1D2B8; --sky-ink: #1B1813; }
+:root[data-sky='night']    { --sky-top: #1E2530; --sky-horizon: #3A3F47; --sky-ink: #FFFFFF; }
+:root[data-sky='rain']     { --sky-top: #CCD3D6; --sky-horizon: #E6E4DD; --sky-ink: #1B1813; }
+:root[data-sky='overcast'] { --sky-top: #DAD9D4; --sky-horizon: #EFEBE2; --sky-ink: #1B1813; }

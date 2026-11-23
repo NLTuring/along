@@ -1,0 +1,118 @@
+{
+ "zh-craft-flat": {
+  "h": 844,
+  "route": "#/craft/cr_81147273_5023830"
+ },
+ "zh-craft-paint": {
+  "h": 844,
+  "route": "#/craft/cr_81147273_5023830"
+ },
+ "zh-craft-real": {
+  "h": 844,
+  "route": "#/craft/cr_81147273_5023830"
+ },
+ "zh-craft-real-full": {
+  "h": 2678,
+  "route": "#/craft/cr_81147273_5023830"
+ },
+ "zh-craft-step3": {
+  "h": 844,
+  "route": "#/craft/cr_81147273_5023830"
+ },
+ "zh-craft-step4": {
+  "h": 844,
+  "route": "#/craft/cr_81147273_5023830"
+ },
+ "zh-crafts-library": {
+  "h": 844,
+  "route": "#/crafts"
+ },
+ "zh-trip": {
+  "h": 844,
+  "route": "#/trip"
+ },
+ "en-trip": {
+  "h": 844,
+  "route": "#/trip"
+ },
+ "zh-senior-today": {
+  "h": 844,
+  "route": "#/trip"
+ },
+ "zh-plan-view": {
+  "h": 844,
+  "route": "#/trip"
+ },
+ "zh-plan-day1": {
+  "h": 1509,
+  "route": "#/trip"
+ },
+ "zh-plan-day2": {
+  "h": 1509,
+  "route": "#/trip"
+ },
+ "zh-poi": {
+  "h": 844,
+  "route": "#/trip"
+ },
+ "zh-driver-card": {
+  "h": 844,
+  "route": "#/trip"
+ },
+ "zh-friends": {
+  "h": 844,
+  "route": "#/friends"
+ },
+ "zh-guide-jiajia": {
+  "h": 844,
+  "route": "#/guides/guide_jiajia"
+ },
+ "zh-assistant": {
+  "h": 844,
+  "route": "#/trip"
+ },
+ "zh-assistant-answer": {
+  "h": 844,
+  "route": "#/trip"
+ },
+ "zh-checkout": {
+  "h": 844,
+  "route": "#/checkout/bk_a7dhg5"
+ },
+ "zh-lens-menu": {
+  "h": 844,
+  "route": "#/trip"
+ },
+ "zh-support": {
+  "h": 844,
+  "route": "#/support"
+ },
+ "zh-stories": {
+  "h": 844,
+  "route": "#/stories"
+ },
+ "zh-you": {
+  "h": 844,
+  "route": "#/you"
+ },
+ "zh-craft-turn-a": {
+  "h": 844,
+  "route": "#/craft/cr_81147273_5023830"
+ },
+ "zh-craft-turn-b": {
+  "h": 844,
+  "route": "#/craft/cr_81147273_5023830"
+ },
+ "zh-craft-turn-back": {
+  "h": 844,
+  "route": "#/craft/cr_81147273_5023830"
+ },
+ "zh-craft-tilt-a": {
+  "h": 844,
+  "route": "#/craft/cr_81147273_5023830"
+ },
+ "zh-craft-tilt-b": {
+  "h": 844,
+  "route": "#/craft/cr_81147273_5023830"
+ }
+}

@@ -1,0 +1,68 @@
+/* InsTrip mobile — senior mode ("Larger text and simpler layout").
+   Bigger type, solid high-contrast panels with visible outlines, and a navigation
+   bar that stays put. ui.js also sets data-glass='solid' while this mode is on. */
+
+.senior {
+  --fs-36: 40px;
+  --fs-26: 28px;
+  --fs-20: 22px;
+  --fs-16: 18px;
+  --fs-15: 18px;
+  --fs-13: 15px;
+  --fs-12: 15px;
+  --fs-11: 15px;
+  --btn-h: 60px;
+  --tap: 52px;
+  --nav-h: 80px;
+  --glass-solid-alpha: 1;   /* fully opaque: nothing shows through panels in this mode */
+}
+
+.senior .glass {
+  box-shadow: 0 0 0 1.5px var(--line), var(--glass-shadow);
+}
+
+.senior .card,
+.senior .input { border-width: 1.5px; }
+
+/* Navigation: full width, flush with the bottom, never shrinks. */
+.senior #nav { padding: 0; }
+.senior .nav,
+.senior .nav.is-compact {
+  max-width: none;
+  padding: 0 var(--sp-8) var(--safe-bottom);
+  height: calc(var(--nav-h) + var(--safe-bottom));
+  border-radius: 0;
+}
+.senior .nav.is-compact .nav__item { flex-grow: 1; opacity: 1; pointer-events: auto; }
+.senior .nav.is-compact .nav__light { opacity: 1; }
+.senior .nav__item { gap: 4px; }
+.senior .nav__light { bottom: calc(var(--safe-bottom) + 8px); height: 3px; }
+.senior .nav__lens,
+.senior .nav__lens:active { transform: none; }
+
+.senior .page { padding-bottom: calc(var(--nav-h) + var(--safe-bottom) + 40px); }
+.senior #toast { bottom: calc(var(--nav-h) + var(--safe-bottom) + var(--sp-16)); }
+
+/* Stickers stay level: no tilt. */
+.senior .chip > input:checked + span,
+.senior .chip:nth-child(even) > input:checked + span { transform: none; }
+
+/* Three plain tabs, no lens. */
+.nav--senior .nav__item { font-size: var(--fs-13); }
+
+/* Today: the next stop, the friend, a photo button. */
+:root[data-route='trip'].senior { --sky-h: 96px; }
+.today-next { display: flex; flex-direction: column; gap: var(--sp-8); }
+.today-next .t-label { color: var(--body); font-weight: 700; }
+.today-next__time { font-family: var(--font-serif); font-size: var(--fs-36); line-height: 1.1; color: var(--ink); }
+.today-next__zh { font-size: var(--fs-20); color: var(--body); }
+.today-next .btn { margin-top: var(--sp-8); }
+.whole > summary { min-height: var(--tap); display: flex; align-items: center; cursor: pointer; }
+.whole__list { display: flex; flex-direction: column; }
+.whole__list > li + li { border-top: 1px solid var(--line); }
+.whole__time { flex: none; width: 64px; font-weight: 600; color: var(--ink); }
+.whole__list small { color: var(--body); }
+
+.senior .guide { grid-template-columns: 88px minmax(0, 1fr); }
+.senior .guide__photo { width: 88px; height: 88px; }
+.senior .row { min-height: 64px; }

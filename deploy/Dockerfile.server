@@ -1,0 +1,23 @@
+FROM node:24-bookworm-slim AS build
+WORKDIR /app
+COPY server/package.json server/package-lock.json ./
+RUN npm ci
+COPY server/tsconfig*.json ./
+COPY server/src ./src
+COPY server/migrations ./migrations
+RUN npm run build
+
+FROM node:24-bookworm-slim
+ENV NODE_ENV=production
+WORKDIR /app
+# Optional regional Debian mirror; packages are still verified against the Debian keyring.
+ARG DEBIAN_MIRROR=
+RUN if [ -n "$DEBIAN_MIRROR" ]; then sed -i "s|http://deb.debian.org|$DEBIAN_MIRROR|g" /etc/apt/sources.list.d/debian.sources; fi \
+  && apt-get update && apt-get install -y --no-install-recommends ffmpeg ca-certificates && rm -rf /var/lib/apt/lists/*
+COPY --from=build /app/package.json /app/package-lock.json ./
+RUN npm ci --omit=dev && npm cache clean --force
+COPY --from=build /app/dist ./dist
+COPY --from=build /app/migrations ./migrations
+USER node
+EXPOSE 3001
+CMD ["node", "dist/main.js"]

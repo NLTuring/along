@@ -1,0 +1,378 @@
+/* InsTrip mobile — phase four: picking photos, the film preview, sharing,
+   souvenirs and stories. */
+
+:root[data-route='studio'],
+:root[data-route='craft'] { --sky-h: 96px; }
+
+.input--area { height: auto; min-height: 96px; padding: var(--sp-12); resize: vertical; line-height: 1.45; }
+.btn--light { width: 100%; height: var(--btn-h); background: #fff; color: var(--ink); }
+.btn--ghost { flex: 1 1 0; height: var(--btn-h); border: 1.5px solid rgba(255, 255, 255, .7); color: #fff; }
+
+/* ---------- picking photos ---------- */
+
+.page--studio { padding-top: calc(var(--safe-top) + var(--sp-8)); padding-bottom: calc(var(--safe-bottom) + 300px); }
+.studio-tools { display: flex; align-items: center; gap: var(--sp-16); flex-wrap: wrap; }
+.studio-tools__add { width: auto; height: var(--tap); padding: 0 var(--sp-16); cursor: pointer; }
+.studio-tools__add:focus-within { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+.photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.photo {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--r-12);
+  overflow: hidden;
+  background: var(--line);
+  transition: transform var(--t-press) var(--ease-snap);
+}
+.photo:active { transform: scale(.97); }
+.photo > img { width: 100%; height: 100%; object-fit: cover; }
+.photo[aria-pressed='true'] { box-shadow: inset 0 0 0 3px var(--ink); }
+.photo[aria-pressed='true'] > img { opacity: .82; }
+.photo__order {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 6px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-pill);
+  background: var(--ink);
+  color: #fff;
+  font-size: var(--fs-13);
+  font-weight: 700;
+}
+.photo__tag {
+  position: absolute;
+  left: 6px;
+  bottom: 6px;
+  padding: 2px 8px;
+  border-radius: var(--r-pill);
+  background: rgba(var(--glass-rgb), .92);
+  color: var(--ink);
+  font-size: var(--fs-11);
+  font-weight: 600;
+}
+
+/* The strip: picked photos in shot order, like frames on a length of film. */
+.strip {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 20;
+  max-width: 520px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-8);
+  padding: var(--sp-12) var(--page-x) calc(var(--safe-bottom) + var(--sp-12));
+  border-radius: var(--r-26) var(--r-26) 0 0;
+}
+.strip__head { display: flex; align-items: center; justify-content: space-between; }
+.strip__head .t-label,
+.strip__head .t-small { color: var(--ink); }
+.strip__row {
+  display: flex;
+  gap: var(--sp-8);
+  min-height: 100px;
+  margin: 0 calc(var(--page-x) * -1);
+  padding: 0 var(--page-x);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.strip__row::-webkit-scrollbar { display: none; }
+.strip__row.is-empty { min-height: var(--tap); }
+.strip__empty { align-self: center; color: var(--ink); }
+.strip__cell { position: relative; flex: none; width: 88px; display: flex; flex-direction: column; gap: 2px; }
+.strip__cell > img { width: 88px; height: 52px; object-fit: cover; border-radius: 8px; background: var(--line); }
+.strip__n {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  min-width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-pill);
+  background: var(--ink);
+  color: #fff;
+  font-size: var(--fs-11);
+  font-weight: 700;
+}
+.strip__moves { display: flex; }
+.strip__move { flex: 1 1 0; height: var(--tap); display: grid; place-items: center; color: var(--ink); border-radius: 8px; }
+.strip__move:disabled { color: var(--muted); }
+.strip__options { display: flex; flex-direction: column; gap: var(--sp-8); }
+.strip__options .segmented { background: rgba(27, 24, 19, .08); }
+.strip__options .segmented__item > span { color: var(--ink); }
+
+/* ---------- film preview: the screening room ---------- */
+
+:root[data-route='film'] body { background: #14110d; }
+:root[data-route='film'] .sky { display: none; }
+.page--film {
+  padding-top: calc(var(--safe-top) + var(--sp-8));
+  padding-bottom: calc(var(--safe-bottom) + var(--sp-32));
+  color: #fff;
+  align-items: stretch;
+}
+.page--film .topbar { color: #fff; }
+.player {
+  align-self: center;
+  width: min(74%, 300px);
+  background: #000;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+}
+.player__img { width: 100%; height: 100%; object-fit: cover; -webkit-user-drag: none; }
+.player__brand {
+  position: absolute;
+  top: 26px;
+  left: 16px;
+  font-family: var(--font-serif);
+  font-size: var(--fs-13);
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .6);
+}
+/* Captions stay inside the safe area and sit on a scrim so they read on any photo. */
+.player__caption {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 12%;
+  padding: 8px 12px;
+  border-radius: var(--r-12);
+  background: rgba(0, 0, 0, .58);
+  color: #fff;
+  font-family: var(--font-serif);
+  font-size: var(--fs-16);
+  line-height: 1.3;
+  text-align: center;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+.player__bars { position: absolute; top: 12px; left: 12px; right: 12px; display: flex; gap: 4px; }
+.player__bars > i { flex: 1 1 0; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, .35); overflow: hidden; }
+.player__bars b { display: block; height: 100%; background: #fff; transform-origin: left center; transform: scaleX(0); }
+.player__controls { display: flex; justify-content: center; gap: var(--sp-16); }
+.player__controls .icon-btn { color: #fff; }
+.player__toggle { border: 1.5px solid rgba(255, 255, 255, .7); }
+.film-actions { display: flex; gap: var(--sp-8); }
+.film-note { font-size: var(--fs-13); color: rgba(255, 255, 255, .78); text-align: center; }
+.captions { display: flex; flex-direction: column; gap: var(--sp-12); }
+.captions .field { display: flex; flex-direction: column; gap: 6px; }
+.captions .input,
+.share .input,
+.post-form .input { background: var(--surface); }
+.captions .t-small,
+.captions .t-label,
+.share .t-small,
+.share .t-label,
+.post-form .t-small,
+.post-form .t-label { color: var(--body); }
+
+/* ---------- share ---------- */
+
+.share { display: flex; flex-direction: column; gap: var(--sp-12); }
+.share .field { display: flex; flex-direction: column; gap: 6px; }
+.share__meta { display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-12); }
+.share .btn--text { gap: var(--sp-8); }
+
+/* A photo card that turns over: cover on the front, your own line on the back. */
+.polaroid { align-self: center; width: 168px; height: 216px; position: relative; perspective: 900px; }
+.polaroid__face {
+  position: absolute;
+  inset: 0;
+  padding: 10px 10px 0;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 6px 18px rgba(60, 42, 20, .18), 0 0 0 1px rgba(27, 24, 19, .06);
+  backface-visibility: hidden;
+  transition: transform var(--t-shared) var(--ease-out);
+  display: flex;
+  flex-direction: column;
+}
+.polaroid__front { transform: rotate(-2deg); }
+.polaroid__back { transform: rotateY(180deg); padding-bottom: 10px; }
+.polaroid.is-flipped .polaroid__front { transform: rotateY(-180deg); }
+.polaroid.is-flipped .polaroid__back { transform: rotate(2deg); }
+.polaroid__front > img,
+.polaroid__blank { width: 100%; height: 150px; object-fit: cover; background: var(--line); }
+.polaroid__line { flex: 1; display: flex; align-items: center; justify-content: space-between; gap: var(--sp-8); font-size: var(--fs-12); color: var(--ink); }
+.polaroid__note {
+  flex: 1;
+  width: 100%;
+  border: 0;
+  resize: none;
+  background: repeating-linear-gradient(transparent 0 27px, var(--line) 27px 28px);
+  font-family: var(--font-serif);
+  font-size: 16px;
+  line-height: 28px;
+  color: var(--ink);
+}
+.polaroid__note::placeholder { color: var(--muted-strong); }
+.polaroid__brand { font-family: var(--font-serif); font-size: var(--fs-12); color: var(--body); text-align: end; }
+
+/* ---------- souvenirs ---------- */
+
+.page--craft { padding-top: calc(var(--safe-top) + var(--sp-8)); padding-bottom: calc(var(--safe-bottom) + 120px); }
+.stand { position: relative; align-self: center; width: min(72%, 280px); }
+.stand__canvas { width: 100%; height: auto; display: block; filter: drop-shadow(0 6px 10px rgba(60, 42, 20, .22)); }
+.stand__shadow {
+  width: 62%;
+  height: 14px;
+  margin: 2px auto 0;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(60, 42, 20, .22), rgba(60, 42, 20, 0));
+}
+.page--craft [data-heading] { outline: none; }
+.choices { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-8); }
+.choice {
+  min-height: 72px;
+  padding: var(--sp-12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-16);
+  background: var(--surface);
+  color: var(--ink);
+  text-align: center;
+  transition: transform var(--t-press) var(--ease-snap);
+}
+.choice:active { transform: scale(.98); }
+.choice[aria-pressed='true'] { border-color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); }
+.choice strong { font-weight: 600; }
+.shape { width: 36px; height: 36px; background: var(--ink); }
+.shape--arch { border-radius: 18px 18px 3px 3px; width: 30px; }
+.shape--oval { border-radius: 50%; width: 28px; }
+.shape--scallop { border-radius: 50%; outline: 3px dotted var(--ink); outline-offset: 0; width: 30px; height: 30px; }
+.shape--rounded { border-radius: 9px; }
+.order { display: flex; flex-direction: column; gap: var(--sp-8); }
+.stepbar {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 20;
+  max-width: 520px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: var(--sp-16);
+  padding: var(--sp-12) var(--page-x) calc(var(--safe-bottom) + var(--sp-12));
+  border-radius: var(--r-26) var(--r-26) 0 0;
+}
+.stepbar .btn--text { color: var(--ink); }
+
+/* ---------- Along keepsake turntable ---------- */
+
+:root[data-route='crafts'],
+:root[data-route='apply'] { --sky-h: 96px; }
+.craft-preview { display: flex; flex-direction: column; gap: var(--sp-8); min-width: 0; }
+.craft-stage {
+  position: relative;
+  align-self: center;
+  width: min(100%, 320px);
+  aspect-ratio: 1;
+  perspective: 900px;
+  touch-action: none;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.craft-stage:active { cursor: grabbing; }
+.craft-object {
+  position: absolute;
+  inset: 20px;
+  transform-style: preserve-3d;
+}
+.craft-layer { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.craft-layer--front,
+.craft-layer--back { backface-visibility: hidden; }
+.craft-ring {
+  position: absolute;
+  left: calc(50% - 21px);
+  top: -20px;
+  width: 42px;
+  height: 54px;
+  border: 5px solid #9B7B54;
+  border-top-color: #DEC8A4;
+  border-bottom-color: #71583E;
+  border-radius: 50%;
+  transform: translateZ(0);
+}
+.craft-ring::after {
+  content: '';
+  position: absolute;
+  left: calc(50% - 7px);
+  bottom: -19px;
+  width: 14px;
+  height: 26px;
+  border: 4px solid #9B7B54;
+  border-radius: 50%;
+}
+.craft-controls { display: flex; flex-wrap: wrap; gap: var(--sp-8); }
+.craft-controls .btn { flex: 1 1 80px; width: auto; height: auto; min-height: var(--tap); padding: var(--sp-8); }
+.craft-preview > .t-small,
+.craft-preview > .t-label { text-align: center; overflow-wrap: anywhere; }
+.craft-library-card { display: flex; flex-direction: column; gap: var(--sp-8); padding: var(--sp-12); }
+.craft-library-card__photo { width: 64px; height: 72px; flex: none; display: grid; place-items: center; }
+.craft-library-card__photo > img { object-fit: contain; }
+.craft-library-card .row__text { overflow-wrap: anywhere; }
+.apply-form .field { display: flex; flex-direction: column; gap: var(--sp-8); }
+.page--apply .facts dd { font-weight: 400; overflow-wrap: anywhere; white-space: pre-line; }
+.page--apply .t-num { overflow-wrap: anywhere; }
+
+@supports not (transform-style: preserve-3d) {
+  .craft-object { transform: none !important; }
+  .craft-layer:not(.craft-layer--front), .craft-ring { display: none; }
+  .craft-layer--front { transform: none !important; }
+}
+
+/* ---------- stories ---------- */
+
+.stories { display: flex; flex-direction: column; gap: var(--sp-12); }
+.story {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-8);
+  padding: var(--sp-12);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-20);
+}
+.story__photo { position: relative; border-radius: var(--r-12); overflow: hidden; background: var(--line); }
+.story__photo > img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+/* Reeded glass over a post that is still in review. */
+.story__veil { position: absolute; inset: 0; }
+.story__text { white-space: pre-line; overflow-wrap: anywhere; }
+.story__actions { display: flex; justify-content: flex-end; gap: var(--sp-4); }
+.story__like[aria-pressed='true'] { color: var(--accent); }
+.story__like[aria-pressed='true'] .icon { fill: currentColor; }
+.stories__others { text-align: center; }
+
+.post-form { display: flex; flex-direction: column; gap: var(--sp-12); }
+.post-form .field { display: flex; flex-direction: column; gap: 6px; }
+.post-form__count { text-align: end; margin-top: calc(var(--sp-8) * -1); }
+.picker { display: flex; gap: var(--sp-8); overflow-x: auto; scrollbar-width: none; padding: 3px; }
+.picker::-webkit-scrollbar { display: none; }
+.picker__item {
+  flex: none;
+  width: 72px;
+  height: 72px;
+  border-radius: var(--r-12);
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-size: var(--fs-12);
+  font-weight: 600;
+}
+.picker__item > img { width: 100%; height: 100%; object-fit: cover; }
+.picker__item[aria-pressed='true'] { outline: 3px solid var(--ink); outline-offset: 0; }

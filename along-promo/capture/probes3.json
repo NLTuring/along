@@ -1,0 +1,4 @@
+[
+ {"route": "you", "shot": "p-craft2.png", "actions": [["click", "[data-signin]"], ["wait", 700], ["click", "[data-local-experience]"], ["wait", 900], ["press", "Escape"], ["wait", 500], ["goto", "#/trip"], ["click", "[data-lens]"], ["wait", 700], ["click", "[data-capture=craft]"], ["wait", 1800]], "max": 40},
+ {"route": "studio", "shot": "p-film.png", "actions": [["click", "[data-samples]"], ["wait", 1200]], "max": 30}
+]

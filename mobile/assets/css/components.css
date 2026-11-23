@@ -1,0 +1,505 @@
+/* InsTrip mobile — components (spec §5.3). Content sits on paper; glass is in glass.css. */
+
+/* ---------- sky and page frame ---------- */
+
+.sky {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: calc(var(--sky-h) + var(--safe-top));
+  /* First declaration is the fallback for WebViews without color-mix (before Chrome 111). */
+  background: linear-gradient(var(--sky-top), var(--sky-horizon) 52%, var(--paper));
+  background: linear-gradient(
+    var(--sky-top),
+    var(--sky-horizon) 46%,
+    color-mix(in srgb, var(--sky-horizon) 38%, var(--paper)) 74%,
+    var(--paper));
+  transition: background var(--t-sky) ease-in-out;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#app {
+  position: relative;
+  z-index: 1;
+  outline: none;
+}
+
+.page {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: calc(var(--safe-top) + var(--sp-24)) var(--page-x) calc(var(--nav-h) + var(--safe-bottom) + 56px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-16);
+}
+
+/* Tab pages without a window image: a shorter sky holding only the skyline strip.
+   The page title starts below the sky, on paper, so it reads in every sky state. */
+:root[data-route='friends'],
+:root[data-route='stories'],
+:root[data-route='you'] { --sky-h: 96px; }
+
+.page { position: relative; }
+.page--tab { padding-top: calc(var(--safe-top) + var(--sky-h) + var(--sp-4)); }
+
+.skyline {
+  position: absolute;
+  top: calc(var(--safe-top) + var(--sp-20));
+  left: var(--page-x);
+  right: var(--page-x);
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+  color: var(--sky-ink);
+  transition: color var(--t-sky) ease-in-out;
+}
+.skyline__now { font-size: var(--fs-13); font-weight: 600; }
+
+.page__sub { margin-top: calc(var(--sp-8) * -1); }
+.stack { display: flex; flex-direction: column; gap: var(--sp-12); }
+.section-label { margin: var(--sp-8) var(--sp-4) calc(var(--sp-8) * -1); }
+.icon { flex: none; }
+
+/* ---------- card ---------- */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-20);
+  padding: var(--sp-20);
+}
+.card--quiet { background: transparent; }
+.card--quiet .t-body { margin-top: var(--sp-8); }
+
+/* ---------- buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-8);
+  min-height: var(--tap);
+  padding: 0 var(--sp-20);
+  border-radius: var(--r-16);
+  font-size: var(--fs-16);
+  font-weight: 600;
+  color: var(--ink);
+  transition: transform var(--t-press) var(--ease-snap), background-color var(--t-state) var(--ease-snap);
+  touch-action: manipulation;
+}
+.btn:active { transform: scale(.97); }
+
+/* The one solid dark block on a screen. Never glass. */
+.btn--primary {
+  width: 100%;
+  height: var(--btn-h);
+  background: var(--ink);
+  color: #fff;
+}
+
+.btn--small {
+  min-height: var(--tap);
+  padding: 0 var(--sp-16);
+  border-radius: var(--r-12);
+  background: var(--ink);
+  color: #fff;
+  font-size: var(--fs-15);
+}
+
+.btn--outline {
+  width: 100%;
+  height: var(--btn-h);
+  border: 1.5px solid var(--ink);
+  background: transparent;
+}
+
+.btn--danger {
+  width: 100%;
+  height: var(--btn-h);
+  background: var(--danger);
+  color: #fff;
+}
+
+.btn--text {
+  width: 100%;
+  color: var(--body);
+  font-weight: 500;
+  font-size: var(--fs-15);
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-underline-offset: 4px;
+}
+.btn--inline { width: auto; min-width: var(--tap); padding: 0; justify-content: flex-start; }
+
+.icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: var(--tap);
+  height: var(--tap);
+  border-radius: var(--r-pill);
+  color: var(--ink);
+  transition: transform var(--t-press) var(--ease-snap);
+}
+.icon-btn:active { transform: scale(.94); }
+
+/* ---------- form ---------- */
+
+.form { display: flex; flex-direction: column; gap: var(--sp-20); }
+.field-group { border: 0; margin: 0; padding: 0; min-width: 0; display: flex; flex-direction: column; gap: var(--sp-8); }
+.field-group > legend { padding: 0; margin-bottom: var(--sp-8); float: left; width: 100%; }
+.field-group > legend + * { clear: both; }
+.field-row { display: flex; gap: var(--sp-8); }
+.field { flex: 1 1 0; min-width: 0; }
+.field--time { flex: 0 0 38%; }
+
+.input {
+  width: 100%;
+  height: var(--btn-h);
+  padding: 0 var(--sp-12);
+  border: 1px solid var(--line);
+  border-radius: var(--r-16);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: var(--fs-16);
+  -webkit-appearance: none;
+  appearance: none;
+}
+.input:focus-visible { outline-offset: 0; border-color: var(--ink); }
+
+/* ---------- chips: window stickers ----------
+   Unpicked: a clear pane with a hairline. Picked: a paper slip pressed on the glass, slightly askew. */
+
+.chips { display: flex; flex-wrap: wrap; gap: var(--sp-8); }
+.chip { position: relative; display: inline-flex; cursor: pointer; }
+.chip > span {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  padding: 0 var(--sp-16);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: rgba(var(--glass-rgb), .5);
+  color: var(--body);
+  font-weight: 500;
+  transition: transform var(--t-state) var(--ease-snap), background-color var(--t-state) var(--ease-snap), color var(--t-state) var(--ease-snap);
+}
+.chip > input:checked + span {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+  transform: rotate(-1.5deg);
+}
+.chip:nth-child(even) > input:checked + span { transform: rotate(1.2deg); }
+.chip > input:focus-visible + span { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+/* ---------- segmented ---------- */
+
+.segmented {
+  display: flex;
+  padding: var(--sp-4);
+  border-radius: var(--r-16);
+  background: var(--line);
+}
+.segmented__item { flex: 1 1 0; position: relative; display: flex; cursor: pointer; }
+.segmented__item > span {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  min-height: var(--tap);
+  padding: 0 var(--sp-12);
+  border-radius: var(--r-12);
+  color: var(--muted-strong);
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background-color var(--t-state) var(--ease-snap), color var(--t-state) var(--ease-snap);
+}
+.segmented__item > input:checked + span,
+.segmented__item.is-on > span {
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 0 1px 2px rgba(60, 42, 20, .10);
+}
+.segmented__item > input:focus-visible + span { outline: 2px solid var(--ink); outline-offset: 2px; }
+.segmented--compact { flex: none; }
+.segmented--compact .segmented__item > span { padding: 0 var(--sp-12); font-size: var(--fs-13); }
+.segmented--tabs { align-self: flex-start; }
+.segmented--tabs .segmented__item > span { padding: 0 var(--sp-20); }
+
+/* ---------- small labels ---------- */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 var(--sp-12);
+  border-radius: var(--r-pill);
+  font-size: var(--fs-12);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tags > li {
+  padding: 3px 10px;
+  border-radius: var(--r-pill);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  font-size: var(--fs-12);
+  color: var(--body);
+}
+
+/* Seals: the two kinds of local friend (spec §7.4). Round for volunteers, square for licensed guides. */
+.seal {
+  flex: none;
+  padding: 3px 9px;
+  font-size: var(--fs-11);
+  font-weight: 700;
+  line-height: 1.4;
+  white-space: nowrap;
+  border: 1.5px solid currentColor;
+}
+.seal--volunteer { color: var(--sage); border-radius: var(--r-pill); }
+.seal--licensed { color: var(--ink); border-radius: 5px; }
+
+/* ---------- rows ---------- */
+
+.rows { display: flex; flex-direction: column; }
+.rows.card { padding: var(--sp-4) var(--sp-16); }
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-12);
+  width: 100%;
+  min-height: 56px;
+  padding: var(--sp-8) 0;
+  text-align: start;
+  color: var(--ink);
+}
+.row + .row { border-top: 1px solid var(--line); }
+.row > .icon:last-child { color: var(--muted); }
+.row__icon { flex: none; display: grid; place-items: center; width: 32px; color: var(--body); }
+.row__text { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; }
+.row__text > strong { font-weight: 600; font-size: var(--fs-15); }
+.row__text > small { font-size: var(--fs-13); color: var(--body); }
+
+.switch {
+  flex: none;
+  width: 46px;
+  height: 28px;
+  padding: 3px;
+  border-radius: var(--r-pill);
+  background: var(--line);
+  transition: background-color var(--t-state) var(--ease-snap);
+}
+.switch > i {
+  display: block;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: 0 1px 2px rgba(60, 42, 20, .25);
+  transition: transform var(--t-state) var(--ease-snap);
+}
+[aria-checked='true'] > .switch { background: var(--ink); }
+[aria-checked='true'] > .switch > i { transform: translateX(18px); }
+
+/* ---------- bottom navigation ---------- */
+
+#nav {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  padding: 0 var(--sp-16) calc(var(--safe-bottom) + var(--sp-12));
+  pointer-events: none;
+}
+
+.nav {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 420px;
+  height: var(--nav-h);
+  padding: 0 var(--sp-8);
+  border-radius: var(--r-pill);
+  transition: max-width var(--t-sheet-in) var(--ease-out), padding var(--t-sheet-in) var(--ease-out);
+}
+
+.nav__item {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  color: var(--body);
+  font-size: var(--fs-11);
+  font-weight: 600;
+  overflow: hidden;
+  transition: color var(--t-state) var(--ease-snap), opacity var(--t-state) var(--ease-snap), flex-grow var(--t-sheet-in) var(--ease-out);
+}
+.nav__item.is-current { color: var(--ink); }
+.nav__item > span { white-space: nowrap; }
+
+/* The lens: a round pane that stands a little proud of the bar. */
+.nav__lens {
+  flex: none;
+  width: var(--lens);
+  height: var(--lens);
+  margin: 0 var(--sp-4);
+  border-radius: 50%;
+  transform: translateY(-8px);
+  background: var(--surface);
+  box-shadow: 0 0 0 1px rgba(27, 24, 19, .08), 0 6px 16px rgba(60, 42, 20, .16);
+  display: grid;
+  place-items: center;
+  transition: transform var(--t-state) var(--ease-snap);
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+.nav__lens:active { transform: translateY(-8px) scale(.94); }
+.nav__lens-glass {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, .85) 0 9%, rgba(255, 255, 255, 0) 30%),
+    linear-gradient(var(--sky-top), var(--sky-horizon));
+  box-shadow: inset 0 0 0 1.5px var(--ink), inset 0 0 0 5px rgba(255, 255, 255, .55);
+  transition: background var(--t-sky) ease-in-out;
+}
+
+/* The bar of light under the current tab. */
+.nav__light {
+  position: absolute;
+  left: 0;
+  bottom: 9px;
+  width: 16px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--ink);
+  transition: transform var(--t-state) var(--ease-snap), opacity var(--t-state) var(--ease-snap);
+  pointer-events: none;
+}
+.nav__light.is-instant { transition: none; }
+
+/* Reading down the page: only the lens stays. */
+/* Collapsed: a round pill exactly the bar's height, with the lens centred inside it.
+   The lens drops its lift and margin here, or it sits up and to the left of the pill. */
+.nav.is-compact { max-width: var(--nav-h); padding: 0; justify-content: center; }
+.nav.is-compact .nav__lens { margin: 0; transform: none; }
+.nav.is-compact .nav__lens:active { transform: scale(.94); }
+.nav.is-compact .nav__item { flex-grow: 0; flex-basis: 0; opacity: 0; pointer-events: none; }
+.nav.is-compact .nav__light { opacity: 0; }
+
+/* ---------- sheet ---------- */
+
+.sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgba(27, 24, 19, .28);
+  animation: fade-in var(--t-sheet-in) ease both;
+}
+.sheet-backdrop.is-leaving { animation: fade-out var(--t-sheet-out) var(--ease-in) both; }
+
+.sheet {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 41;
+  max-width: 520px;
+  max-height: 86vh;
+  max-height: 86dvh;
+  margin: 0 auto;
+  padding: var(--sp-8) var(--page-x) calc(var(--safe-bottom) + var(--sp-24));
+  border-radius: var(--r-26) var(--r-26) 0 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  animation: sheet-in var(--t-sheet-in) var(--ease-out) both;
+}
+.sheet.is-leaving { animation: sheet-out var(--t-sheet-out) var(--ease-in) both; }
+.sheet.is-dragging { animation: none; transition: none; }
+
+.sheet__grip {
+  width: 36px;
+  height: 4px;
+  margin: 0 auto;
+  border-radius: 2px;
+  background: rgba(27, 24, 19, .22);
+  touch-action: none;
+}
+.sheet__grip::before { content: ''; display: block; height: 28px; transform: translateY(-12px); }
+.sheet__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-12);
+  min-height: 52px;
+  touch-action: none;
+}
+.sheet__body { display: flex; flex-direction: column; gap: var(--sp-12); }
+.sheet__body .row > .icon:last-child { color: var(--body); }
+.sheet__note { margin-bottom: var(--sp-8); }
+body.has-sheet { overflow: hidden; }
+
+@keyframes sheet-in { from { transform: translateY(100%); } to { transform: none; } }
+@keyframes sheet-out { from { transform: none; } to { transform: translateY(100%); } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
+
+/* ---------- toast ---------- */
+
+#toast {
+  position: fixed;
+  inset: auto 0 calc(var(--nav-h) + var(--safe-bottom) + var(--sp-24)) 0;
+  z-index: 60;
+  display: flex;
+  justify-content: center;
+  padding: 0 var(--page-x);
+  pointer-events: none;
+}
+.toast {
+  max-width: 100%;
+  padding: 10px var(--sp-16);
+  border-radius: var(--r-pill);
+  font-size: var(--fs-13);
+  font-weight: 600;
+  text-align: center;
+  animation: toast-in var(--t-state) var(--ease-out) both;
+}
+@keyframes toast-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* ---------- offline banner ---------- */
+
+.offline {
+  position: fixed;
+  top: calc(var(--safe-top) + var(--sp-8));
+  left: var(--sp-16);
+  right: var(--sp-16);
+  z-index: 70;
+  max-width: 488px;
+  margin: 0 auto;
+  padding: 10px var(--sp-16);
+  border-radius: var(--r-16);
+  font-size: var(--fs-13);
+  font-weight: 600;
+  text-align: center;
+  color: var(--ink);
+}
+
+/* ---------- empty state ---------- */
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-12);
+  padding: var(--sp-24) 0;
+  text-align: center;
+}
+.empty .btn--primary { margin-top: var(--sp-8); }

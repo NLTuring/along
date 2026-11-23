@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Along · 一起游 — 透过窗看中国</title>
+  <meta name="description" content="AI 公益伴游与影像文旅平台，为长者、残障伙伴与行动不便者提供旅行陪伴">
+  <link rel="icon" href="/assets/img/brand/app-icon.png">
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/reset.css">
+  <link rel="stylesheet" href="/assets/css/typography.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+  <!-- Sky gradient background -->
+  <div class="sky" id="sky"></div>
+
+  <!-- Opening shade -->
+  <div class="shade" id="shade">
+    <div class="shade__content">
+      <div class="logo-canvas" id="logoCanvas">
+        <svg viewBox="0 0 2276 997" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Logo paths will be drawn here -->
+        </svg>
+      </div>
+      <p class="shade__prompt" id="shadePrompt">向上拉开遮光板</p>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <main class="main" id="main">
+    <!-- Hero section with porthole window -->
+    <section class="hero">
+      <div class="container">
+        <header class="site-header glass">
+          <div class="site-header__brand">
+            <img src="/assets/img/brand/Along-Logo-透明底.png" alt="Along" class="site-header__logo">
+            <h1 class="site-header__title">
+              <span lang="zh">一起游</span>
+              <span lang="en">Along</span>
+            </h1>
+          </div>
+          <nav class="site-header__nav">
+            <button class="lang-switch" id="langSwitch">
+              <span data-lang="zh">中</span>
+              <span data-lang="en">EN</span>
+            </button>
+          </nav>
+        </header>
+
+        <div class="hero__content">
+          <h2 class="t-display hero__tagline">透过窗看中国</h2>
+          <p class="t-body hero__intro">
+            AI 公益伴游与影像文旅平台<br>
+            为长者、残障伙伴与行动不便者提供旅行陪伴
+          </p>
+        </div>
+
+        <!-- Turning window porthole -->
+        <div class="window-stage">
+          <div class="window window--porthole" id="windowPorthole">
+            <img src="/assets/img/window/shanghai-pearl-day.jpg" alt="上海 · 东方明珠" id="windowImage">
+          </div>
+          <figcaption class="window-caption glass--thin" id="windowCaption">
+            <span class="window-caption__location">上海 · 东方明珠</span>
+            <span class="window-caption__credit">照片：alan braeley</span>
+          </figcaption>
+        </div>
+      </div>
+    </section>
+
+    <!-- Journey chapters -->
+    <section class="journey">
+      <div class="container">
+        <h2 class="t-title section-title">旅程三章</h2>
+        
+        <div class="journey__cards">
+          <!-- Arrive card -->
+          <article class="journey-card glass">
+            <div class="journey-card__icon">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <path d="M24 8L8 16V24C8 34 16 40 24 40C32 40 40 34 40 24V16L24 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="t-heading journey-card__title">落地</h3>
+            <p class="t-body journey-card__text">
+              输入到达日期、城市和偏好，生成 3-7 天的行程计划。24 个南京地点，4 条参考路线。
+            </p>
+          </article>
+
+          <!-- Companion card with moon gate window -->
+          <article class="journey-card glass">
+            <div class="window window--moon-gate journey-card__window">
+              <img src="/assets/img/places/yuyuan.jpg" alt="豫园">
+            </div>
+            <h3 class="t-heading journey-card__title">同游</h3>
+            <p class="t-body journey-card__text">
+              志愿者伙伴与持证向导。可按语言、主题、时段筛选，查看评价与可约时间。
+            </p>
+          </article>
+
+          <!-- Keepsake card with 3D model preview -->
+          <article class="journey-card glass">
+            <div class="keepsake-preview" id="keepsakePreview">
+              <canvas id="keepsakeCanvas"></canvas>
+            </div>
+            <h3 class="t-heading journey-card__title">带走</h3>
+            <p class="t-body journey-card__text">
+              选照片、挑外形、刻浮雕，生成 3D 数字纪念品。支持导出 GLB、STL 和预览图。
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Archive entrance -->
+    <section class="archive-entrance">
+      <div class="container">
+        <div class="archive-entrance__content glass--thick">
+          <h2 class="t-title">记忆馆</h2>
+          <p class="t-body">
+            旅程故事与地点档案，保存在 3D 空间里。<br>
+            点击进入，选择一份档案，盖章收藏。
+          </p>
+          <button class="btn btn--primary" id="enterArchive">
+            进入记忆馆
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__content">
+          <div class="footer__brand">
+            <img src="/assets/img/brand/app-icon.png" alt="Along" class="footer__icon">
+            <p class="t-small">
+              Rank8848 团队<br>
+              AI + 社会公益
+            </p>
+          </div>
+          <div class="footer__links">
+            <p class="t-caption">
+              合作伙伴：Insta360、百度地图、阿里云、Qoder<br>
+              协作单位：南京林业大学心理学会、中国肢残人协会
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script type="module" src="/assets/js/main.js"></script>
+</body>
+</html>

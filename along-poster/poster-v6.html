@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>Along 一起游 · 视觉海报 V6 · 灰黑橙 A3</title>
+<style>
+@font-face{font-family:NSC;src:url(assets/fonts/NotoSansSC-VF.ttf) format("truetype");font-weight:100 900}
+@font-face{font-family:Bahn;src:url(assets/fonts/bahnschrift.ttf) format("truetype");font-weight:300 700}
+:root{--bg:#E8EAEC;--card:#F5F6F7;--ink:#1D1D1F;--ink2:#45484D;--gray:#7A7F86;--rule:#B6BAC0;--o:#F87F47;--o2:#E4642A;--o3:#FCE2D4}
+*{box-sizing:border-box;margin:0;padding:0}
+@page{size:297mm 420mm;margin:0}
+html,body{width:1754px;height:2481px;background:var(--bg)}
+body{font-family:NSC,"Microsoft YaHei",sans-serif;color:var(--ink);position:relative;overflow:hidden;-webkit-font-smoothing:antialiased;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.n{font-family:Bahn,NSC,sans-serif}
+.grain{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.3;mix-blend-mode:multiply;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .42 0 0 0 0 .43 0 0 0 0 .45 0 0 0 .6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.sk{position:relative;background:var(--card);border:1.6px solid var(--ink)}
+.sk::after{content:"";position:absolute;inset:-6px 6px 6px -6px;border:1px solid var(--rule);pointer-events:none}
+.x{position:absolute;z-index:5;width:32px;height:32px}
+.xi{display:inline-block;position:relative;width:26px;height:26px;vertical-align:-6px;margin-right:8px}
+.x::before,.xi::before{content:"";position:absolute;left:0;right:0;top:50%;border-top:1.2px solid var(--gray)}
+.x::after,.xi::after{content:"";position:absolute;top:0;bottom:0;left:50%;border-left:1.2px solid var(--gray)}
+.x i,.xi i{position:absolute;left:50%;top:50%;width:12px;height:12px;margin:-6px 0 0 -6px;border:1.2px solid var(--gray);border-radius:50%}
+.hd{position:absolute;left:40px;right:40px;top:26px;height:72px;z-index:5;display:flex;align-items:center}
+.hd img{height:52px}
+.hd .bar{width:1.4px;height:46px;background:var(--ink);margin:0 18px}
+.hd .nm b{display:block;font-size:31px;font-weight:900;line-height:1.05}
+.hd .nm span{font-family:Bahn;font-size:13px;letter-spacing:2.6px;color:var(--o2);font-weight:600}
+.hd .ev{margin-left:auto;text-align:right}
+.hd .ev b{font-size:27px;font-weight:900;letter-spacing:1px}
+.hd .ev b em{font-style:normal;color:var(--o)}
+.hd .ev span{display:block;font-family:Bahn;font-size:14.5px;color:var(--ink2);letter-spacing:.6px;margin-top:2px}
+.hd .trk{margin-left:18px;background:var(--o);color:#fff;font-weight:800;font-size:21px;padding:8px 20px 8px 18px;clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%)}
+.hrule{position:absolute;left:40px;right:40px;top:110px;border-top:1.4px solid var(--ink);z-index:5}
+.hrule::before,.hrule::after{content:"";position:absolute;top:-5.5px;width:9px;height:9px;border:1.4px solid var(--ink);border-radius:50%;background:var(--bg)}
+.hrule::before{left:-4px}.hrule::after{right:-4px}
+.hero{position:absolute;left:0;top:118px;width:1754px;height:872px;overflow:hidden;z-index:1}
+.hero .dots{position:absolute;left:0;bottom:0;width:900px;height:238px;background:url(assets/kv-dots.png) left bottom/129px 238px repeat-x;-webkit-mask-image:linear-gradient(90deg,#000 0,#000 814px,transparent 873px)}
+.hero .scene{position:absolute;right:0;bottom:0;width:940px;height:1039px}
+.hc{position:absolute;left:40px;top:200px;width:800px;z-index:5}
+.kick{display:flex;align-items:center;font-size:18px;font-weight:700;color:var(--ink2);letter-spacing:1px}
+.kick .n{font-size:14.5px;letter-spacing:3px;color:var(--gray);margin-left:12px}
+.ttl{margin-top:10px;display:flex;align-items:baseline;gap:24px;line-height:1;white-space:nowrap}
+.ttl .n{font-size:150px;font-weight:700;letter-spacing:-3px}
+.ttl b{font-size:128px;font-weight:900;letter-spacing:2px}
+.slg{margin-top:20px;font-size:46px;font-weight:900;letter-spacing:1px}
+.slg em,.tags em{font-style:normal;color:var(--o)}
+.eng{margin-top:6px;font-family:Bahn;font-size:27px;font-weight:600;color:var(--ink2)}
+.eng em{font-style:normal;color:var(--o2)}
+.pitch{margin-top:20px;font-size:21px;line-height:1.66;color:var(--ink2);width:780px}
+.pitch b{color:var(--ink);font-weight:800}
+.tags{margin-top:22px;display:flex;gap:28px;font-size:22px;font-weight:800;white-space:nowrap}
+.kpis{margin-top:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;width:780px}
+.kpi{padding:12px 16px;height:110px}
+.kpi .n{display:block;font-size:44px;font-weight:700;line-height:1}
+.kpi .n small{font-size:22px;font-weight:600;margin-left:3px}
+.kpi .n.sm{font-size:35px;padding-top:6px}
+.kpi p{margin-top:9px;font-size:15px;line-height:1.35;color:var(--ink2)}
+.status{margin-top:16px;font-size:15.5px;color:var(--ink2);display:flex;align-items:center;gap:10px}
+.status i{width:10px;height:10px;border-radius:50%;background:var(--o);box-shadow:0 0 0 4px var(--o3)}
+.status b{color:var(--ink)}
+.sec{position:absolute;left:40px;width:1674px;z-index:5}
+.sh{display:flex;align-items:center;height:40px;gap:14px;white-space:nowrap}
+.sh .no{font-family:Bahn;font-weight:700;font-size:23px;color:#fff;background:var(--o);padding:3px 18px 3px 14px;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%)}
+.sh h2{font-size:32px;font-weight:900;letter-spacing:1px}
+.sh .en{font-family:Bahn;font-size:15.5px;font-weight:600;letter-spacing:2.4px;color:var(--gray)}
+.sh .note{font-size:15px;color:var(--ink2)}
+.sh .ln{flex:1;border-top:1.2px solid var(--rule);position:relative;min-width:24px}
+.sh .ln::after{content:"";position:absolute;right:0;top:-5.5px;width:9px;height:9px;border:1.2px solid var(--gray);border-radius:50%;background:var(--bg)}
+.body{position:absolute;top:56px;left:0;right:0}
+#s1{top:1010px;height:210px}
+.mk{height:120px;display:grid;grid-template-columns:1fr 1fr 1fr 1.25fr;align-items:center;padding:0 10px}
+.stat{padding:0 24px;border-right:1px solid var(--rule)}
+.stat .n{display:block;font-size:48px;font-weight:700;line-height:1;color:var(--o2)}
+.stat .n small{font-size:21px;font-weight:600;margin-left:3px;color:var(--ink)}
+.stat p{margin-top:7px;font-size:15px;line-height:1.4;color:var(--ink2)}
+.stat p b,.who b{color:var(--ink)}
+.who{padding:0 24px;font-size:16px;line-height:1.6;color:var(--ink2)}
+.src{margin-top:12px;font-size:11.5px;color:var(--gray)}
+#s2{top:1240px;height:712px}
+#s2 .body{display:flex;gap:24px;height:656px}
+.ph{width:258px}
+.ph .fr{position:relative;background:var(--card);border:2px solid var(--ink);border-radius:32px;padding:7px}
+.ph .fr::after{content:"";position:absolute;inset:-7px 7px 7px -7px;border:1px solid var(--rule);border-radius:36px;pointer-events:none}
+.ph .fr img{display:block;width:100%;height:519px;object-fit:cover;object-position:top;border-radius:25px;border:1px solid var(--rule)}
+.ph h4{margin-top:14px;font-size:20px;font-weight:900;display:flex;align-items:center;gap:8px}
+.ph h4 .n{font-size:14px;color:#fff;background:var(--o);width:25px;height:25px;line-height:25px;text-align:center;border-radius:50%;font-weight:700;flex:none}
+.ph p{margin-top:5px;font-size:15px;line-height:1.45;color:var(--ink2)}
+.rc{flex:1;display:flex;flex-direction:column;height:656px}
+.bw .fr{position:relative;background:var(--card);border:1.8px solid var(--ink);border-radius:10px;overflow:hidden}
+.bw .bar{height:28px;border-bottom:1px solid var(--rule);display:flex;align-items:center;padding:0 12px;gap:6px;background:#fff}
+.bw .bar i{width:9px;height:9px;border-radius:50%;border:1.2px solid var(--gray)}
+.bw .bar i:first-child{background:var(--o);border-color:var(--o)}
+.bw .bar span{margin-left:10px;flex:1;height:17px;border-radius:9px;background:var(--bg);font-size:11.5px;line-height:17px;padding-left:10px;color:var(--gray)}
+.bw .fr img{display:block;width:100%;height:auto}
+.bw h4{margin-top:12px;font-size:20px;font-weight:900;display:flex;gap:8px;align-items:center}
+.bw h4 em{font-style:normal;font-family:Bahn;font-size:13px;color:#fff;background:var(--ink);padding:2px 8px;font-weight:600}
+.bw p{margin-top:4px;font-size:15px;color:var(--ink2)}
+.steps{margin-top:auto;padding:14px 20px}
+.steps h5{font-size:17px;font-weight:900;margin-bottom:6px}
+.steps li{list-style:none;font-size:15px;line-height:1.5;color:var(--ink2);padding:3px 0 3px 34px;position:relative}
+.steps li span{position:absolute;left:0;top:4px;width:24px;height:24px;line-height:24px;text-align:center;border-radius:50%;background:var(--ink);color:#fff;font-family:Bahn;font-size:13px;font-weight:700}
+.steps li b{color:var(--ink)}
+#s3{top:1972px;height:212px}
+#s3 .body{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.bx{padding:16px 22px;height:150px}
+.bx h4{font-size:19px;font-weight:900;display:flex;align-items:center;gap:8px}
+.bx h4 em{font-style:normal;font-family:Bahn;font-size:13px;color:var(--o2);font-weight:700;letter-spacing:1.2px}
+.bx ul{list-style:none;margin-top:8px;font-size:15px;line-height:1.55;color:var(--ink2)}
+.bx li{padding-left:14px;position:relative}
+.bx li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;background:var(--o)}
+.bx li b{color:var(--ink)}
+.fdots{position:absolute;left:0;bottom:0;width:1754px;height:238px;background:url(assets/kv-dots.png) left bottom/129px 238px repeat-x;z-index:1}
+.ft{position:absolute;left:40px;right:40px;top:2276px;height:150px;z-index:5;display:flex;align-items:center;gap:36px}
+.ft .s b{display:block;font-size:40px;font-weight:900;letter-spacing:1px;white-space:nowrap}
+.ft .s span{font-family:Bahn;font-size:21px;color:var(--ink2);font-weight:600}
+.ft .s span em{font-style:normal;color:var(--o2)}
+.ft .pn{flex:1;display:flex;align-items:center;justify-content:space-between;padding:0 6px}
+.ft .pn img{display:block;width:auto}
+.ft .pn .pair{display:flex;align-items:center;gap:18px}
+.ft .pn .dv{width:1.4px;height:36px;background:var(--gray)}
+.ft .br{text-align:right;white-space:nowrap}
+.ft .br b{display:block;font-family:Bahn;font-size:48px;font-weight:700;color:var(--o);letter-spacing:4px;line-height:1}
+.ft .br span{font-size:16px;color:var(--ink2);font-weight:700}
+</style></head><body>
+<div class="hero"><div class="dots"></div><img class="scene" src="assets/kv-scene.png" alt=""></div>
+<div class="fdots"></div>
+<div class="grain"></div>
+<header class="hd">
+  <img src="assets/along-ink.png" alt="Along"><div class="bar"></div>
+  <div class="nm"><b>一起游</b><span>AI TRAVEL COMPANION FOR CHINA</span></div>
+  <div class="ev"><b>Along <em>[</em>一起游<em>]</em></b><span>AI TRAVEL COMPANION FOR CHINA · 2026.11</span></div>
+  <div class="trk">AI + 出海</div>
+</header>
+<div class="hrule"></div>
+<div class="hc">
+  <div class="kick"><span class="xi"><i></i></span>入境旅行 × 本地同游 × 3D 数字文创<span class="n">INBOUND · LOCAL · KEEPSAKE</span></div>
+  <div class="ttl"><span class="n">Along</span><b>一起游</b></div>
+  <div class="slg">外国游客来华的 <em>[</em>第一位本地朋友<em>]</em></div>
+  <div class="eng">Land in China. <em>Leave with a friend.</em></div>
+  <p class="pitch">告诉 Along 你哪天落地，行程<b>按天排好、按开放时间检查</b>；约一位<b>本地伙伴</b>陪你走半天；回国前，把旅途合影做成一件<b>可 3D 打印的冰箱贴</b>带回家。</p>
+  <div class="tags"><span><span class="xi"><i></i></span><em>AI+</em>出海</span><span><span class="xi"><i></i></span>小游 <em>AI</em> 助手</span><span><span class="xi"><i></i></span><em>AI</em> 动漫重绘</span><span><span class="xi"><i></i></span>照片 → <em>3D</em> 浮雕</span></div>
+  <div class="kpis">
+    <div class="kpi sk"><span class="n">2<small>端</small></span><p>Android App 与网站<br>均已上线可用</p></div>
+    <div class="kpi sk"><span class="n">9<small>种</small></span><p>网站界面语言<br>含阿拉伯语从右往左</p></div>
+    <div class="kpi sk"><span class="n sm">GLB · STL</span><p>3D 文创文件<br>可直接拿去打印</p></div>
+  </div>
+  <div class="status"><i></i><b>已上线：</b>App 网页版 tokennext.top/along · Android 安装包 · 官网（魔搭创空间）</div>
+</div>
+<span class="x" style="left:1000px;top:226px"><i></i></span>
+<span class="x" style="left:1650px;top:190px"><i></i></span>
+<span class="x" style="left:870px;top:760px"><i></i></span>
+<section class="sec" id="s1">
+  <div class="sh"><span class="no">01</span><h2>为什么是现在</h2><span class="en">THE MARKET</span><span class="note">门打开了，落地后的第一天还需要有人帮一把</span><span class="ln"></span></div>
+  <div class="body">
+    <div class="mk sk">
+      <div class="stat"><span class="n">1160.1<small>万</small></span><p>2026 年三季度<b>外国人入境</b>人次<br>同比 <b>+15.6%</b></p></div>
+      <div class="stat"><span class="n">77.5<small>%</small></span><p>其中<b>免签入境</b>占比<br>899.2 万人次，<b>+24.1%</b></p></div>
+      <div class="stat"><span class="n">57<small>国</small></span><p><b>240 小时过境免签</b><br>可从 65 个口岸入境</p></div>
+      <p class="who"><b>目标用户：</b>首次来华的欧美、日韩自由行游客，不熟悉中文和国内 App。<b>首站：</b>上海 · 虹桥枢纽。</p>
+    </div>
+    <p class="src">数据来源：国家移民管理局 2026-10-20；新华社 2026-08-20。</p>
+  </div>
+</section>
+<section class="sec" id="s2">
+  <div class="sh"><span class="no">02</span><h2>产品实拍</h2><span class="en">AS BUILT</span><span class="note">最新安装包与最新官网的真实截图</span><span class="ln"></span></div>
+  <div class="body">
+    <div class="ph"><div class="fr"><img src="assets/app/zh-trip.png" alt=""></div><h4><span class="n">1</span>落地行程</h4><p>填落地时间和城市，行程按天排好</p></div>
+    <div class="ph"><div class="fr"><img src="assets/app/zh-friends.png" alt=""></div><h4><span class="n">2</span>本地伙伴</h4><p>志愿者免费同游，持证向导付费讲解</p></div>
+    <div class="ph"><div class="fr"><img src="assets/app/zh-assistant.png" alt=""></div><h4><span class="n">3</span>小游 AI 助手</h4><p>点一下聊天，长按说话，指令直接执行</p></div>
+    <div class="ph"><div class="fr"><img src="assets/app/zh-craft-step4.png" alt=""></div><h4><span class="n">4</span>3D 文创</h4><p>外滩合影生成浮雕冰箱贴，可导出打印</p></div>
+    <div class="rc">
+      <div class="bw"><div class="fr"><div class="bar"><i></i><i></i><i></i><span>Along 官网 · 03 带走</span></div><img src="assets/site/site-keepsake.png" alt=""></div><h4><em>WEB</em>网页里现场生成 3D 文创</h4><p>与 App 同一套浮雕代码，可下载 GLB / STL</p></div>
+      <div class="steps sk"><h5>一张照片，四步变成纪念品</h5><ul>
+        <li><span>1</span>选一张<b>旅途合影</b>，默认只在本机处理</li>
+        <li><span>2</span>涂抹要凸起的人物，<b>AI 只给建议</b></li>
+        <li><span>3</span>生成浮雕网格，可切换<b>真实 / 动漫</b>风格</li>
+        <li><span>4</span>导出 <b>GLB / STL</b>，3D 打印或人工制作</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+<section class="sec" id="s3">
+  <div class="sh"><span class="no">03</span><h2>落地与商业</h2><span class="en">GO-TO-MARKET</span><span class="note">先做透上海，再复制到更多城市</span><span class="ln"></span></div>
+  <div class="body">
+    <div class="bx sk"><h4>落地路径<em>GTM</em></h4><ul><li>虹桥枢纽、国家会展中心首发，再到全上海与长三角</li><li>渠道：高校国际处、入境旅行社、志愿者协会</li><li>TikTok 分享卡带来自然传播</li></ul></div>
+    <div class="bx sk"><h4>商业模式<em>MODEL</em></h4><ul><li><b>行程通行证</b> $9.90 / 次，App 内已有购买入口</li><li><b>伙伴预约</b>服务费；持证向导讲解另计</li><li><b>3D 文创</b>：文件下载 → 人工制作询价 → 实物</li></ul></div>
+    <div class="bx sk"><h4>合规与可信<em>TRUST</em></h4><ul><li>照片默认本机处理，上传和公开分别授权</li><li>社区帖子审核后公开，AI 结果标注为示意</li><li>前端 375 项自动化测试全部通过</li></ul></div>
+  </div>
+</section>
+<footer class="ft">
+  <div class="s"><b>从虹桥出发，让世界一起游。</b><span>Land in China. <em>Leave with a friend.</em></span></div>
+  <div class="pn">
+    <span class="pair"><img src="assets/partners/techweek-hongqiao.png" style="height:35px" alt="TECH WEEK 虹桥国际科技周"><span class="dv"></span><img src="assets/partners/qutansuo.png" style="height:33px" alt="去探索"></span>
+    <img class="oa" src="assets/partners/openai-next.png" style="height:35px" alt="OpenAI Next">
+    <img src="assets/partners/modelscope.png" style="height:33px" alt="魔搭社区 ModelScope">
+    <img src="assets/partners/sensetime-raccoon.png" style="height:33px" alt="商汤小浣熊 Raccoon Work">
+    <img src="assets/partners/baidu-map.png" style="height:31px" alt="百度地图开放平台">
+  </div>
+  <div class="br"><b>ALONG</b><span>一起，看见世界</span></div>
+</footer>
+</body></html>

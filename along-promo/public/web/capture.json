@@ -1,0 +1,41 @@
+{
+ "intro": {
+  "frames": 228,
+  "markDoneSec": 3.5,
+  "holdUntilSec": 4.3,
+  "riseStartSec": 4.3,
+  "wallDoneSec": 6.8,
+  "note": "frame k = page time (k+1)/30 s after entering; UI chrome hidden",
+  "file": "web/museum-intro.mp4",
+  "size": [
+   3840,
+   2160
+  ],
+  "sky": "dusk"
+ },
+ "browse": {
+  "note": "frame k = k-th recorded frame; UI chrome visible",
+  "startRank": 7,
+  "turnStart": 0,
+  "release": 76,
+  "landedOn": "N° 01",
+  "turnSettled": 82,
+  "pick": 82,
+  "pickCut": 83,
+  "turn": 113,
+  "stamp": 167,
+  "sealBox": {
+   "x": 359.5283508300781,
+   "y": 85.52835845947266,
+   "width": 116.94329833984375,
+   "height": 116.94329071044922
+  },
+  "frames": 228,
+  "file": "web/museum-browse.mp4",
+  "size": [
+   3840,
+   2160
+  ],
+  "sky": "dusk"
+ }
+}

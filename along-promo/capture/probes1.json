@@ -1,0 +1,8 @@
+[
+ {"route": "trip", "shot": "p-assistant.png", "actions": [["click", "[data-assistant-fab]"], ["wait", 900]]},
+ {"route": "trip", "shot": "p-assistant-translate.png", "actions": [["click", "[data-assistant-fab]"], ["wait", 700], ["fill", "[data-xy-input]", "Please translate into English: 请带我去这个地址，谢谢"], ["click", "[data-xy-send]"], ["wait", 2500]]},
+ {"route": "trip", "shot": "p-lens.png", "actions": [["click", "[data-lens]"], ["wait", 800]]},
+ {"route": "guides/guide_jiajia", "shot": "p-guide.png", "max": 25},
+ {"route": "stories", "shot": "p-stories.png", "max": 25},
+ {"route": "you", "shot": "p-you.png", "max": 30}
+]

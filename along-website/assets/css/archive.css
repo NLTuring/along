@@ -1,0 +1,282 @@
+/* Archive page styles — 3D memory gallery */
+
+.archive {
+  min-height: 100vh;
+  padding: var(--space-5) 0;
+}
+
+.archive__header {
+  text-align: center;
+  margin-bottom: var(--space-5);
+  padding: var(--space-4);
+}
+
+.archive__title {
+  margin-bottom: var(--space-2);
+}
+
+.archive__subtitle {
+  opacity: 0.85;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* 3D scene container */
+.archive-scene {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  min-height: 500px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: rgba(27, 24, 19, 0.02);
+  box-shadow: inset 0 0 64px rgba(27, 24, 19, 0.05);
+}
+
+#archiveCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+
+#archiveCanvas:active {
+  cursor: grabbing;
+}
+
+/* Archive controls */
+.archive__controls {
+  position: absolute;
+  bottom: var(--space-3);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  z-index: 10;
+}
+
+.control-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--glass-thick);
+  border: 1px solid var(--glass-border);
+  transition: all var(--t-fast);
+}
+
+.control-btn:hover {
+  background: var(--paper-content);
+  transform: scale(1.1);
+}
+
+.control-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Archive item info panel */
+.archive-info {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  width: 280px;
+  padding: var(--space-3);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--t-base);
+  z-index: 10;
+}
+
+.archive-info.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.archive-info__title {
+  margin-bottom: var(--space-2);
+  font-size: 1.125rem;
+}
+
+.archive-info__meta {
+  font-size: 0.875rem;
+  opacity: 0.72;
+  margin-bottom: var(--space-3);
+}
+
+.archive-info__actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.archive-info__btn {
+  flex: 1;
+  padding: var(--space-2);
+  border-radius: 8px;
+  font-size: 0.875rem;
+  text-align: center;
+  background: var(--seal);
+  color: var(--paper);
+  transition: transform var(--t-fast);
+}
+
+.archive-info__btn:hover {
+  transform: translateY(-2px);
+}
+
+.archive-info__btn--secondary {
+  background: var(--sage);
+}
+
+/* Archive detail modal */
+.archive-detail {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(27, 24, 19, 0.85);
+  backdrop-filter: blur(8px);
+  padding: var(--space-3);
+}
+
+.archive-detail.is-open {
+  display: flex;
+}
+
+.archive-detail__content {
+  width: 100%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: var(--space-5);
+  border-radius: 24px;
+  position: relative;
+}
+
+.archive-detail__close {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--glass-medium);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.archive-detail__header {
+  margin-bottom: var(--space-4);
+}
+
+.archive-detail__title {
+  margin-bottom: var(--space-2);
+}
+
+.archive-detail__meta {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  font-size: 0.875rem;
+  opacity: 0.72;
+}
+
+.archive-detail__body {
+  line-height: 1.8;
+}
+
+.archive-detail__body h3 {
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-2);
+}
+
+.archive-detail__body p {
+  margin-bottom: var(--space-3);
+}
+
+.archive-detail__footer {
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--glass-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stamp-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.875rem;
+}
+
+.stamp-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--seal);
+}
+
+.stamp-icon.is-collected {
+  animation: stamp-collect 600ms var(--ease-snap);
+}
+
+@keyframes stamp-collect {
+  0% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.3) rotate(-10deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* Loading state */
+.archive-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--paper);
+  z-index: 5;
+  transition: opacity var(--t-base);
+}
+
+.archive-loading.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid var(--glass-border);
+  border-top-color: var(--seal);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .archive-scene {
+    height: 60vh;
+  }
+  
+  .archive-info {
+    width: calc(100% - var(--space-4));
+    right: var(--space-2);
+    top: auto;
+    bottom: 80px;
+  }
+  
+  .archive-detail__content {
+    padding: var(--space-4);
+  }
+}

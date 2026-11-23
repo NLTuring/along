@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<title>Along 一起游 · 团队横幅 · 1000×400 mm</title>
+<!-- Design grid: 2500 x 1000 CSS px = 1000 x 400 mm, so 1 px = 0.4 mm. Text and logos stay 75 px (30 mm) inside the edge. -->
+<style>
+@font-face{font-family:NSC;src:url(assets/fonts/NotoSansSC-VF.ttf) format("truetype");font-weight:100 900}
+@font-face{font-family:Mont;src:url(assets/fonts/Montserrat-VF.ttf) format("truetype");font-weight:100 900}
+:root{--bg:#E8EAEC;--card:#F5F6F7;--ink:#1D1D1F;--ink2:#45484D;--gray:#7A7F86;--mark:#9EA2A8;--o:#F87F47;--o2:#E4642A}
+*{box-sizing:border-box;margin:0;padding:0}
+@page{size:1000mm 400mm;margin:0}
+html,body{width:2500px;height:1000px;background:var(--bg)}
+body{position:relative;overflow:hidden;font-family:NSC,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.m{font-family:Mont,NSC,sans-serif}
+em,i{font-style:normal}
+.bg{position:absolute;left:0;top:0;width:2500px;height:1000px}
+/* Continues the KV's own band (rows 1799-2612 of the 7000 px KV, painted to the crop edge in bg.png) and ends on the KV's slant. */
+.band{position:absolute;left:1130px;top:456.831px;width:600px;height:206.45px;background:var(--o);clip-path:polygon(81.34px 0,100% 0,100% 100%,0 100%)}
+/* The KV's crosshair marker. */
+.xh{position:absolute;width:84px;height:84px}
+.xh::before{content:"";position:absolute;left:0;right:0;top:50%;border-top:1.8px solid var(--mark)}
+.xh::after{content:"";position:absolute;top:0;bottom:0;left:50%;border-left:1.8px solid var(--mark)}
+.xh i{position:absolute;left:50%;top:50%;width:26px;height:26px;margin:-13px 0 0 -13px;border:1.8px solid var(--mark);border-radius:50%}
+
+.ev{position:absolute;left:75px;top:72px;display:flex;align-items:center;gap:34px}
+.ev b{display:block;font-size:52px;font-weight:700;line-height:1.08;letter-spacing:1px}
+.ev b em{color:var(--o);font-weight:400}
+.ev span{display:block;margin-top:4px;font-size:25.5px;font-weight:600;letter-spacing:.3px}
+.trk{align-self:center;background:var(--o);color:#fff;font-size:30px;font-weight:800;letter-spacing:1px;padding:11px 30px 12px 26px;clip-path:polygon(13px 0,100% 0,calc(100% - 13px) 100%,0 100%)}
+
+.team{position:absolute;left:75px;top:220px;display:flex;align-items:center}
+.team img{height:82px}
+.team > i{width:2.4px;height:64px;background:var(--ink);margin:0 26px}
+.team span{display:block;font-size:22px;font-weight:700;color:var(--ink2);letter-spacing:7px}
+.team b{display:block;font-size:43px;font-weight:800;letter-spacing:3px;line-height:1.08}
+
+.ttl{position:absolute;left:68px;top:318px;display:flex;align-items:baseline;gap:34px;line-height:1;white-space:nowrap}
+.ttl .m{font-size:168px;font-weight:800;letter-spacing:-4px}
+.ttl b{font-size:150px;font-weight:900;letter-spacing:6px}
+.slg{position:absolute;left:75px;top:500px;font-size:60px;font-weight:900;letter-spacing:1.5px;white-space:nowrap;line-height:1.2}
+.slg em{color:var(--o);font-weight:500}
+.eng{position:absolute;left:77px;top:586px;font-size:31px;font-weight:600;color:var(--ink2);white-space:nowrap}
+.eng em{color:var(--o2)}
+
+.fts{position:absolute;left:75px;top:666px;display:flex;gap:40px;list-style:none;white-space:nowrap}
+.fts li{display:flex;align-items:center;gap:14px;font-size:41px;font-weight:500;color:var(--ink2);line-height:1}
+.fts li .xh{position:relative;width:56px;height:56px;flex:none}
+.fts li .xh i{width:19px;height:19px;margin:-9.5px 0 0 -9.5px}
+.fts em{color:var(--o)}
+
+.org{position:absolute;left:75px;top:842px;display:flex;align-items:center;gap:30px}
+.org .tw{height:58px}
+.org .qt{height:65px}
+.org > i{width:2.6px;height:58px;background:#231815}
+.qr{position:absolute;left:762px;top:790px;display:flex;align-items:center;gap:22px}
+.qr .code{width:132px;height:132px;padding:12px;background:#fff;border:2.4px solid var(--ink);position:relative}
+/* sketch double line kept entirely outside the card so the code's quiet zone stays clean */
+.qr .code::after{content:"";position:absolute;inset:-13px -5px -5px -13px;border:1.4px solid var(--mark)}
+.qr .code img{display:block;width:100%;height:100%}
+.qr p{font-size:29px;font-weight:800;line-height:1.25}
+.qr p span{display:block;font-size:20px;font-weight:600;color:var(--ink2)}
+
+.xy{position:absolute;left:1124px;top:268px;width:636px;height:600px}
+.bub{position:absolute;left:1316px;top:176px;padding:18px 32px 20px;background:var(--card);border:2.4px solid var(--ink);white-space:nowrap}
+.bub::after{content:"";position:absolute;inset:-11px 11px 11px -11px;border:1.4px solid var(--mark);pointer-events:none}
+.bub b{display:block;font-size:46px;font-weight:900;line-height:1.15;letter-spacing:1px}
+.bub b em{color:var(--o)}
+.bub span{display:block;margin-top:6px;font-size:23px;font-weight:600;color:var(--ink2)}
+.tail{position:absolute;left:1374px;top:308.6px;overflow:visible}
+.wv{position:absolute;left:1670px;top:514px;overflow:visible}
+</style></head><body>
+<img class="bg" src="assets/bg.png" alt="">
+<div class="band"></div>
+
+<span class="xh" style="left:2296px;top:96px"><i></i></span>
+<span class="xh" style="left:1158px;top:150px"><i></i></span>
+
+<header class="ev">
+  <div><b>Along <em>[</em>一起游<em>]</em></b><span class="m">AI TRAVEL COMPANION FOR CHINA</span></div>
+  <span class="trk">AI + 出海</span>
+</header>
+
+<div class="team"><img src="assets/along-ink.png" alt="Along"><i></i><p><span>团队</span><b class="m">TEAM ALONG</b></p></div>
+
+<h1 class="ttl"><span class="m">Along</span><b>一起游</b></h1>
+<p class="slg">外国游客来华的 <em>[</em>第一位本地朋友<em>]</em></p>
+<p class="eng m">Land in China. <em>Leave with a friend.</em></p>
+<ul class="fts">
+  <li><span class="xh"><i></i></span><span><em>AI</em> 行程规划</span></li>
+  <li><span class="xh"><i></i></span><span><em>本地</em>伙伴同游</span></li>
+  <li><span class="xh"><i></i></span><span>照片变 <em>3D</em> 文创</span></li>
+</ul>
+
+<div class="org"><img class="tw" src="assets/techweek.png" alt="TECH WEEK 虹桥国际科技周"><i></i><img class="qt" src="assets/qutansuo.png" alt="去探索"></div>
+<div class="qr"><div class="code"><img src="assets/qr-along.svg" alt="tokennext.top/along"></div><p>扫码体验<span class="m">tokennext.top/along</span></p></div>
+
+<!-- 小游, pencil-sketch edition with its hatched ground shadow (tools/mascot_sketch.py), and a sketch-card speech bubble -->
+<img class="xy" src="assets/xiaoyou-sketch.svg" alt="小游">
+<div class="bub"><b>Hi，我是<em>小游</em>！</b><span>你的 AI 旅行助手 · <i class="m">Your buddy in China</i></span></div>
+<svg class="tail" width="60" height="58" viewBox="0 0 60 58" aria-hidden="true"><path d="M2 0 L20 54 L46 0" fill="#F5F6F7" stroke="#1D1D1F" stroke-width="2.4" stroke-linejoin="round"/></svg>
+<!-- ?xy=assets/other.svg swaps the mascot art, for side-by-side previews (tools/xy_sheet.py) -->
+<script>const xy = new URLSearchParams(location.search).get('xy'); if (xy) document.querySelector('.xy').src = xy;</script>
+<!-- two pencil motion strokes beside the waving hand -->
+<svg class="wv" width="70" height="110" viewBox="0 0 70 110" aria-hidden="true" fill="none" stroke="#1D1D1F" stroke-width="4.2" stroke-linecap="round">
+  <path d="M10 30 Q24 52 12 76"/><path d="M34 14 Q56 52 36 92"/>
+</svg>
+</body></html>

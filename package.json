@@ -1,0 +1,18 @@
+{
+  "name": "along",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "preview": "node mobile/tools/serve.mjs 4175",
+    "build:3d": "node mobile/tools/build-3d.mjs",
+    "check": "node mobile/tools/check.mjs",
+    "test": "node --test mobile/tools/*.test.mjs tools/*.test.mjs",
+    "server:dev": "npm --prefix server run dev",
+    "server:test": "npm --prefix server test"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2",
+    "three": "0.170.0"
+  }
+}

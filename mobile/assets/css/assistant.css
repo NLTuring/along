@@ -1,0 +1,159 @@
+/* Along mobile — 小游 / Along assistant: floating button, chat sheet and the character's motion. */
+
+/* ---------- floating button ---------- */
+#assistant {
+  position: fixed;
+  z-index: 25; /* above the bottom bar (20), below sheets (40), toast (60) and the welcome window (90) */
+  right: max(var(--sp-16), calc((100vw - 520px) / 2 + var(--sp-16)));
+  bottom: calc(var(--safe-bottom) + var(--sp-12) + var(--nav-h) + var(--sp-12));
+  pointer-events: none;
+}
+#assistant.xy--nav-hidden { bottom: calc(var(--safe-bottom) + var(--sp-24)); }
+.has-sheet #assistant { opacity: 0; transition: opacity var(--t-state) var(--ease-snap); }
+.xy-fab {
+  pointer-events: auto;
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--surface);
+  box-shadow: 0 0 0 1px rgba(27, 24, 19, .08), 0 10px 24px rgba(60, 42, 20, .18), 0 2px 4px rgba(60, 42, 20, .08);
+  touch-action: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: transform var(--t-press) var(--ease-snap), box-shadow var(--t-state) var(--ease-snap);
+}
+.xy-fab:active, #assistant.is-pressing .xy-fab { transform: scale(.94); }
+.xy-fab:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.xy-lens {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 30%, #FFFDF8, #EFE7D8);
+}
+.xy-lens::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 24%, rgba(255, 255, 255, .7), rgba(255, 255, 255, 0) 32%);
+  box-shadow: inset 0 0 0 1.5px rgba(27, 24, 19, .9), inset 0 0 0 4px rgba(255, 255, 255, .55);
+  pointer-events: none;
+}
+.xy-lens svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* Long-press progress: a terracotta ring fills around the button. */
+.xy-ring { position: absolute; inset: -2px; width: calc(100% + 4px); height: calc(100% + 4px); transform: rotate(-90deg); pointer-events: none; }
+.xy-ring circle { fill: none; stroke: var(--accent); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 182.2; stroke-dashoffset: 182.2; opacity: 0; transition: opacity var(--t-press); }
+#assistant.is-pressing .xy-ring circle { opacity: 1; }
+.senior .xy-fab { width: 72px; height: 72px; }
+.senior .xy-lens { width: 64px; height: 64px; }
+.senior #assistant { bottom: calc(var(--safe-bottom) + var(--nav-h) + var(--sp-16)); }
+
+/* ---------- chat sheet ---------- */
+.xy-sheet .sheet__body { display: flex; flex-direction: column; }
+.xy-chat { display: flex; flex-direction: column; gap: var(--sp-12); min-height: 0; }
+.xy-hello { display: flex; align-items: center; gap: var(--sp-12); padding: var(--sp-12); border-radius: var(--r-20); background: linear-gradient(var(--sky-top), var(--paper)); }
+.xy-hello__art { flex: none; width: 76px; }
+.xy-hello .t-body { color: var(--body); }
+.xy-list { max-height: min(46vh, 420px); overflow-y: auto; padding: 2px; scroll-behavior: smooth; }
+.xy-list:empty { display: none; }
+.bubble--along { align-self: flex-start; flex-direction: row; align-items: flex-end; gap: var(--sp-8); max-width: 92%; }
+.bubble__body { display: flex; flex-direction: column; gap: var(--sp-8); min-width: 0; }
+.bubble--along .bubble__body > p { padding: 10px 14px; border-radius: var(--r-20); border-bottom-left-radius: 6px; background: var(--surface); color: var(--ink); box-shadow: 0 0 0 1px var(--line); overflow-wrap: anywhere; line-height: 1.55; }
+.bubble--me .bubble__body > p { padding: 10px 14px; border-radius: var(--r-20); border-bottom-right-radius: 6px; background: var(--ink); color: #fff; overflow-wrap: anywhere; }
+.bubble--me .bubble__body { align-items: flex-end; }
+.xy-avatar { flex: none; position: relative; width: 30px; height: 30px; border-radius: 50%; overflow: hidden; background: radial-gradient(circle at 50% 30%, #FFFDF8, #EFE7D8); box-shadow: inset 0 0 0 1.2px rgba(27, 24, 19, .85); }
+.xy-avatar svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.xy-actions { display: flex; flex-wrap: wrap; gap: var(--sp-8); }
+/* Suggested actions: quiet paper chips with ink text, readable on the white answer bubble. */
+.xy-actions .btn.xy-action {
+  display: inline-flex; align-items: center; gap: 4px; min-height: 40px; height: auto; padding: 8px 14px 8px 10px;
+  border-radius: var(--r-pill); background: var(--paper); color: var(--ink); border: 1px solid var(--line);
+  font-size: var(--fs-13); font-weight: 600; white-space: normal; text-align: left; line-height: 1.3; box-shadow: none;
+}
+.xy-actions .btn .icon { flex: none; color: var(--accent); }
+.xy-actions .btn:active { background: var(--accent-soft); }
+.xy-dots { display: inline-flex; gap: 5px; padding: 14px 16px; border-radius: var(--r-20); border-bottom-left-radius: 6px; background: var(--surface); box-shadow: 0 0 0 1px var(--line); }
+.xy-dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); animation: xy-dot 1.2s ease-in-out infinite; }
+.xy-dots i:nth-child(2) { animation-delay: .18s; }
+.xy-dots i:nth-child(3) { animation-delay: .36s; }
+@keyframes xy-dot { 0%, 100% { opacity: .3; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-3px); } }
+.xy-status:empty { display: none; }
+.xy-status { color: var(--muted-strong); }
+/* Voice card: shows how 小游 is listening right now. */
+.xy-voice[hidden] { display: none; }
+.xy-voice { display: flex; align-items: center; gap: var(--sp-12); padding: 10px 12px; border-radius: var(--r-16); background: var(--accent-soft); color: var(--ink); }
+.xy-voice__icon { flex: none; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--accent); color: #fff; animation: xy-pulse 1.4s ease-out infinite; }
+.xy-voice__copy { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.xy-voice__copy strong { font-size: var(--fs-15); }
+.xy-voice__copy .t-small { color: var(--body); }
+.xy-voice .btn { flex: none; }
+:root[data-motion='reduced'] .xy-voice__icon { animation: none; }
+.xy-chips { margin: 0; padding: 0; }
+.xy-composer { align-items: flex-end; }
+.xy-input { flex: 1; min-height: 48px; max-height: 120px; resize: none; padding-top: 12px; line-height: 1.4; }
+.xy-mic { flex: none; color: var(--ink); }
+.xy-mic.is-on { background: var(--accent); color: #fff; animation: xy-pulse 1.4s ease-out infinite; }
+@keyframes xy-pulse { 0% { box-shadow: 0 0 0 0 rgba(178, 74, 44, .45); } 100% { box-shadow: 0 0 0 14px rgba(178, 74, 44, 0); } }
+.xy-composer .composer__send:disabled { opacity: .4; }
+:root[data-sky='night'] .xy-hello { background: linear-gradient(#2A313B, var(--paper)); }
+
+/* ---------- character parts (shared with assistant-mascot.js) ---------- */
+svg.xy { display: block; width: 100%; height: auto; overflow: visible; }
+svg.xy :is(.p-all, .p-body, .p-armL, .p-armR, .p-head, .p-shadow, .p-tail, .eyes, .mouth, .pr-pin, .pr-spark g, .pr-heart g) { transform-box: fill-box; }
+svg.xy .p-all, svg.xy .p-body { transform-origin: 50% 100%; }
+svg.xy .p-armL { transform-origin: 85% 18%; }
+svg.xy .p-armR { transform-origin: 15% 18%; }
+svg.xy .p-head { transform-origin: 50% 92%; }
+svg.xy .p-tail { transform-origin: 20% 0%; }
+svg.xy .p-shadow, svg.xy .eyes, svg.xy .pr-spark g, svg.xy .pr-heart g { transform-origin: 50% 50%; }
+svg.xy .mouth { transform-origin: 50% 35%; }
+svg.xy .eye, svg.xy .mouth, svg.xy .brow, svg.xy .prop { display: none; }
+svg.xy[data-e=normal] .e-normal, svg.xy[data-e=happy] .e-happy, svg.xy[data-e=wink] .e-wink, svg.xy[data-e=surprised] .e-round, svg.xy[data-e=excited] .e-star, svg.xy[data-e=love] .e-heart, svg.xy[data-e=thinking] .e-look, svg.xy[data-e=sleepy] .e-sleepy, svg.xy[data-e=sorry] .e-normal, svg.xy[data-e=proud] .e-happy { display: inline; }
+svg.xy[data-e=normal] .m-smile, svg.xy[data-e=happy] .m-grin, svg.xy[data-e=wink] .m-smile, svg.xy[data-e=surprised] .m-o, svg.xy[data-e=excited] .m-grin, svg.xy[data-e=love] .m-smile, svg.xy[data-e=thinking] .m-flat, svg.xy[data-e=sleepy] .m-o-small, svg.xy[data-e=sorry] .m-sad, svg.xy[data-e=proud] .m-smirk { display: inline; }
+svg.xy[data-e=sorry] .b-sad, svg.xy[data-e=surprised] .b-up, svg.xy[data-e=thinking] .b-think, svg.xy[data-e=proud] .b-proud { display: inline; }
+svg.xy[data-e=sorry] .blush { opacity: .45; }
+svg.xy[data-a=think] .pr-dots, svg.xy[data-a=guide] .pr-pin, svg.xy[data-a=listen] .pr-wave, svg.xy[data-a=cheer] .pr-spark, svg.xy[data-e=excited] .pr-spark, svg.xy[data-e=love] .pr-heart { display: inline; }
+svg.xy[data-a=guide] .p-armR { transform: rotate(-96deg); }
+/* Small sizes keep only face, hat and scarf. */
+svg.xy--avatar :is(.p-armL, .p-armR, .p-shadow, .prop) { display: none; }
+svg.xy .p-armL, svg.xy .p-armR, svg.xy .p-head, svg.xy .p-all { transition: transform .38s var(--ease-snap); }
+svg.xy.is-live .p-tail { animation: xy-tail 3.2s ease-in-out infinite; }
+svg.xy.is-live .eyes { animation: xy-blink 5.2s infinite; }
+svg.xy.is-live:is([data-e=sleepy], [data-e=happy], [data-e=proud], [data-e=love], [data-e=excited]) .eyes { animation: none; }
+svg.xy.is-live[data-a=idle] .p-body { animation: xy-breathe 3.6s ease-in-out infinite; }
+svg.xy.is-live[data-a=idle] .p-head { animation: xy-sway 7s ease-in-out infinite; }
+svg.xy.is-live[data-a=wave] .p-armR { animation: xy-wave 1.1s cubic-bezier(.45, 0, .2, 1) infinite; }
+svg.xy.is-live[data-a=talk] .mouth { animation: xy-talk .38s steps(2) infinite; }
+svg.xy.is-live[data-a=talk] .p-head, svg.xy.is-live[data-a=listen] .p-head { animation: xy-tilt 2.4s ease-in-out infinite; }
+svg.xy.is-live[data-a=think] .p-head { animation: xy-ponder 3.4s ease-in-out infinite; }
+svg.xy.is-live[data-a=think] .pr-dots circle { animation: xy-dot 1.6s ease-in-out infinite; }
+svg.xy.is-live[data-a=think] .pr-dots circle:nth-child(2) { animation-delay: .25s; }
+svg.xy.is-live[data-a=think] .pr-dots circle:nth-child(3) { animation-delay: .5s; }
+svg.xy.is-live[data-a=nod] .p-head { animation: xy-nod 1.1s cubic-bezier(.45, 0, .2, 1) infinite; }
+svg.xy.is-live[data-a=guide] .pr-pin { animation: xy-float 1.5s cubic-bezier(.45, 0, .2, 1) infinite; }
+svg.xy.is-live:is([data-a=jump], [data-a=cheer]) .p-all { animation: xy-jump 1.15s cubic-bezier(.3, 0, .2, 1) infinite; }
+svg.xy.is-live .pr-spark g { animation: xy-twinkle 1.4s ease-in-out infinite; }
+svg.xy.is-live .pr-spark g:nth-child(2) { animation-delay: .5s; }
+svg.xy.is-live .pr-heart g { animation: xy-float 2.4s ease-in-out infinite; }
+@keyframes xy-breathe { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.018, .985); } }
+@keyframes xy-sway { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(-2.5deg); } 70% { transform: rotate(2deg); } }
+@keyframes xy-tail { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(7deg); } }
+@keyframes xy-blink { 0%, 93%, 100% { transform: scaleY(1); } 95.5% { transform: scaleY(.08); } }
+@keyframes xy-wave { 0%, 100% { transform: rotate(-104deg); } 45% { transform: rotate(-140deg); } }
+@keyframes xy-talk { 0% { transform: scaleY(1); } 50% { transform: scaleY(.45); } }
+@keyframes xy-tilt { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(5deg); } }
+@keyframes xy-ponder { 0%, 100% { transform: rotate(-8deg); } 50% { transform: rotate(-4deg); } }
+@keyframes xy-nod { 0%, 100% { transform: rotate(0) translateY(0); } 35% { transform: rotate(3deg) translateY(5px); } 65% { transform: rotate(0) translateY(0); } }
+@keyframes xy-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+@keyframes xy-jump { 0%, 100% { transform: translateY(0) scale(1, 1); } 14% { transform: scale(1.07, .9); } 44% { transform: translateY(-30px) scale(.95, 1.06); } 62% { transform: translateY(-30px); } 82% { transform: scale(1.06, .93); } }
+@keyframes xy-twinkle { 0%, 100% { opacity: .15; transform: scale(.6); } 50% { opacity: 1; transform: scale(1.1); } }
+
+:root[data-motion='reduced'] svg.xy *, :root[data-motion='reduced'] .xy-dots i, :root[data-motion='reduced'] .xy-mic.is-on { animation: none !important; transition: none !important; }
+@media (prefers-reduced-motion: reduce) { svg.xy *, .xy-dots i, .xy-mic.is-on { animation: none !important; transition: none !important; } }
+@media (forced-colors: active) { .xy-fab { border: 2px solid CanvasText; } .xy-ring circle { stroke: Highlight; } }
