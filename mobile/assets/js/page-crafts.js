@@ -32,7 +32,7 @@ export function renderCrafts(root) {
     `}
     <p class="note t-small">${te('craft3d.files.note')}</p>
   </section>`;
-  root.querySelector('[data-back]').addEventListener('click', () => back('you'));
+  root.querySelector('[data-back]').addEventListener('click', () => back('workshop'));
   root.querySelector('[data-signin]')?.addEventListener('click', () => openLogin());
   root.querySelector('[data-create]')?.addEventListener('click', () => go('craft/new'));
   const page = root.querySelector('.page--crafts');

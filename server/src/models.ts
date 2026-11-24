@@ -124,6 +124,17 @@ async function decodeGLB(bytes: Buffer): Promise<Triangle[]> {
   }
   return triangles;
 }
+/** Gallery uploads: the same safe static-GLB structure rules, with bounds but no print/manifold requirement. */
+export async function inspectGlb(glb: Buffer) {
+  const triangles = await decodeGLB(glb);
+  check(triangles.length >= 4, 'MODEL_TRIANGLE_LIMIT');
+  const min = [Infinity, Infinity, Infinity], max = [-Infinity, -Infinity, -Infinity];
+  for (const triangle of triangles) for (const p of triangle) for (let axis = 0; axis < 3; axis++) {
+    check(Number.isFinite(p[axis]) && Math.abs(p[axis]) <= 1000, 'MODEL_NONFINITE_OR_BOUNDS');
+    min[axis] = Math.min(min[axis], p[axis]); max[axis] = Math.max(max[axis], p[axis]);
+  }
+  return { triangles: triangles.length, dimensions: max.map((value, i) => value - min[i]) };
+}
 export async function validateArtifacts(glb: Buffer, stl: Buffer, metadata: Metadata) {
   const glbTriangles = await decodeGLB(glb), stlTriangles = decodeSTL(stl);
   const a = meshInfo(glbTriangles), b = meshInfo(stlTriangles);

@@ -1,10 +1,14 @@
 // Along mobile — 小游 assistant logic without DOM: action whitelist, the long-press gesture
 // and the one-time friends filter hand-off. Kept pure so it can be tested in Node.
 
+// Pages the AI may open: the server's OPEN_ROUTES, kept the same on both sides.
 export const ASSISTANT_ROUTES = ['trip', 'friends', 'stories', 'you', 'support', 'map', 'crafts', 'saved', 'orders', 'studio',
   'wallet', 'social', 'profile', 'library', 'make-orders', 'apply', 'craft-new'];
+// Pages a plain command on the phone can open as well. These are newer than the server, so an
+// AI answer cannot point at them, but "美食" or "where to eat" still opens them at once.
+export const LOCAL_ROUTES = [...ASSISTANT_ROUTES, 'travel', 'workshop', 'points', 'beads', 'clay-new', 'gallery'];
 // Most routes are their own path; these few live elsewhere.
-const ROUTE_PATHS = { profile: 'u/me', 'craft-new': 'craft/new' };
+const ROUTE_PATHS = { profile: 'u/me', 'craft-new': 'craft/new', 'clay-new': 'clay/new' };
 export const routePath = (route) => ROUTE_PATHS[route] || route;
 // Actions that move to another page, so they can be carried out at once.
 export const NAVIGATING = new Set(['open', 'place', 'directions', 'guide', 'friends']);

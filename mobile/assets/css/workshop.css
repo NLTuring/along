@@ -1,0 +1,376 @@
+/* Along — the craft workshop: home bench, points, perler beads, the clay bench and the gallery.
+   A wooden-table-and-paper look: kraft card, pinned labels, glazed clay swatches, framed prints.
+   Colours come from tokens.css plus a few clay and kraft tones; no glow, no gradients on text. */
+
+:root {
+  --kraft: #e6d6bb;
+  --kraft-deep: #cfb994;
+  --kraft-ink: #5a4630;
+  --terracotta: #b8673f;
+  --clay-body: #c98a5e;
+  --glaze-sage: #8f9a7a;
+  --wood: #d9c4a3;
+  --stitch: rgba(90, 70, 48, .35);
+}
+
+/* ---------- workshop home ---------- */
+
+.workshop { gap: var(--sp-20); }
+.workshop__head { display: flex; flex-direction: column; gap: var(--sp-8); }
+.workshop__eyebrow {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--fs-13);
+  color: var(--terracotta);
+  letter-spacing: .02em;
+}
+.workshop__title { font-family: var(--font-serif); }
+
+/* The points pouch: a stitched kraft tag. */
+.pouch {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-12);
+  width: 100%;
+  padding: var(--sp-12) var(--sp-16);
+  border: 0;
+  border-radius: var(--r-16);
+  background: var(--kraft);
+  color: var(--kraft-ink);
+  text-align: left;
+  box-shadow: inset 0 0 0 1.5px var(--kraft-deep), 0 1px 0 rgba(60, 42, 20, .08);
+  position: relative;
+}
+.pouch::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1.5px dashed var(--stitch);
+  border-radius: 12px;
+  pointer-events: none;
+}
+.pouch__coin {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: 50%;
+  background: #f4e7cd;
+  color: var(--terracotta);
+  box-shadow: inset 0 -2px 0 rgba(90, 70, 48, .18);
+}
+.pouch__text { display: flex; flex-direction: column; flex: 1 1 auto; min-width: 0; }
+.pouch__text strong { font-size: var(--fs-16); font-variant-numeric: tabular-nums; color: var(--ink); }
+.pouch__text small { font-size: var(--fs-12); color: var(--kraft-ink); }
+.pouch__go { display: inline-flex; align-items: center; gap: 2px; font-size: var(--fs-13); font-weight: 600; color: var(--terracotta); }
+
+/* The bench: four paper cards pinned at slightly different angles. */
+.bench { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-16) var(--sp-12); }
+.bench__item { transform: rotate(var(--tilt, 0deg)); }
+.bench__card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-4);
+  width: 100%;
+  min-height: 188px;
+  padding: var(--sp-20) var(--sp-12) var(--sp-12);
+  border: 0;
+  border-radius: 6px 6px 14px 14px;
+  background: var(--surface);
+  color: var(--ink);
+  text-align: left;
+  position: relative;
+  box-shadow: 0 1px 0 rgba(60, 42, 20, .06), 0 6px 14px rgba(60, 42, 20, .09);
+  transition: transform var(--t-press) var(--ease-snap);
+}
+.bench__card:active { transform: translateY(2px); }
+/* A strip of masking tape holding each card to the bench. */
+.bench__card::before {
+  content: '';
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  width: 58px;
+  height: 18px;
+  transform: translateX(-50%) rotate(-3deg);
+  background: rgba(230, 214, 187, .88);
+  box-shadow: 0 1px 1px rgba(60, 42, 20, .1);
+}
+.bench__num { font-family: var(--font-serif); font-size: var(--fs-12); color: var(--muted-strong); }
+.bench__icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  margin: var(--sp-4) 0;
+  border-radius: 42% 58% 52% 48% / 55% 45% 55% 45%;
+}
+.bench__item--terracotta .bench__icon { background: #f1dccf; color: var(--terracotta); }
+.bench__item--sage .bench__icon { background: #e3e8db; color: #4f5e48; }
+.bench__item--clay .bench__icon { background: #efdcc8; color: #8a5634; }
+.bench__item--ink .bench__icon { background: #e7e2d8; color: var(--ink); }
+.bench__name { font-family: var(--font-serif); font-size: var(--fs-16); line-height: 1.25; }
+.bench__desc { font-size: var(--fs-12); color: var(--muted-strong); line-height: 1.4; flex: 1 1 auto; }
+.bench__price {
+  margin-top: var(--sp-4);
+  padding: 1px 8px;
+  border: 1.5px solid currentColor;
+  border-radius: var(--r-pill);
+  font-size: var(--fs-11);
+  font-weight: 700;
+  color: var(--terracotta);
+}
+.bench__item--sage .bench__price { color: #4f5e48; }
+.bench__item--ink .bench__price { color: var(--muted-strong); border-style: dashed; }
+
+.workshop__mine { display: flex; flex-direction: column; gap: var(--sp-12); }
+.workshop__links { display: flex; flex-wrap: wrap; gap: var(--sp-16); }
+.workshop__credit { font-size: var(--fs-12); }
+.clay-shelf { list-style: none; margin: 0; padding: 0 0 var(--sp-4); display: flex; gap: var(--sp-12); overflow-x: auto; scroll-snap-type: x mandatory; }
+.clay-shelf > li { flex: 0 0 112px; scroll-snap-align: start; }
+.clay-shelf__item { display: flex; flex-direction: column; gap: 2px; width: 100%; padding: 0; border: 0; background: none; color: var(--ink); text-align: left; }
+.clay-shelf__item img, .clay-shelf__blank { width: 112px; height: 112px; border-radius: var(--r-12); object-fit: cover; background: var(--wood); }
+.clay-shelf__blank { display: grid; place-items: center; color: #8a5634; }
+.clay-shelf__name { font-size: var(--fs-13); font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.clay-shelf__item small { font-size: var(--fs-11); color: var(--muted-strong); }
+
+/* ---------- points ---------- */
+
+.points-page { gap: var(--sp-16); }
+.points-card {
+  padding: var(--sp-20);
+  border-radius: var(--r-20);
+  background: var(--kraft);
+  color: var(--kraft-ink);
+  box-shadow: inset 0 0 0 1.5px var(--kraft-deep);
+  position: relative;
+}
+.points-card::after { content: ''; position: absolute; inset: 6px; border: 1.5px dashed var(--stitch); border-radius: 15px; pointer-events: none; }
+.points-card__label { font-size: var(--fs-13); }
+.points-card__value { font-family: var(--font-serif); font-size: 44px; line-height: 1.1; color: var(--ink); }
+.points-card__value small { margin-left: 6px; font-family: var(--font-sans); font-size: var(--fs-15); color: var(--kraft-ink); }
+.points-card__grant { display: flex; align-items: center; gap: 6px; margin-top: var(--sp-8); font-size: var(--fs-13); }
+.points-card__local { margin-top: var(--sp-8); font-size: var(--fs-12); }
+.tiers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-12); }
+.tier {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: var(--sp-16) var(--sp-12);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-16);
+  background: var(--surface);
+  color: var(--ink);
+  text-align: left;
+  position: relative;
+}
+.tier--bonus { border-color: var(--terracotta); }
+/* The better-value tier wears a paper ribbon, not a glow. */
+.tier--bonus::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  right: 14px;
+  width: 14px;
+  height: 22px;
+  background: var(--terracotta);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 72%, 0 100%);
+}
+.tier__yuan { font-family: var(--font-serif); font-size: var(--fs-26); }
+.tier__points { font-size: var(--fs-15); font-weight: 600; }
+.tier__bonus { font-size: var(--fs-12); font-weight: 700; color: var(--terracotta); }
+.tier__bonus--plain { color: var(--muted-strong); font-weight: 400; }
+.tier__each { font-size: var(--fs-11); color: var(--muted-strong); }
+.price-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.price-list > li { display: flex; justify-content: space-between; gap: var(--sp-12); padding: var(--sp-8) 0; border-bottom: 1px dotted var(--line); font-size: var(--fs-15); }
+.price-list__total { font-weight: 700; border-bottom: 0 !important; }
+.ledger { list-style: none; margin: 0; padding: 0; }
+.ledger__row { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-12); padding: var(--sp-12) 0; border-bottom: 1px solid var(--line); }
+.ledger__what { display: flex; flex-direction: column; min-width: 0; }
+.ledger__what small { font-size: var(--fs-12); color: var(--muted-strong); }
+.ledger__delta { font-weight: 700; font-size: var(--fs-16); }
+.ledger__delta.is-in { color: #4f5e48; }
+.ledger__delta.is-out { color: var(--body); }
+.points-receipt { display: flex; flex-direction: column; gap: var(--sp-8); padding: var(--sp-16); border-radius: var(--r-12); background: var(--paper); border: 1px dashed var(--kraft-deep); }
+.points-receipt__item { font-family: var(--font-serif); font-size: var(--fs-16); color: var(--ink); }
+.points-receipt__line { display: flex; justify-content: space-between; font-size: var(--fs-15); }
+.points-receipt__line--after { padding-top: var(--sp-8); border-top: 1px dotted var(--kraft-deep); }
+.points-short { color: var(--danger); }
+.consent { display: flex; align-items: flex-start; gap: var(--sp-8); font-size: var(--fs-13); color: var(--body); }
+.consent input { margin-top: 3px; accent-color: var(--terracotta); }
+
+/* ---------- perler beads ---------- */
+
+.beads-page { gap: var(--sp-16); }
+.bead-board {
+  position: relative;
+  padding: var(--sp-12);
+  border-radius: var(--r-16);
+  background: var(--wood);
+  box-shadow: inset 0 2px 4px rgba(60, 42, 20, .12);
+  overflow: auto;
+}
+.bead-board canvas { display: block; max-width: 100%; height: auto; margin: 0 auto; border-radius: 4px; image-rendering: auto; }
+.bead-board__lock {
+  position: absolute;
+  left: 50%;
+  bottom: var(--sp-16);
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--r-pill);
+  background: rgba(255, 253, 248, .92);
+  font-size: var(--fs-12);
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.bead-controls { display: flex; flex-direction: column; gap: var(--sp-12); }
+.bead-facts { line-height: 1.6; }
+.bead-card { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 0; }
+.bead-card > li { display: grid; grid-template-columns: 26px 26px 1fr auto; align-items: center; gap: var(--sp-8); padding: 6px 0; border-bottom: 1px dotted var(--line); font-size: var(--fs-13); }
+.bead-dot { width: 20px; height: 20px; border-radius: 50%; background: var(--bead); box-shadow: inset 0 0 0 5px rgba(0, 0, 0, .0), inset 0 0 0 1px rgba(27, 24, 19, .15); position: relative; }
+.bead-dot::after { content: ''; position: absolute; inset: 7px; border-radius: 50%; background: rgba(0, 0, 0, .2); }
+.bead-card__n { color: var(--muted-strong); font-weight: 600; }
+.kit-option { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--sp-12); padding: var(--sp-12); border: 1.5px solid var(--line); border-radius: var(--r-12); }
+.kit-option:has(input:checked) { border-color: var(--terracotta); background: #fbf3ec; }
+.kit-option span { display: flex; flex-direction: column; }
+.kit-option small { font-size: var(--fs-12); color: var(--muted-strong); }
+.kit-option input { accent-color: var(--terracotta); }
+.bead-order { display: flex; flex-direction: column; gap: 4px; }
+.bead-order__head { display: flex; justify-content: space-between; align-items: center; }
+
+/* ---------- clay bench ---------- */
+
+.clay-page { gap: var(--sp-16); }
+.clay-starts { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-12); }
+.clay-start {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  width: 100%;
+  padding: var(--sp-12);
+  border: 0;
+  border-radius: var(--r-16);
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--line);
+  color: var(--ink);
+  text-align: left;
+}
+.clay-start small { font-size: var(--fs-12); color: var(--muted-strong); }
+/* Each starting shape drawn in CSS as a glazed lump of clay on a plate. */
+.clay-start__art { position: relative; width: 100%; height: 92px; margin-bottom: var(--sp-8); border-radius: var(--r-12); background: var(--wood); overflow: hidden; }
+.clay-start__art::before { content: ''; position: absolute; left: 50%; bottom: 10px; width: 70%; height: 12px; transform: translateX(-50%); border-radius: 50%; background: rgba(90, 70, 48, .18); }
+.clay-start__art::after { content: ''; position: absolute; left: 50%; transform: translateX(-50%); background: radial-gradient(circle at 35% 30%, #e2ad86, var(--clay-body) 55%, #a8683f); }
+.clay-start__art--lump::after { bottom: 16px; width: 64px; height: 46px; border-radius: 52% 48% 46% 54% / 62% 60% 40% 38%; }
+.clay-start__art--tile::after { bottom: 14px; width: 60px; height: 60px; border-radius: 50%; box-shadow: inset 0 -5px 0 rgba(90, 50, 30, .25); }
+.clay-start__art--cup::after { bottom: 16px; width: 44px; height: 54px; border-radius: 6px 6px 14px 14px; box-shadow: inset 0 6px 0 rgba(90, 50, 30, .35); }
+.clay-start__art--hut::after { bottom: 16px; width: 54px; height: 56px; clip-path: polygon(50% 0, 100% 42%, 92% 42%, 92% 100%, 8% 100%, 8% 42%, 0 42%); }
+.clay-ai { display: flex; flex-direction: column; gap: var(--sp-8); padding: var(--sp-16); border-radius: var(--r-16); border: 1.5px dashed var(--kraft-deep); background: #faf4ea; }
+.clay-ai h2 { display: flex; align-items: center; gap: 6px; }
+.clay-ai__pick.is-disabled { opacity: .5; pointer-events: none; }
+.ai-jobs { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.ai-job { display: flex; justify-content: space-between; align-items: center; gap: var(--sp-8); font-size: var(--fs-13); }
+.ai-progress { display: flex; flex-direction: column; gap: 4px; font-size: var(--fs-13); }
+.ai-progress progress { width: 100%; accent-color: var(--terracotta); }
+
+/* The stage: a wooden turntable under a window. */
+.clay-stage {
+  position: relative;
+  height: min(58vh, 460px);
+  margin: 0 calc(var(--page-x) * -1);
+  background: linear-gradient(180deg, #efe6d6 0%, #e8dcc6 62%, var(--wood) 62.2%, #cdb48c 100%);
+  overflow: hidden;
+}
+.clay-canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+.clay-stage__loading { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--font-serif); font-style: italic; color: var(--kraft-ink); padding: var(--sp-16); text-align: center; }
+.clay-help { margin: 0; }
+.clay-tools { display: flex; flex-direction: column; gap: var(--sp-12); }
+.clay-brushes { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; }
+.clay-brush { position: relative; }
+.clay-brush input { position: absolute; opacity: 0; inset: 0; margin: 0; }
+.clay-brush span { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 2px 6px; border-radius: var(--r-12); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); color: var(--body); }
+.clay-brush small { font-size: var(--fs-11); font-weight: 600; }
+.clay-brush input:checked + span { background: #f1dccf; box-shadow: inset 0 0 0 1.5px var(--terracotta); color: #8a3e22; }
+.clay-brush input:focus-visible + span { outline: 2px solid var(--ink); outline-offset: 2px; }
+.clay-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-8) var(--sp-12); }
+.clay-row .icon-btn[disabled] { opacity: .35; }
+.clay-row .icon-btn[aria-pressed='true'] { background: #f1dccf; color: #8a3e22; border-radius: 50%; }
+.clay-slider { display: flex; align-items: center; gap: var(--sp-8); flex: 1 1 140px; font-size: var(--fs-13); color: var(--body); white-space: nowrap; }
+.clay-slider input { flex: 1 1 auto; accent-color: var(--terracotta); }
+.clay-colors { display: flex; gap: var(--sp-8); }
+.clay-color { position: relative; }
+.clay-color input { position: absolute; opacity: 0; inset: 0; margin: 0; }
+.clay-color span { display: block; width: 34px; height: 34px; border-radius: 46% 54% 50% 50% / 55% 50% 50% 45%; background: var(--clay); box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .14), 0 0 0 1px rgba(27, 24, 19, .1); }
+.clay-color input:checked + span { box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .14), 0 0 0 2px var(--paper), 0 0 0 4px var(--ink); }
+.clay-color input:focus-visible + span { outline: 2px solid var(--ink); outline-offset: 4px; }
+.clay-photo { display: flex; flex-direction: column; gap: var(--sp-8); padding: var(--sp-16); border-radius: var(--r-16); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); }
+.clay-photo h2 { display: flex; align-items: center; gap: 6px; }
+.clay-actions { display: flex; flex-direction: column; gap: var(--sp-12); padding-bottom: calc(var(--safe-bottom) + var(--sp-24)); }
+
+/* ---------- gallery ---------- */
+
+.gallery-page { gap: var(--sp-16); }
+.gallery-head { display: flex; flex-direction: column; gap: var(--sp-8); }
+.gallery-head .t-title { font-family: var(--font-serif); }
+.gallery-bar { display: flex; flex-direction: column; gap: var(--sp-12); }
+.gallery-bar .chips { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; }
+.gallery-wall { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-20) var(--sp-12); }
+.frame { transform: rotate(var(--tilt, 0deg)); }
+.frame__card { display: flex; flex-direction: column; gap: var(--sp-8); width: 100%; padding: 0; border: 0; background: none; color: var(--ink); text-align: left; }
+/* A wooden frame with a cream mat, like prints in a small shop. */
+.frame__mat {
+  display: block;
+  aspect-ratio: 1;
+  padding: 9px;
+  border-radius: 3px;
+  background: #fbf7ee;
+  box-shadow: 0 0 0 6px #b48d5f, 0 0 0 7px #8b6a43, 0 8px 16px rgba(60, 42, 20, .2);
+  margin: 7px;
+}
+.frame__mat img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.frame__label { display: flex; flex-direction: column; gap: 1px; padding: 0 4px; }
+.frame__label strong { font-family: var(--font-serif); font-size: var(--fs-15); line-height: 1.25; }
+.frame__label small { font-size: var(--fs-11); color: var(--muted-strong); }
+.frame__price { font-size: var(--fs-12); font-weight: 700; color: var(--terracotta); }
+.work { margin: 0; display: flex; flex-direction: column; gap: var(--sp-16); }
+.work__frame { padding: 14px; background: #fbf7ee; box-shadow: 0 0 0 8px #b48d5f, 0 0 0 9px #8b6a43, 0 10px 22px rgba(60, 42, 20, .2); margin: 9px; border-radius: 3px; }
+.work__frame img { display: block; width: 100%; max-height: 52vh; object-fit: contain; }
+.work__frame--small { max-width: 220px; align-self: center; }
+.work__caption { display: flex; flex-direction: column; gap: 4px; }
+.work__caption .t-title { font-family: var(--font-serif); }
+.work__story { white-space: pre-line; }
+.work__buy { display: flex; flex-direction: column; gap: var(--sp-12); padding-bottom: calc(var(--safe-bottom) + var(--sp-24)); }
+.work__price { display: flex; align-items: baseline; gap: var(--sp-8); }
+.work__price .t-num { font-family: var(--font-serif); font-size: var(--fs-26); color: var(--terracotta); }
+.work__price small { font-size: var(--fs-12); color: var(--muted-strong); }
+.gallery-thumb { width: 44px; height: 44px; border-radius: 8px; overflow: hidden; }
+.gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- shared fixes inside the workshop ---------- */
+
+/* Segmented controls here are real radio groups; the input stays focusable but invisible. */
+:is(.workshop, .points-page, .beads-page, .clay-page, .gallery-page) .segmented__item > input {
+  position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer;
+}
+:is(.beads-page, .clay-page, .gallery-page) .segmented { max-width: 100%; }
+:is(.beads-page, .clay-page, .gallery-page) .segmented--compact .segmented__item > span { padding: 0 var(--sp-8); }
+:is(.workshop, .points-page, .beads-page, .clay-page, .gallery-page) { overflow-x: clip; min-width: 0; }
+:is(.beads-page, .clay-page, .gallery-page) > * { min-width: 0; max-width: 100%; }
+.gallery-bar .chips .chip input { position: absolute; opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .bench__item, .frame { transform: none; }
+}
+:root[data-motion='reduced'] .bench__item, :root[data-motion='reduced'] .frame { transform: none; }
+
+/* Bead pictures are pixel art: keep the beads crisp and centred on the mat. */
+.frame__mat--beads img, .work__frame--beads img { object-fit: contain; image-rendering: pixelated; background: #efe7d8; }
+.workshop__desk .row__text small { font-size: var(--fs-12); color: var(--muted-strong); }
+.clay-stage__note { background: rgba(247, 242, 232, .82); }

@@ -1,0 +1,19 @@
+{
+  "community.admin.gallery": "文创画廊",
+  "community.admin.bead-orders": "拼豆材料包",
+  "workshop.admin.price": "解锁价格：{n} 积分",
+  "workshop.admin.remixYes": "允许二创",
+  "workshop.admin.remixNo": "不允许二创",
+  "workshop.admin.remixOf": "二创自另一件作品",
+  "workshop.admin.model": "下载 3D 模型检查",
+  "workshop.admin.demoNote": "拼豆材料包的付款是演示，没有扣钱。地址只用于打包。",
+  "workshop.admin.kit.FULL_KIT": "全套",
+  "workshop.admin.kit.BEADS": "只要豆子",
+  "workshop.admin.beads": "{w} × {h} 图纸，共 {beads} 颗",
+  "workshop.admin.bead.PAID_DEMO": "已付款（演示）",
+  "workshop.admin.bead.PACKING": "打包中",
+  "workshop.admin.bead.SHIPPED": "已寄出",
+  "workshop.admin.bead.CANCELLED": "已取消",
+  "workshop.admin.carrier": "快递公司",
+  "workshop.admin.tracking": "快递单号"
+}

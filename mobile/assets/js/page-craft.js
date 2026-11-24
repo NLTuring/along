@@ -11,6 +11,7 @@ import { createCraft, getCraft, updateCraft, PRODUCTS, SHAPES, variantCacheKey, 
 import { createCraftModel, createMaskEditor } from './craft-model.js';
 import { maskFromRGBA, validMask, fitDimensions } from './craft-geometry.js';
 import { downloadArtifact } from './craft-export.js';
+import { mediaName } from './seed-text.js';
 
 const STEPS = ['photo', 'product', 'shape', 'done'];
 function loadImage(src) {
@@ -36,7 +37,7 @@ export function renderCraft(root, craftId) {
   const topbar = `<header class="topbar"><button class="icon-btn topbar__back" data-back aria-label="${te('common.back')}">${icon('back')}</button><h1 class="t-heading topbar__title">${te('craft.title')}</h1></header>`;
   if (!session || (craftId !== 'new' && (!craft || craft.email !== session.email))) {
     root.innerHTML = `<section class="page page--flow">${topbar}<p class="t-body">${te(session ? 'craft.notfound' : 'craft.signin')}</p><button class="btn btn--primary" data-continue>${te(session ? 'craft.create' : 'you.signin')}</button></section>`;
-    root.querySelector('[data-back]').onclick = () => back('you'); root.querySelector('[data-continue]').onclick = () => session ? go('craft/new') : openLogin(); return;
+    root.querySelector('[data-back]').onclick = () => back('workshop'); root.querySelector('[data-continue]').onclick = () => session ? go('craft/new') : openLogin(); return;
   }
   let step = craft ? (craft.modelStatus === 'GENERATED' ? 3 : 1) : 0;
   let items = [], source = null, image = null, disposed = false, photoRequest = 0, busy = false, jobBusy = false, operation = 0;
@@ -412,7 +413,7 @@ export function renderCraft(root, craftId) {
     $('[data-preview]').hidden = step === 0; $('[data-stepbar]').hidden = step === 0 || step === 3; document.documentElement.dataset.craftStep = name;
     if (step === 0) {
       body.innerHTML = `<p class="note t-small">${te('craft.samples.note')}</p><p class="t-small">${te('craft3d.source.local')}</p><div class="studio-tools"><label class="btn btn--outline studio-tools__add"><input class="sr-only" type="file" accept="image/*" data-files /><span>${te('studio.add')}</span></label><button class="btn btn--text btn--inline" data-samples>${te('craft.samples.add')}</button></div>
-        ${items.length ? `<ul class="photo-grid">${items.map((item) => `<li><button class="photo" data-photo="${esc(item.id)}" aria-label="${esc(item.altKey ? t(item.altKey) : item.alt || t('studio.photo.own'))}"><img src="${esc(urlFor(item))}" alt="" loading="lazy" />${item.sample ? `<span class="photo__tag">${te('studio.sample')}</span>` : ''}</button></li>`).join('')}</ul>` : `<div class="empty"><h3 class="t-heading">${te('studio.empty.title')}</h3><p class="t-body">${te('studio.empty.body')}</p></div>`}`;
+        ${items.length ? `<ul class="photo-grid">${items.map((item) => `<li><button class="photo" data-photo="${esc(item.id)}" aria-label="${esc(mediaName(item))}"><img src="${esc(urlFor(item))}" alt="" loading="lazy" />${item.sample ? `<span class="photo__tag">${te('studio.sample')}</span>` : ''}</button></li>`).join('')}</ul>` : `<div class="empty"><h3 class="t-heading">${te('studio.empty.title')}</h3><p class="t-body">${te('studio.empty.body')}</p></div>`}`;
     } else if (step === 1) {
       body.innerHTML = `<div class="choices">${PRODUCTS.map((p) => choice('data-product', p.id, craft.product === p.id, `<strong>${te(`product.${p.id}`)}</strong><span class="t-small">${te(`craft3d.product.${p.id}`)}</span>`)).join('')}</div><div class="craft-sizes">${[['widthMm', 35, 100], ['heightMm', 40, 120], ['baseMm', 2.4, 6], ['reliefMm', .5, 8]].map(([key, min, max]) => `<label class="field t-small">${te(`craft3d.size.${key}`)}<input class="input" type="number" min="${min}" max="${max}" step="0.1" value="${craft[key]}" data-size="${key}" /></label>`).join('')}</div>`;
     } else if (step === 2) {

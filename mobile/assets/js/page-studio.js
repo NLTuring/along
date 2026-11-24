@@ -10,6 +10,7 @@ import { getSession } from './auth.js';
 import { openLogin } from './login.js';
 import { listMedia, addFiles, addSamples, urlFor } from './media.js';
 import { createFilm, STYLES, DURATIONS, MIN_ASSETS, MAX_ASSETS } from './films.js';
+import { mediaName } from './seed-text.js';
 
 const DRAFT_KEY = 'instrip.studio';
 
@@ -33,7 +34,7 @@ export function renderStudio(root) {
   const save = () => {
     try { sessionStorage.setItem(DRAFT_KEY, JSON.stringify(draft)); } catch { /* forgets on reload */ }
   };
-  const nameOf = (item) => item.altKey ? t(item.altKey) : item.alt || t('studio.photo.own');
+  const nameOf = mediaName;
 
   root.innerHTML = `
     <section class="page page--studio">

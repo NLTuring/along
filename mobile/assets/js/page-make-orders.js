@@ -8,7 +8,7 @@ import { shippingFields, shippingDetail, readShipping } from './inquiry-ui.js';
 export function renderMakeOrders(root, id = null) {
   let disposed = false, inquiry = null, busy = false, request;
   const gate = createRequestGate();
-  root.innerHTML = `<section class="page community-page"><a class="btn btn--text" href="${id ? '#/make-orders' : '#/you'}">${te(id ? 'community.inquiry.myRequests' : 'community.inquiry.backAccount')}</a><div class="community-heading"><h1 class="t-title">${te(id ? 'community.inquiry.detail' : 'community.inquiry.myRequests')}</h1><button class="btn btn--text" data-refresh>${te('community.refresh')}</button></div><p class="note">${te('community.inquiry.noPayment')}</p><div data-body></div><p role="status" data-result></p><p class="field-error" role="alert" data-error></p></section>`;
+  root.innerHTML = `<section class="page community-page"><a class="btn btn--text" href="${id ? '#/make-orders' : '#/workshop'}">${te(id ? 'community.inquiry.myRequests' : 'community.inquiry.backAccount')}</a><div class="community-heading"><h1 class="t-title">${te(id ? 'community.inquiry.detail' : 'community.inquiry.myRequests')}</h1><button class="btn btn--text" data-refresh>${te('community.refresh')}</button></div><p class="note">${te('community.inquiry.noPayment')}</p><div data-body></div><p role="status" data-result></p><p class="field-error" role="alert" data-error></p></section>`;
   const host = root.querySelector('[data-body]'), errors = root.querySelector('[data-error]'), resultText = root.querySelector('[data-result]');
   function paintDetail() {
     const canEdit = ['REQUESTED', 'NEEDS_INFO'].includes(inquiry.status);

@@ -134,7 +134,7 @@
   "community.error.idempotencyKey": "本次请求需要新的提交标识，请刷新表单。",
   "community.inquiry.title": "询问如何制作",
   "community.inquiry.myRequests": "我的制作询价",
-  "community.inquiry.backAccount": "返回我的账号",
+  "community.inquiry.backAccount": "返回文创工坊",
   "community.inquiry.detail": "制作询价详情",
   "community.inquiry.noPayment": "这是人工制作询价，不是付款下单。可制作性、价格及交付时间以实际报价为准，此处不会收款。",
   "community.inquiry.signIn": "登录后访问你的私密模型和制作询价。",

@@ -4,7 +4,8 @@
 // confirmation is stood in for by a button that is labelled as a demo.
 
 import { t, te, esc } from './i18n.js';
-import { usd } from './format.js';
+import { money } from './format.js';
+import { guideText } from './seed-text.js';
 import { icon } from './icons.js';
 import { toast, prefersReducedMotion } from './ui.js';
 import { go, replace, back } from './router.js';
@@ -88,7 +89,7 @@ export function renderCheckout(root, bookingId) {
     if (b.status === 'CONFIRMED') {
       choose();
       const card = usable().find((c) => c.id === cardId);
-      const payLabel = paying ? t('pay.processing') : card ? t('pay.cta', { amount: usd(b.amountCents), brand: brandLabel(card.brand), last4: card.last4 }) : t('pay.cta.choose');
+      const payLabel = paying ? t('pay.processing') : card ? t('pay.cta', { amount: money(b.amountCents), brand: brandLabel(card.brand), last4: card.last4 }) : t('pay.cta.choose');
       return `
         <fieldset class="field-group">
           <legend class="t-label">${te('checkout.how')}</legend>
@@ -111,7 +112,7 @@ export function renderCheckout(root, bookingId) {
         <p class="field-error" role="alert" data-pay-error>${esc(payError)}</p>
         ${method === 'CARD'
           ? `<button class="btn btn--primary" data-pay-card ${card && !paying ? '' : 'disabled'} aria-busy="${paying}" data-track="payment_started">${icon('card', { size: 20 })}<span>${esc(payLabel)}</span></button>`
-          : `<button class="btn btn--primary" data-pay data-track="payment_started">${te('checkout.cta.cash', { amount: usd(b.amountCents) })}</button>`}`;
+          : `<button class="btn btn--primary" data-pay data-track="payment_started">${te('checkout.cta.cash', { amount: money(b.amountCents) })}</button>`}`;
     }
     if (DONE.includes(b.status)) {
       const paidByCard = b.order?.provider === 'CARD' && b.order.mode === 'DEMO';
@@ -149,7 +150,7 @@ export function renderCheckout(root, bookingId) {
       wireCommon();
       return null;
     }
-    const g = guide(b.guideId);
+    const g = guideText(guide(b.guideId));
     root.innerHTML = `
       <section class="page page--flow">
         ${topbar()}
@@ -238,7 +239,7 @@ export function renderCheckout(root, bookingId) {
     if (!b || b.status !== shown.status) { shown = paint(); return; }
     const now = Date.now();
     const wait = root.querySelector('[data-wait]');
-    if (wait) wait.textContent = t('checkout.waiting', { name: guide(b.guideId).name, time: duration(b.expiresAt - now) });
+    if (wait) wait.textContent = t('checkout.waiting', { name: guideText(guide(b.guideId)).name, time: duration(b.expiresAt - now) });
     const payBy = root.querySelector('[data-payby]');
     if (payBy) payBy.textContent = t('checkout.payby', { time: duration(b.payBy - now) });
   }, 30_000);

@@ -9,6 +9,7 @@ import { createNativeMapSession, initNativeMapBridge, isNativeMapAvailable } fro
 import { routeSteps, distanceMeters, distanceParts, durationParts } from './map-guide.js';
 import { tripKeywords, createPlaceCache } from './map-places.js';
 import { windowPlace } from './window-scenes.js';
+import { travelPlace } from './seed-food.js';
 
 export { initNativeMapBridge, isNativeMapAvailable };
 
@@ -20,8 +21,9 @@ const NETWORK_CODES = new Set(['NETWORK_ERROR', 'NETWORK_TIME_OUT', 'ROUTE_TIMEO
 const cityOf = (stop) => stop?.citySlug === 'nanjing' ? '南京' : '上海';
 
 export function renderNativeMap(root, poiId) {
-  // A trip stop, or a place shown in the Trip tab's window; either is found by name once the map is up.
-  const initial = (Object.hasOwn(POIS, poiId) ? POIS[poiId] : null) || windowPlace(poiId);
+  // A trip stop, a place shown in the Trip tab's window, or a restaurant or stay area; each is
+  // found by name once the map is up.
+  const initial = (Object.hasOwn(POIS, poiId) ? POIS[poiId] : null) || windowPlace(poiId) || travelPlace(poiId);
   let city = cityOf(initial);
   let disposed = false, phase = 'idle', session = null;
   let origin = null;       // { id, name, lat, lng, crs, fix } — a native fix or a chosen search result

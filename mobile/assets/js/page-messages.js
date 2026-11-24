@@ -11,6 +11,7 @@ import { getSession } from './auth.js';
 import { openLogin } from './login.js';
 import { guide, getBooking } from './bookings.js';
 import { TZ } from './plan.js';
+import { guideText } from './seed-text.js';
 
 const KEY = 'instrip.threads';
 const MAX_LEN = 500;
@@ -64,7 +65,7 @@ export function renderMessages(root, threadId) {
     return;
   }
 
-  const g = guide(booking.guideId);
+  const g = guideText(guide(booking.guideId));
   const stored = readThreads()[threadId];
   let messages = Array.isArray(stored)
     ? stored.filter((m) => m && typeof m.text === 'string' && Number.isFinite(m.at) && Number.isFinite(new Date(m.at).getTime()))

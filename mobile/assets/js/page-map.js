@@ -7,11 +7,12 @@ import { POIS } from './seed-places.js';
 import { loadBaidu, locate, toBaiduPoint, baiduDirections, geocode, MAP_MODES } from './maps.js';
 import { isNativeMapAvailable, renderNativeMap } from './page-native-map.js';
 import { windowPlace } from './window-scenes.js';
+import { travelPlace } from './seed-food.js';
 
 export function renderMap(root, poiId) {
   if (isNativeMapAvailable()) return renderNativeMap(root, poiId);
-  // A trip stop, or a place shown in the Trip tab's window.
-  const initial = (Object.hasOwn(POIS, poiId) ? POIS[poiId] : null) || windowPlace(poiId);
+  // A trip stop, a place shown in the Trip tab's window, or a restaurant or stay area.
+  const initial = (Object.hasOwn(POIS, poiId) ? POIS[poiId] : null) || windowPlace(poiId) || travelPlace(poiId);
   let city = initial?.citySlug === 'nanjing' ? '南京' : '上海';
   let destination = initial ? { name: initial.nameZh, point: null } : null;
   let origin = null;

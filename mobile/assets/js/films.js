@@ -4,6 +4,7 @@
 // record follows POST /api/films so the real render can replace this later.
 
 import { FILM_STYLES } from './seed-places.js';
+import { captionsFor } from './seed-text.js';
 
 const KEY = 'instrip.films';
 export const MIN_ASSETS = 3;
@@ -56,7 +57,7 @@ export function createFilm({ mediaIds, styleId, duration, email }) {
   const list = readAll();
   const same = list.find((f) => f.key === key);
   if (same) return { ok: true, film: same };
-  const lines = style(styleId).captions;
+  const lines = captionsFor(styleId);
   const film = {
     id: `fl_${crypto.getRandomValues(new Uint32Array(1))[0].toString(36)}`,
     key, email, styleId, duration,

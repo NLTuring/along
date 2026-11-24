@@ -2,7 +2,7 @@
 // the status stamp and the ticket.
 
 import { t, te, esc } from './i18n.js';
-import { usd, dateShort } from './format.js';
+import { money, dateShort } from './format.js';
 import { endTime, TZ } from './plan.js';
 import { HALF_DAY_MIN } from './bookings.js';
 
@@ -47,9 +47,9 @@ export function ticketHtml(booking, g) {
         <div class="ticket__stamp" aria-live="polite">${stampHtml(booking.status)}</div>
       </div>
       <dl class="ticket__price t-num">
-        <div><dt>${te('checkout.guide')}</dt><dd>${booking.guideCents === 0 ? te('plan.free') : esc(usd(booking.guideCents))}</dd></div>
-        <div><dt>${te('checkout.fee')}</dt><dd>${esc(usd(booking.feeCents))}</dd></div>
-        <div class="ticket__total"><dt>${te('checkout.total')}</dt><dd>${esc(usd(booking.amountCents))}</dd></div>
+        <div><dt>${te('checkout.guide')}</dt><dd>${booking.guideCents === 0 ? te('plan.free') : esc(money(booking.guideCents))}</dd></div>
+        <div><dt>${te('checkout.fee')}</dt><dd>${esc(money(booking.feeCents))}</dd></div>
+        <div class="ticket__total"><dt>${te('checkout.total')}</dt><dd>${esc(money(booking.amountCents))}</dd></div>
       </dl>
     </article>`;
 }

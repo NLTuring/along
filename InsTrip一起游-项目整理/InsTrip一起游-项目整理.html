@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>InsTrip 一起游 · 项目整理</title>
+<style>
+@font-face{font-family:"MiSans";src:url(assets/fonts/MiSans-Light.woff2) format("woff2");font-weight:300}
+@font-face{font-family:"MiSans";src:url(assets/fonts/MiSans-Regular.woff2) format("woff2");font-weight:400}
+@font-face{font-family:"MiSans";src:url(assets/fonts/MiSans-Demibold.woff2) format("woff2");font-weight:600}
+@font-face{font-family:"MiSans";src:url(assets/fonts/MiSans-Bold.woff2) format("woff2");font-weight:700}
+@page{size:210mm 297mm;margin:0}
+:root{--ink:#1f2b25;--green:#4e6c5d;--deep:#24362d;--muted:#7a877f;--paper:#f4f6f2;--card:#ffffff;--line:#d9e0db;--tint:#e6ede8;--warm:#b28f4a;--warm-tint:#f4ede0}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{margin:0;padding:0;width:210mm;background:var(--deep);font-family:"MiSans","Microsoft YaHei",sans-serif;color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact;line-break:strict}
+.page{width:210mm;height:297mm;background:var(--paper);padding:14mm 16mm 10mm;display:flex;flex-direction:column;break-after:page;page-break-after:always;position:relative}
+.page:last-child{break-after:auto;page-break-after:auto}
+.top{display:flex;justify-content:space-between;align-items:center;font-size:7.5pt;color:var(--muted);letter-spacing:.12em;padding-bottom:4mm;border-bottom:.5px solid var(--line);margin-bottom:7mm}
+.top .brand{display:flex;align-items:center;gap:2mm;color:var(--ink);font-weight:600;letter-spacing:.02em;font-size:8.5pt}
+.top .brand img{height:4mm}
+.foot{margin-top:auto;display:flex;justify-content:space-between;font-size:7.5pt;color:var(--muted);padding-top:3mm;border-top:.5px solid var(--line)}
+.kicker{font-size:8pt;letter-spacing:.2em;color:var(--green);font-weight:600;margin-bottom:2mm}
+h1{font-size:23pt;line-height:1.28;font-weight:700}
+h2{font-size:12.5pt;font-weight:600;margin-bottom:2.5mm;line-height:1.35}
+h3{font-size:10.5pt;font-weight:600;margin-bottom:1.2mm;line-height:1.4}
+p,li{font-size:9.5pt;line-height:1.7}
+ul{padding-left:4.5mm}
+.lead{font-size:10.5pt;line-height:1.75;color:#3b4943;margin-top:3mm}
+.small{font-size:8pt;line-height:1.6;color:var(--muted)}
+.cap{font-size:7.5pt;line-height:1.5;color:var(--muted);margin-top:1.5mm}
+.card{background:var(--card);border-radius:3mm;padding:4.5mm 5mm}
+.card.tint{background:var(--tint)}
+.grid{display:grid;gap:4mm}
+.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}.g5{grid-template-columns:repeat(5,1fr)}.g6{grid-template-columns:repeat(6,1fr)}
+.sec{margin-top:6mm}
+.label{font-size:8pt;letter-spacing:.16em;color:var(--muted);font-weight:600;margin-bottom:2.5mm}
+.num{font-size:21pt;font-weight:700;color:var(--green);line-height:1.1}
+.num small{font-size:9pt;font-weight:600;margin-left:.6mm}
+.idx{font-size:8pt;font-weight:700;color:var(--green);letter-spacing:.08em;margin-bottom:1.2mm}
+.tag{display:inline-block;font-size:7.5pt;padding:.5mm 2.2mm;border-radius:10mm;background:var(--tint);color:var(--green);font-weight:600;white-space:nowrap}
+.tag.warm{background:var(--warm-tint);color:#86672b}
+.tag.grey{background:#eceeed;color:var(--muted)}
+img{display:block}
+.img{width:100%;border-radius:2.5mm;object-fit:cover}
+.phone{width:100%;border-radius:2.5mm;border:.35mm solid var(--line);background:#fff}
+.quote{font-size:10pt;line-height:1.75;color:#33413a}
+.who{font-size:8pt;color:var(--muted);margin-top:2mm}
+@media screen{html,body{width:auto;background:#cfd6d1}.page{margin:8mm auto;box-shadow:0 2mm 8mm rgba(0,0,0,.15)}}
+@media screen and (max-width:900px){.page{zoom:.6}}
+</style>
+</head>
+<body>
+<section class="page" style="background:var(--deep);color:#fff;padding:0">
+  <div style="height:168mm;padding:14mm 16mm 0;background:linear-gradient(180deg,rgba(36,54,45,.6) 0%,rgba(36,54,45,0) 30%,rgba(36,54,45,0) 60%,rgba(36,54,45,1) 100%),url(assets/vol-company-photo.jpg) 50% 40%/cover no-repeat">
+    <div style="display:flex;justify-content:space-between;align-items:center;font-size:8pt;letter-spacing:.14em">
+      <div style="display:flex;align-items:center;gap:2.5mm;font-weight:600;letter-spacing:.04em;font-size:10pt"><img src="assets/brand-mark.png" style="height:5.5mm;filter:invert(1)">一起游 InsTrip</div>
+      <div style="opacity:.85">PROJECT DOSSIER · 2026</div>
+    </div>
+  </div>
+  <div style="padding:0 16mm;margin-top:-20mm">
+    <div style="font-size:9pt;letter-spacing:.22em;color:#cfe0d5;font-weight:600">AI 公益伴游与影像文旅平台</div>
+    <div style="font-size:50pt;font-weight:700;line-height:1.12;margin-top:3mm">InsTrip <span style="color:#d8e8c9">一起游</span></div>
+    <div style="font-size:17pt;font-weight:600;margin-top:4mm">让每一次出发，都有人陪伴。</div>
+    <p style="font-size:10.5pt;line-height:1.8;color:#dbe5df;margin-top:5mm;max-width:150mm">面向老年人、残障人士及行动不便群体：高校青年志愿者伴游，高校与文旅单位协同；影石镜头记录旅途，用 AI 把一次同行整理成可回看的故事与可带走的文创纪念。</p>
+    <div style="display:flex;gap:2.5mm;margin-top:6mm">
+      <span class="tag" style="background:#3d5a4b;color:#e7f0ea">公益伴游</span>
+      <span class="tag" style="background:#3d5a4b;color:#e7f0ea">影像文旅</span>
+      <span class="tag" style="background:#3d5a4b;color:#e7f0ea">适老出行</span>
+      <span class="tag" style="background:#3d5a4b;color:#e7f0ea">AI 文创</span>
+    </div>
+  </div>
+  <div style="margin:auto 16mm 14mm;display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:6mm;border-top:.5px solid rgba(255,255,255,.3);padding-top:5mm;font-size:8.5pt;line-height:1.7;color:#dbe5df">
+    <div><div style="color:#9fb8a9;font-size:7.5pt;letter-spacing:.14em">赛事</div>2026 影石 Bold Maker 智能影像挑战赛<br>赛道三 · AI + 社会公益</div>
+    <div><div style="color:#9fb8a9;font-size:7.5pt;letter-spacing:.14em">团队</div>Rank8848 · 高校青年团队 4 人<br>陈健男 孙国豪 王广运 张厚立</div>
+    <div><div style="color:#9fb8a9;font-size:7.5pt;letter-spacing:.14em">作品形态</div>Android 应用 v2.7.0<br>Web 展示站 + 三维文创</div>
+  </div>
+</section>
+<section class="page">
+  <div class="top"><div class="brand"><img src="assets/brand-mark.png">一起游 InsTrip</div><div>CONTENTS · 目录</div></div>
+  <div class="kicker">PROJECT AT A GLANCE</div>
+  <h1>一页看懂一起游。</h1>
+  <p class="lead">InsTrip 一起游从南京开始，把“有人陪着出门”做成一套可以预约、可以商量、可以回看的产品：手机上安排行程、找到同行的志愿者；旅途中用影石相机记录；回来后用 AI 把照片整理成故事，再做成冰箱贴或钥匙扣。</p>
+
+  <div class="grid g4 sec">
+    <div class="card"><div class="num">24<small>个</small></div><p class="small">南京内置地点</p></div>
+    <div class="card"><div class="num">4<small>条</small></div><p class="small">慢行参考路线，含休息与台阶提示</p></div>
+    <div class="card"><div class="num">12<small>件</small></div><p class="small">三维文创：6 冰箱贴 / 6 钥匙扣</p></div>
+    <div class="card"><div class="num">44<small>份</small></div><p class="small">主题档案，分 5 个主题</p></div>
+    <div class="card"><div class="num">312<small>/312</small></div><p class="small">v2.7 前端与服务端自动检查通过</p></div>
+    <div class="card"><div class="num">9<small>张</small></div><p class="small">真实安装包界面截图，未做美化</p></div>
+    <div class="card"><div class="num">216<small>文件</small></div><p class="small">展示站 116.5 MB，附 sha256 清单</p></div>
+    <div class="card"><div class="num">4<small>人</small></div><p class="small">高校青年团队 Rank8848</p></div>
+  </div>
+
+  <div class="sec" style="display:grid;grid-template-columns:1fr 1fr;gap:0 10mm">
+    <div>
+      <div class="label">目录</div>
+      <table style="width:100%;border-collapse:collapse;font-size:9.5pt;line-height:1.5">
+        <tr><td style="padding:2mm 0;color:var(--green);font-weight:700;width:10mm">01</td><td>为什么做：老龄化背景与政策依据</td><td style="text-align:right;color:var(--muted)">03</td></tr>
+        <tr><td style="padding:2mm 0;color:var(--green);font-weight:700">02</td><td>听见需求：从业者访谈</td><td style="text-align:right;color:var(--muted)">04</td></tr>
+        <tr><td style="padding:2mm 0;color:var(--green);font-weight:700">03</td><td>服务谁、做什么、设计原则</td><td style="text-align:right;color:var(--muted)">05</td></tr>
+        <tr><td style="padding:2mm 0;color:var(--green);font-weight:700">04</td><td>一次同行的三段场景</td><td style="text-align:right;color:var(--muted)">06</td></tr>
+        <tr><td style="padding:2mm 0;color:var(--green);font-weight:700">05</td><td>App 实况：九个真实界面</td><td style="text-align:right;color:var(--muted)">07</td></tr>
+        <tr><td style="padding:2mm 0;color:var(--green);font-weight:700">06</td><td>影石设备与 AI 介入点</td><td style="text-align:right;color:var(--muted)">08</td></tr>
+        <tr><td style="padding:2mm 0;color:var(--green);font-weight:700">07</td><td>旅行文创：从一张照片到三维纪念</td><td style="text-align:right;color:var(--muted)">09</td></tr>
+      </table>
+    </div>
+    <div>
+      <div class="label">&nbsp;</div>
+      <table style="width:100%;border-collapse:collapse;font-size:9.5pt;line-height:1.5">
+        <tr><td style="padding:2mm 0;color:var(--green);font-weight:700;width:10mm">08</td><td>Web 展示站与三维记忆馆</td><td style="text-align:right;color:var(--muted)">10</td></tr>
+        <tr><td style="padding:2mm 0;color:var(--green);font-weight:700">09</td><td>技术架构</td><td style="text-align:right;color:var(--muted)">11</td></tr>
+        <tr><td style="padding:2mm 0;color:var(--green);font-weight:700">10</td><td>开发迭代与验证记录</td><td style="text-align:right;color:var(--muted)">12</td></tr>
+        <tr><td style="padding:2mm 0;color:var(--green);font-weight:700">11</td><td>六个创新点</td><td style="text-align:right;color:var(--muted)">13</td></tr>
+        <tr><td style="padding:2mm 0;color:var(--green);font-weight:700">12</td><td>能力边界：已实现与计划</td><td style="text-align:right;color:var(--muted)">14</td></tr>
+        <tr><td style="padding:2mm 0;color:var(--green);font-weight:700">13</td><td>团队、合作与落地路线</td><td style="text-align:right;color:var(--muted)">15</td></tr>
+        <tr><td style="padding:2mm 0;color:var(--green);font-weight:700">14</td><td>交付清单与资料来源</td><td style="text-align:right;color:var(--muted)">16</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card tint sec">
+    <h3>作品由三部分组成</h3>
+    <p><b>Android 应用</b>：行程、地图、志愿向导、社区、消息、数字藏品与旅行短片，是真正带出门的一端。<b>Web 展示站</b>：产品介绍、三维记忆馆和 44 份档案，双击即可离线打开。<b>内容与文创</b>：12 件 GLB 模型、南京实景与完整来源记录。</p>
+  </div>
+  <div class="foot"><span>Rank8848 · 赛道三 AI + 社会公益</span><span>02</span></div>
+</section>
+<section class="page">
+  <div class="top"><div class="brand"><img src="assets/brand-mark.png">一起游 InsTrip</div><div>01 / WHY · 项目背景</div></div>
+  <div class="kicker">WHY THIS EXISTS</div>
+  <h1>出发的门槛，应该再低一点。</h1>
+  <p class="lead">老年人、残障人士与行动不便的朋友出门，要同时面对三个问题：这段路能不能走完，走累了在哪里坐，出现变化时能不能退回来。多数出行工具回答了“怎么走”，很少回答“我能不能这样走”。</p>
+
+  <div class="sec"><img class="img" src="assets/aging-data.jpg" style="border:.35mm solid var(--line);width:116mm;margin:0 auto"></div>
+  <p class="cap" style="text-align:center">图：老年人口规模与趋势（统一口径 60 岁及以上）。来源：国家统计局《2025 年统计公报》；联合国 UNData / 国际老年人日资料；WHO《Ageing and health》。均为约数。</p>
+
+  <div class="grid g3 sec">
+    <div class="card"><div class="idx">01 · 信息不对称</div><h3>地图给距离，不给余地</h3><p>台阶、坡度、休息点、预约条件散落在公众号、点评与现场公告里，出发前很难拼成一份能用的计划。</p></div>
+    <div class="card"><div class="idx">02 · 服务不可见</div><h3>想找人陪，不知道找谁</h3><p>志愿陪伴多发生在校园社团与线下活动中，缺少可预约、可沟通、可回看的入口。</p></div>
+    <div class="card"><div class="idx">03 · 记忆不落地</div><h3>照片拍完，就散了</h3><p>一次难得的出行只留下几十张照片，没有地方把影像、讲述与再创作连起来，也没有人问过“这张能不能给别人看”。</p></div>
+  </div>
+
+  <div class="grid g2 sec" style="grid-template-columns:1.05fr 1fr;align-items:start">
+    <div>
+      <div class="label">政策依据</div>
+      <img class="img" src="assets/policy-gov.jpg" style="border:.35mm solid var(--line)">
+      <p class="cap">国务院办公厅《关于发展银发经济增进老年人福祉的意见》国办发〔2024〕1号。原文：gov.cn/zhengce/content/202401/content_6926087.htm</p>
+    </div>
+    <div class="card tint" style="margin-top:6.5mm">
+      <h3>相关文件</h3>
+      <ul>
+        <li>国办发〔2024〕1号：发展银发经济，增进老年人福祉。</li>
+        <li>文化和旅游部资源开发司 资源函〔2022〕54号：发布 2022 智慧旅游适老化示范案例名单。</li>
+        <li>国办发〔2020〕45号：切实解决老年人运用智能技术困难的实施方案。</li>
+      </ul>
+      <p class="small" style="margin-top:2mm">数字适老化与老年旅游都已进入政策视野，但“有人陪着出门”仍主要依靠线下志愿组织。</p>
+    </div>
+  </div>
+  <div class="foot"><span>Rank8848 · 赛道三 AI + 社会公益</span><span>03</span></div>
+</section>
+<section class="page">
+  <div class="top"><div class="brand"><img src="assets/brand-mark.png">一起游 InsTrip</div><div>02 / LISTEN · 访谈</div></div>
+  <div class="kicker">INTERVIEWS</div>
+  <h1>先听见需求，<br>再选择技术。</h1>
+  <p class="lead">团队访谈了助残领域的四位从业者，问题集中在真实需求、服务切口和能否长期持续。</p>
+
+  <div class="card sec" style="display:flex;gap:6mm;align-items:center">
+    <img src="assets/interview-wangli.jpg" style="width:34mm;height:34mm;border-radius:2.5mm;object-fit:cover">
+    <div style="flex:1">
+      <p class="quote">“你们的 InsTrip 项目，解决的是刚需、填补的是空白、传递的是温度。科技向善最好的样子，就是你们这样。非常期待你们项目持续打磨、早日落地，真正成为全国无障碍文旅的创新样板项目。”</p>
+      <p class="who"><b style="color:var(--ink)">王荔</b> · 中国助残志愿者协会副秘书长 · 关注点：安全、专业与尊严</p>
+    </div>
+  </div>
+
+  <div class="grid g3 sec">
+    <div class="card">
+      <span class="tag">需求真实</span>
+      <p class="quote" style="margin-top:2.5mm">“这个问题非常真切，要先关注了才有解决办法，故此非常认可你们做的这个方向，是一个很有需求的方向。”</p>
+      <p class="who"><b style="color:var(--ink)">李友才</b> · 残疾人工作者</p>
+    </div>
+    <div class="card">
+      <span class="tag">降低志愿服务负担</span>
+      <p class="quote" style="margin-top:2.5mm">“志愿者很多，但是志愿服务的摄影师不多，这是个现实痛点。”长期服务难以依赖免费摄影，志愿者应专注陪伴与协助。</p>
+      <p class="who"><b style="color:var(--ink)">罗文静</b> · 肢体残疾人协会秘书长</p>
+    </div>
+    <div class="card">
+      <span class="tag">抓住小切口</span>
+      <p class="quote" style="margin-top:2.5mm">“一定要找出服务具体的残障人群，我们解决就聚焦腿脚不便的残障人士。”</p>
+      <p class="who"><b style="color:var(--ink)">汤敏</b> · 视障跑者挑战项目发起人</p>
+    </div>
+  </div>
+
+  <div class="card tint sec">
+    <h3>访谈带来的三处调整</h3>
+    <div class="grid g3" style="gap:5mm;margin-top:2mm">
+      <div><div class="idx">切口</div><p>先服务腿脚不便的老年人与肢体残障人士，从南京短距离、可退出的慢行线路做起。</p></div>
+      <div><div class="idx">分工</div><p>用影石设备和 AI 减轻拍摄与后期整理负担，让志愿者把精力留在陪伴与协助上。</p></div>
+      <div><div class="idx">尊严</div><p>拍不拍、给谁看、能否公开，都由当事人决定；授权写进流程。</p></div>
+    </div>
+  </div>
+
+  <p class="small sec">说明：本轮为从业者访谈，后续仍需直接访谈老年人、残障人士及家属。来源：《Rank8848 用户访谈报告》第 2–4、6–8 页（纪要摘要）。</p>
+  <div class="foot"><span>Rank8848 · 赛道三 AI + 社会公益</span><span>04</span></div>
+</section>
+<section class="page">
+  <div class="top"><div class="brand"><img src="assets/brand-mark.png">一起游 InsTrip</div><div>03 / WHO · 定位</div></div>
+  <div class="kicker">AI + 公益</div>
+  <h1>四类人，一段路。</h1>
+
+  <div class="grid g3 sec">
+    <div class="card"><div class="label">服务谁</div><h2>老年人群和残障人士</h2><p class="small">重点是腿脚不便、行动受限的出行者</p></div>
+    <div class="card"><div class="label">做什么</div><h2>公益伴旅，记录点滴</h2><p class="small">志愿者同行 + 影像留存</p></div>
+    <div class="card"><div class="label">技术如何介入</div><h2>伴游平台与 AI 整理</h2><p class="small">素材整理、故事生成与公益社区</p></div>
+  </div>
+
+  <div class="grid g2 sec" style="grid-template-columns:1fr 1fr">
+    <div class="card"><div class="idx">01 · 想出发的人</div><h3>老年人、残障人士、行动不便者</h3><p>需要按自己节奏展开的行程、看得清点得到的界面、可以随时停下来的路线，以及不必解释也能被理解的协助。</p></div>
+    <div class="card"><div class="idx">02 · 愿意同行的人</div><h3>高校青年志愿者、本地向导</h3><p>先了解对方真正想要什么，约定协助范围与退出方式，再把这段经历留成可以复盘的记录。</p></div>
+    <div class="card"><div class="idx">03 · 连接城市的人</div><h3>高校公益力量、文旅单位</h3><p>需要可复用的路线内容与工具，把一次活动变成能持续运行的机制，而不是每年重做一遍。</p></div>
+    <div class="card"><div class="idx">04 · 组织与支持方</div><h3>协会、企业与社会机构</h3><p>需要服务过程可解释、可复盘、可继续投入：能看见流程与边界，而不是只看一张合影。</p></div>
+  </div>
+
+  <div class="sec">
+    <div class="label">四条设计原则</div>
+    <div class="grid g4" style="gap:3mm">
+      <div class="card tint"><div class="num" style="font-size:15pt">01</div><h3>陪伴不替代选择</h3><p class="small">走哪条路、要不要停、照片给不给家人看，都直接问本人。</p></div>
+      <div class="card tint"><div class="num" style="font-size:15pt">02</div><h3>先了解人，再排路</h3><p class="small">不存在“典型的老年人”，看能力、兴趣与环境，不看岁数。</p></div>
+      <div class="card tint"><div class="num" style="font-size:15pt">03</div><h3>准备做在出发前</h3><p class="small">见面地点、往返、休息节奏讲清楚，保留缩短与取消的余地。</p></div>
+      <div class="card tint"><div class="num" style="font-size:15pt">04</div><h3>少操作，多风景</h3><p class="small">户外看得清、点得到、知道下一步，比功能多更重要。</p></div>
+    </div>
+  </div>
+
+  <div class="card sec" style="border:.35mm solid var(--line)">
+    <h3>同样重要：我们不做什么</h3>
+    <div class="grid g2" style="gap:1mm 8mm;margin-top:1.5mm">
+      <p class="small">· 不做逐步导航，不声称已完成无障碍路线认证，点位信息需结合现场确认。</p>
+      <p class="small">· 不做自动危险识别、救援调度与医疗监测，专业照护与应急另行安排。</p>
+      <p class="small">· 数字藏品是照片、文字与创作作品，不涉及代币或交易。</p>
+      <p class="small">· 不把提案写成既有规模：没有虚构的评分、服务量或受访故事。</p>
+    </div>
+  </div>
+  <div class="foot"><span>Rank8848 · 赛道三 AI + 社会公益</span><span>05</span></div>
+</section>
+<section class="page">
+  <div class="top"><div class="brand"><img src="assets/brand-mark.png">一起游 InsTrip</div><div>04 / SCENARIOS · 应用场景</div></div>
+  <div class="kicker">BEFORE · DURING · AFTER</div>
+  <h1>一次同行，分三段发生。</h1>
+  <p class="lead">行前看得清，行中走得稳，行后留得住。</p>
+
+  <div class="grid g4 sec" style="gap:3mm">
+    <div class="card"><div class="idx">T-1 天</div><h3>先看能不能去</h3><p class="small">查天气与开放情况，看台阶与休息点，挑出两三个想去的地点。</p></div>
+    <div class="card"><div class="idx">当天 9:00</div><h3>把安排说清楚</h3><p class="small">行程按天展开，分享只读或编辑邀请；见面地点、返程方式写在备注里。</p></div>
+    <div class="card"><div class="idx">途中</div><h3>随时可以改</h3><p class="small">走不动就删掉下一站，改完的长图直接发给同行的人与家人。</p></div>
+    <div class="card"><div class="idx">回家后</div><h3>留下一点什么</h3><p class="small">翻照片写几句话，挑一张做成纪念；是否公开由当事人决定。</p></div>
+  </div>
+
+  <div class="grid g3 sec" style="gap:4mm;align-items:stretch">
+    <div class="card" style="padding:0;overflow:hidden">
+      <img src="assets/nj-xuanwu.jpg" style="width:100%;height:34mm;object-fit:cover">
+      <div style="padding:4mm 4.5mm"><span class="tag">行前</span><h3 style="margin-top:2mm">这一天怎么安排，走不动怎么办？</h3>
+      <ul class="small" style="line-height:1.7"><li>24 个南京地点与 4 条慢行参考路线，可加入行程</li><li>天气显示数据时间，查询不可用时明确提示</li><li>台阶、休息与预约提示随地点出现</li><li>行程按天展开，可调顺序、停留与备注</li></ul></div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <img src="assets/nj-laomendong-street.jpg" style="width:100%;height:34mm;object-fit:cover">
+      <div style="padding:4mm 4.5mm"><span class="tag">行中</span><h3 style="margin-top:2mm">中途改变主意，还来得及吗？</h3>
+      <ul class="small" style="line-height:1.7"><li>地图与行程共用同一条路线，改目的地即重排后续站点</li><li>百度地图联网计算步行道路，显示路程与时间</li><li>道路计算失败时退回地点顺序示意，不阻塞出行</li><li>适老版只保留地图、向导、消息三个入口</li></ul></div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <img src="assets/nj-fuzimiao-night.jpg" style="width:100%;height:34mm;object-fit:cover">
+      <div style="padding:4mm 4.5mm"><span class="tag">行后</span><h3 style="margin-top:2mm">这一天的感受，怎么留得久一点？</h3>
+      <ul class="small" style="line-height:1.7"><li>首页下拉拍照，照片先落盘再播放动效</li><li>照片可三维翻面写回忆，文字自动保存</li><li>选一张照片生成冰箱贴或钥匙扣</li><li>影像编成 30 / 60 / 90 秒旅行短片</li></ul></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="label">场景矩阵：谁在什么时候用哪一步</div>
+    <table style="width:100%;border-collapse:collapse;font-size:9pt;line-height:1.5;background:#fff;border-radius:3mm;overflow:hidden">
+      <tr style="background:var(--green);color:#fff"><th style="text-align:left;padding:2.2mm 4mm;width:16%">角色</th><th style="text-align:left;padding:2.2mm 2mm">典型情境</th><th style="text-align:left;padding:2.2mm 2mm;width:28%">主要入口</th><th style="text-align:left;padding:2.2mm 4mm;width:17%">状态</th></tr>
+      <tr><td style="padding:2mm 4mm">出行者</td><td>出发前确认天气、台阶与休息点</td><td>首页 · 路线规划 · 地点详情</td><td style="padding:2mm 4mm"><span class="tag">已实现</span></td></tr>
+      <tr style="background:var(--paper)"><td style="padding:2mm 4mm">出行者</td><td>途中改计划，把新安排发给家人</td><td>地图 · 行程分享 · 长图</td><td style="padding:2mm 4mm"><span class="tag">已实现</span></td></tr>
+      <tr><td style="padding:2mm 4mm">同行者</td><td>按兴趣与路线找到愿意一起走的人</td><td>志愿向导 · 消息</td><td style="padding:2mm 4mm"><span class="tag">已实现</span></td></tr>
+      <tr style="background:var(--paper)"><td style="padding:2mm 4mm">同行者</td><td>与当事人确认协助范围与拍摄意愿</td><td>消息 · 服务流程档案</td><td style="padding:2mm 4mm"><span class="tag warm">部分为提案</span></td></tr>
+      <tr><td style="padding:2mm 4mm">组织方</td><td>复用路线与档案做活动与培训</td><td>44 份主题档案 · 展示站</td><td style="padding:2mm 4mm"><span class="tag">内容已就绪</span></td></tr>
+    </table>
+  </div>
+  <div class="foot"><span>南京实景：Wikimedia Commons（作者与许可见第 16 页）</span><span>06</span></div>
+</section>
+<section class="page">
+  <div class="top"><div class="brand"><img src="assets/brand-mark.png">一起游 InsTrip</div><div>05 / APP · 真实界面</div></div>
+  <div class="kicker">ANDROID APP · REAL SCREENS</div>
+  <h1>九个界面，一条动线。</h1>
+  <p class="lead">截图取自真实安装的 Android 应用，等比展示，未做界面美化与内容替换。顺序沿一次真实出行展开：今天去哪里，这段路怎么走，和谁一起，留下了什么。</p>
+
+  <div class="grid g5 sec" style="gap:3.5mm">
+    <div><img class="phone" src="assets/app-home.jpg"><h3 style="margin-top:2mm;font-size:9.5pt">首页</h3><p class="small">天气、每日行程与南京目的地</p></div>
+    <div><img class="phone" src="assets/app-routes.jpg"><h3 style="margin-top:2mm;font-size:9.5pt">路线规划</h3><p class="small">百度地图步行道路、分天与停留</p></div>
+    <div><img class="phone" src="assets/app-guides.jpg"><h3 style="margin-top:2mm;font-size:9.5pt">志愿向导</h3><p class="small">按兴趣与路线查找同行者</p></div>
+    <div><img class="phone" src="assets/app-community.jpg"><h3 style="margin-top:2mm;font-size:9.5pt">同城社区</h3><p class="small">同城 / 关注 / 发现，影石主题</p></div>
+    <div><img class="phone" src="assets/app-messages.jpg"><h3 style="margin-top:2mm;font-size:9.5pt">消息与帮助</h3><p class="small">沟通同行细节，AI 客服可转人工</p></div>
+  </div>
+  <div class="grid g5 sec" style="gap:3.5mm">
+    <div><img class="phone" src="assets/app-story.jpg"><h3 style="margin-top:2mm;font-size:9.5pt">城市故事</h3><p class="small">跟着一篇记录重新看见南京</p></div>
+    <div><img class="phone" src="assets/app-collection.jpg"><h3 style="margin-top:2mm;font-size:9.5pt">旅行文创</h3><p class="small">一张照片生成冰箱贴或钥匙扣</p></div>
+    <div><img class="phone" src="assets/app-video.jpg"><h3 style="margin-top:2mm;font-size:9.5pt">旅行短片</h3><p class="small">分镜、时长与模板</p></div>
+    <div><img class="phone" src="assets/app-senior.jpg"><h3 style="margin-top:2mm;font-size:9.5pt">适老版</h3><p class="small">三个入口，更大字号与操作区</p></div>
+    <div class="card tint" style="display:flex;flex-direction:column;justify-content:center">
+      <h3 style="margin-bottom:0">小宁</h3><p class="idx">南京向导</p>
+      <p class="small">应用内 AI 对话助手：“想看湖，想逛老街，还是想去博物馆？告诉我你的想法和体力，我来帮你安排。”</p>
+      <p class="small" style="margin-top:2mm">在线回答取决于已配置的模型服务。</p>
+    </div>
+  </div>
+  <div class="foot"><span>截图来源：展示站 media/ 目录，与安装包同源；向导与社区人物为演示设定</span><span>07</span></div>
+</section>
+<section class="page">
+  <div class="top"><div class="brand"><img src="assets/brand-mark.png">一起游 InsTrip</div><div>06 / IMAGING × AI</div></div>
+  <div class="kicker">TECH FLOW</div>
+  <h1>从一次陪伴，到一件文创。</h1>
+  <p class="lead">志愿者把精力留在身边，设备和 AI 负责记录与整理。五个环节串起一次完整的公益同行。</p>
+
+  <div class="grid g5 sec" style="gap:2.5mm">
+    <div class="card" style="text-align:center"><div class="num" style="font-size:16pt">1</div><h3>一键约伴游</h3><p class="small">发布需求<br>路线偏好</p></div>
+    <div class="card" style="text-align:center"><div class="num" style="font-size:16pt">2</div><h3>匹配志愿者</h3><p class="small">高校青年<br>本地向导</p></div>
+    <div class="card" style="text-align:center"><div class="num" style="font-size:16pt">3</div><h3>影石安全记录</h3><p class="small">运动相机<br>全景 · 云台</p></div>
+    <div class="card" style="text-align:center"><div class="num" style="font-size:16pt">4</div><h3>AI 影像整理</h3><p class="small">筛选 · 分类<br>内容理解</p></div>
+    <div class="card" style="text-align:center"><div class="num" style="font-size:16pt">5</div><h3>AI 文创生成</h3><p class="small">冰箱贴 · 明信片<br>钥匙扣</p></div>
+  </div>
+
+  <div class="sec">
+    <div class="label">影石 Insta360 设备分工</div>
+    <div class="grid g3" style="gap:4mm">
+      <div class="card"><span class="tag">安全留痕</span><h2 style="margin-top:2mm">Ace Pro 2</h2><p>伴游安全记录、关键场景抓拍，为服务质量复盘留下第一视角素材。</p></div>
+      <div class="card"><span class="tag">全景记录</span><h2 style="margin-top:2mm">X5</h2><p>景区全景记录，公益活动与文旅宣传素材，先拍全景再选视角。</p></div>
+      <div class="card"><span class="tag">人文对焦</span><h2 style="margin-top:2mm">Luna Ultra</h2><p>人物采拍、人文记录，稳定的移动拍摄让采访慢下来。</p></div>
+    </div>
+    <p class="small" style="margin-top:2mm">当前通过手机系统相册衔接影石素材；相机直连与自动导入仍是后续探索方向。</p>
+  </div>
+
+  <div class="sec">
+    <div class="label">AI 出现在哪里</div>
+    <div class="grid g3" style="gap:4mm">
+      <div class="card tint"><div class="idx">01 智能选片</div><p>从旅行素材中筛选清晰、有代表性的片段。</p></div>
+      <div class="card tint"><div class="idx">02 旅行故事</div><p>结合照片与讲述，生成易读的旅途回忆。</p></div>
+      <div class="card tint"><div class="idx">03 适老分享</div><p>用简洁的操作帮助亲友共同回看。</p></div>
+      <div class="card tint"><div class="idx">AI 文创生成</div><p>把照片转成插画风格的设计示意，再进入参数化建模。</p></div>
+      <div class="card tint"><div class="idx">AI 客服 · 小宁</div><p>回答常见问题、辅助讨论行程，可切换人工。</p></div>
+      <div class="card tint"><div class="idx">短片模板与运镜</div><p>提供模板、运镜与节奏建议，人保留最后的取舍。</p></div>
+    </div>
+  </div>
+  <div class="card sec" style="border:.35mm solid var(--line)"><p class="small">适老版默认关闭智能生成入口，把选择权留给使用者；所有 AI 输出都标注为“示意”，不被当作事实或承诺。</p></div>
+  <div class="foot"><span>Rank8848 · 赛道三 AI + 社会公益</span><span>08</span></div>
+</section>
+<section class="page">
+  <div class="top"><div class="brand"><img src="assets/brand-mark.png">一起游 InsTrip</div><div>07 / CRAFT · 旅行文创</div></div>
+  <div class="kicker">FROM PHOTO TO KEEPSAKE</div>
+  <h1>风景，也能随身带走。</h1>
+  <p class="lead">三维文创不是把平面图案贴到方块上，而是一条可复现的四步管线：每一步都有输入、参数与校验，最终交付一个能在浏览器里自由旋转、可以下载的模型。</p>
+
+  <div class="grid sec" style="grid-template-columns:1fr 1fr 1.25fr;gap:3mm;align-items:end">
+    <div><img class="img" src="assets/vol-company-photo.jpg" style="height:42mm"><p class="cap">① 真实照片（用户授权）</p></div>
+    <div><img class="img" src="assets/craft-company-photo.jpg" style="height:42mm;background:#f2efe9"><p class="cap">② 插画示意 → ③ 浮雕建模</p></div>
+    <div><img class="img" src="assets/web-viewer.jpg" style="height:42mm;object-position:50% 50%"><p class="cap">④ 网页 360° 查看与 GLB 下载</p></div>
+  </div>
+
+  <div class="grid g4 sec" style="gap:3mm">
+    <div class="card"><div class="idx">01 输入</div><h3>选图与分离</h3><p class="small">相册选图或从数字藏品进入；可保留平面人物，或只保留景物。</p></div>
+    <div class="card"><div class="idx">02 风格化</div><h3>插画示意</h3><p class="small">生成温暖的水彩插画作为正面图，是设计示意，不替换原图。</p></div>
+    <div class="card"><div class="idx">03 建模</div><h3>轮廓与板体</h3><p class="small">提取主体轮廓，生成闭合平背、柔和倒角的浮雕板体，正面 UV 贴图。</p></div>
+    <div class="card"><div class="idx">04 校验</div><h3>检查与导出</h3><p class="small">顶点、三角面、体积逐件检查，记录孔位与五金，导出 GLB 与清单。</p></div>
+  </div>
+
+  <div class="sec">
+    <div class="label">12 件作品：6 冰箱贴 / 6 钥匙扣</div>
+    <div class="grid g6" style="gap:2.5mm">
+      <div><img class="img" src="assets/craft-company-photo.jpg"><p class="cap">把笑容留下 · 冰箱贴</p></div>
+      <div><img class="img" src="assets/craft-phone-help.jpg"><p class="cap">把世界连接 · 钥匙扣</p></div>
+      <div><img class="img" src="assets/craft-warm-company.jpg"><p class="cap">陪伴的温度 · 冰箱贴</p></div>
+      <div><img class="img" src="assets/craft-volunteer-lake.jpg"><p class="cap">湖畔有你 · 钥匙扣</p></div>
+      <div><img class="img" src="assets/craft-xuanwu-walk.jpg"><p class="cap">玄武湖慢行 · 钥匙扣</p></div>
+      <div><img class="img" src="assets/craft-qinhuai-lights.jpg"><p class="cap">秦淮灯影 · 冰箱贴</p></div>
+      <div><img class="img" src="assets/craft-laomendong-street.jpg"><p class="cap">老门东巷遇 · 钥匙扣</p></div>
+      <div><img class="img" src="assets/craft-zhongshan-green.jpg"><p class="cap">钟山绿意 · 冰箱贴</p></div>
+      <div><img class="img" src="assets/craft-nanjing-museum.jpg"><p class="cap">博物院一日 · 钥匙扣</p></div>
+      <div><img class="img" src="assets/craft-mingxiaoling.jpg"><p class="cap">明孝陵石象 · 冰箱贴</p></div>
+      <div><img class="img" src="assets/craft-jiming-temple.jpg"><p class="cap">鸡鸣寺望城 · 钥匙扣</p></div>
+      <div><img class="img" src="assets/craft-nanda-gulou.jpg"><p class="cap">南大林荫 · 冰箱贴</p></div>
+    </div>
+  </div>
+
+  <div class="grid g2 sec" style="gap:4mm">
+    <div class="card tint"><h3>工程参数示例 ·“把笑容留下”</h3><p class="small">外形 74.0 × 70.6 × 7.0 mm · 板厚 3.2 mm（最小 2.86）· 装配包络 4.21 mm · 底板三角面 29,900 · 单位 mm（GLB 为 m）· 正面 +Z</p></div>
+    <div class="card tint"><h3>每件都过一遍检查</h3><p class="small">几何完整（闭合平背、无自交与破面）· 模型互异校验 · 尺寸可打样。人物保持平面插画，不做三维扫描；成品仍需结合材质打样。</p></div>
+  </div>
+  <div class="foot"><span>12 件均有独立 Lux3D 云建模任务记录与几何验证文件</span><span>09</span></div>
+</section>
+<section class="page">
+  <div class="top"><div class="brand"><img src="assets/brand-mark.png">一起游 InsTrip</div><div>08 / WEB · 展示站</div></div>
+  <div class="kicker">WEBSITE · 3D MEMORY HALL</div>
+  <h1>打开电脑，<br>让旅行故事有更大的展示空间。</h1>
+
+  <div class="sec"><img class="img" src="assets/web-home.jpg" style="border:.35mm solid var(--line);height:86mm;object-position:50% 0"><p class="cap">首页“好风景，一起慢慢看”：为何出发、应用体验、旅行记忆、同行伙伴四个章节。</p></div>
+
+  <div class="grid g2 sec" style="gap:4mm">
+    <div><img class="img" src="assets/web-memory-hall.jpg" style="border:.35mm solid var(--line)"><p class="cap">三维记忆馆：44 份档案按 5 个主题排成书列，镜头随选择推进。</p></div>
+    <div><img class="img" src="assets/web-viewer.jpg" style="border:.35mm solid var(--line)"><p class="cap">文创查看器：拆开看原图与示意，合拢珍藏，可 360° 旋转并下载 GLB。</p></div>
+  </div>
+
+  <div class="grid g3 sec" style="gap:4mm">
+    <div class="card"><h3>可离线</h3><p class="small">纯静态站点：无数据库、无 API、无需 npm install。Windows 双击“打开网站.cmd”即可查看。</p></div>
+    <div class="card"><h3>可上线</h3><p class="small">把 website 文件夹上传到静态站点根目录即可，Nginx、宝塔、静态托管均可。</p></div>
+    <div class="card"><h3>可核对</h3><p class="small">216 个文件附 sha256 清单；素材来源、字体许可与照片授权随包留档。</p></div>
+  </div>
+  <div class="card tint sec">
+    <p class="small">交互：拖动旋转、方向键平移、滚轮缩放，Enter 打开、Esc 返回，屏幕按钮与键盘等价。支持“减少动态效果”。GLB 按需加载（单件 0.9–4.2 MB），模型载入失败可重试，单件失败不阻塞其余档案浏览。</p>
+  </div>
+  <div class="foot"><span>截图取自本机运行的一起游网站分享包</span><span>10</span></div>
+</section>
+<section class="page">
+  <div class="top"><div class="brand"><img src="assets/brand-mark.png">一起游 InsTrip</div><div>09 / ARCHITECTURE · 技术架构</div></div>
+  <div class="kicker">HOW IT IS BUILT</div>
+  <h1>两端一线：<br>应用、展示站与内容管线。</h1>
+  <p class="lead">客户端负责随身的行程与记录，展示站负责把作品与理念讲清楚，内容管线把照片变成可以转起来的三维纪念。三者共享同一套内容与口径。</p>
+
+  <div class="sec" style="display:flex;flex-direction:column;gap:2.5mm">
+    <div style="display:grid;grid-template-columns:30mm 1fr;gap:3mm;align-items:stretch">
+      <div class="card" style="background:var(--green);color:#fff;display:flex;flex-direction:column;justify-content:center"><b style="font-size:10pt">交付层</b><span style="font-size:7.5pt;letter-spacing:.14em;opacity:.8">DELIVERY</span></div>
+      <div class="card" style="display:flex;gap:2mm;flex-wrap:wrap;align-items:center"><span class="tag">Android 应用 v2.7.0</span><span class="tag">Web 静态展示站</span><span class="tag">Windows 一键启动器</span><span class="tag">零依赖本地预览服务</span><span class="tag">静态部署（Nginx / 宝塔）</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:30mm 1fr;gap:3mm">
+      <div class="card" style="background:#5d7b6b;color:#fff;display:flex;flex-direction:column;justify-content:center"><b style="font-size:10pt">体验层</b><span style="font-size:7.5pt;letter-spacing:.14em;opacity:.8">EXPERIENCE</span></div>
+      <div class="card" style="display:flex;gap:2mm;flex-wrap:wrap;align-items:center"><span class="tag">首页与每日行程</span><span class="tag">地图与路线规划</span><span class="tag">志愿向导与消息</span><span class="tag">同城社区与城市故事</span><span class="tag">数字藏品与照片回忆</span><span class="tag">旅行短片与旅行文创</span><span class="tag">三维记忆馆</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:30mm 1fr;gap:3mm">
+      <div class="card" style="background:#7a9586;color:#fff;display:flex;flex-direction:column;justify-content:center"><b style="font-size:10pt">能力层</b><span style="font-size:7.5pt;letter-spacing:.14em;opacity:.8">CAPABILITY</span></div>
+      <div class="card" style="display:flex;gap:2mm;flex-wrap:wrap;align-items:center"><span class="tag">百度地图 SDK（地图 / 步行路线）</span><span class="tag">天气与在线地点数据</span><span class="tag">CameraX 相机与相册</span><span class="tag">AI 对话与插画生成</span><span class="tag">Lux3D 云端建模</span><span class="tag">浮雕几何加工</span><span class="tag">three.js / WebGL</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:30mm 1fr;gap:3mm">
+      <div class="card" style="background:#9db0a5;color:#fff;display:flex;flex-direction:column;justify-content:center"><b style="font-size:10pt">内容层</b><span style="font-size:7.5pt;letter-spacing:.14em;opacity:.8">CONTENT</span></div>
+      <div class="card" style="display:flex;gap:2mm;flex-wrap:wrap;align-items:center"><span class="tag">44 份主题档案</span><span class="tag">12 件 GLB 文创 + 模型清单</span><span class="tag">南京实景（附原图与许可）</span><span class="tag">9 张应用截图</span><span class="tag">MiSans 字体</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:30mm 1fr;gap:3mm">
+      <div class="card" style="background:#c0cdc5;color:var(--ink);display:flex;flex-direction:column;justify-content:center"><b style="font-size:10pt">质量层</b><span style="font-size:7.5pt;letter-spacing:.14em;opacity:.8">TRUST</span></div>
+      <div class="card" style="display:flex;gap:2mm;flex-wrap:wrap;align-items:center"><span class="tag">sha256 文件清单</span><span class="tag">三态状态标注</span><span class="tag">失败降级与重试</span><span class="tag">素材来源与许可留档</span><span class="tag">减少动态效果 / 键盘可达</span></div>
+    </div>
+  </div>
+
+  <div class="grid g2 sec" style="gap:4mm">
+    <div class="card">
+      <h3>技术栈速查</h3>
+      <table style="width:100%;border-collapse:collapse;font-size:8.5pt;line-height:1.55">
+        <tr><td style="color:var(--muted);width:16mm;padding:1mm 0;vertical-align:top">客户端</td><td>Android 原生（Kotlin）外壳 + WebView 页面层；百度地图 SDK、CameraX</td></tr>
+        <tr><td style="color:var(--muted);padding:1mm 0;vertical-align:top">云服务</td><td>社区、同行伙伴、会话消息、短片任务、行程与客服接口</td></tr>
+        <tr><td style="color:var(--muted);padding:1mm 0;vertical-align:top">展示端</td><td>原生 JavaScript（无前端框架）+ three.js；CSS 玻璃拟态</td></tr>
+        <tr><td style="color:var(--muted);padding:1mm 0;vertical-align:top">三维</td><td>glTF Binary（GLB）、参数化浮雕建模，mm 记录尺寸</td></tr>
+      </table>
+    </div>
+    <div class="card tint">
+      <h3>一条数据，怎么走完全程</h3>
+      <p class="small">照片（相册 / 相机）→ 插画示意（AI 风格化）→ 云端网格（Lux3D）→ 浮雕加工（闭合背面、挂孔或磁贴）→ 几何校验 → GLB → WebGL 展陈（360° 观察、拆开看故事、下载）</p>
+      <p class="small" style="margin-top:2mm">取舍：展示端刻意不用前端框架，换来更小的体积、更少的依赖。</p>
+    </div>
+  </div>
+  <div class="foot"><span>依据：安装包 v2.7.0 结构、作品介绍文档与展示站资料</span><span>11</span></div>
+</section>
+<section class="page">
+  <div class="top"><div class="brand"><img src="assets/brand-mark.png">一起游 InsTrip</div><div>10 / ITERATION · 开发与验证</div></div>
+  <div class="kicker">DEVELOP · VERIFY · IMPROVE</div>
+  <h1>从功能搭建，到体验打磨。</h1>
+  <p class="lead">地图、相机、路线、同行与记录，逐版汇聚。每次改动都留下检查记录。</p>
+
+  <div class="sec">
+    <div class="label">版本历程 · 2.0 → 2.7</div>
+    <div class="grid g4" style="gap:4mm">
+      <div class="card" style="display:flex;gap:3mm;height:27mm"><div style="flex:1"><div class="num">2.0</div><p>基础旅行</p></div><img src="assets/app-home.jpg" style="height:100%;border-radius:1.5mm"></div>
+      <div class="card" style="display:flex;gap:3mm;height:27mm"><div style="flex:1"><div class="num">2.3</div><p>适老与协作</p></div><img src="assets/app-senior.jpg" style="height:100%;border-radius:1.5mm"></div>
+      <div class="card" style="display:flex;gap:3mm;height:27mm"><div style="flex:1"><div class="num">2.5</div><p>实际道路</p></div><img src="assets/app-routes.jpg" style="height:100%;border-radius:1.5mm"></div>
+      <div class="card" style="display:flex;gap:3mm;height:27mm"><div style="flex:1"><div class="num">2.7</div><p>群聊与界面</p></div><img src="assets/app-community.jpg" style="height:100%;border-radius:1.5mm"></div>
+    </div>
+    <div style="position:relative;height:5mm;margin-top:1.5mm">
+      <div style="position:absolute;left:0;right:0;top:2.2mm;height:.6mm;background:var(--green)"></div>
+      <div class="grid g4" style="gap:4mm;position:relative"><div style="text-align:center"><span style="display:inline-block;width:4.5mm;height:4.5mm;border-radius:50%;background:var(--green);border:1mm solid var(--paper)"></span></div><div style="text-align:center"><span style="display:inline-block;width:4.5mm;height:4.5mm;border-radius:50%;background:var(--green);border:1mm solid var(--paper)"></span></div><div style="text-align:center"><span style="display:inline-block;width:4.5mm;height:4.5mm;border-radius:50%;background:var(--green);border:1mm solid var(--paper)"></span></div><div style="text-align:center"><span style="display:inline-block;width:4.5mm;height:4.5mm;border-radius:50%;background:var(--deep);border:1mm solid var(--paper)"></span></div></div>
+    </div>
+  </div>
+
+  <div class="grid sec" style="grid-template-columns:1.25fr 1fr;gap:4mm">
+    <div class="card">
+      <h3>四轮检查，各有记录</h3>
+      <p class="small">统计范围随版本变化，数字不相加。</p>
+      <table style="width:100%;border-collapse:collapse;font-size:9pt;margin-top:2mm">
+        <tr><td style="padding:1.6mm 0;font-weight:700;width:10mm">2.4</td><td><div style="height:1.6mm;background:var(--line);border-radius:1mm"><div style="width:37%;height:100%;background:#8aa596;border-radius:1mm"></div></div><span class="small">客户端 73 + 服务端 43</span></td><td style="text-align:right;font-weight:700;width:14mm">116</td></tr>
+        <tr><td style="padding:1.6mm 0;font-weight:700">2.5</td><td><div style="height:1.6mm;background:var(--line);border-radius:1mm"><div style="width:45%;height:100%;background:#8aa596;border-radius:1mm"></div></div><span class="small">客户端 83 + 服务端 58</span></td><td style="text-align:right;font-weight:700">141</td></tr>
+        <tr><td style="padding:1.6mm 0;font-weight:700">2.6</td><td><div style="height:1.6mm;background:var(--line);border-radius:1mm"><div style="width:86%;height:100%;background:#6b8a7a;border-radius:1mm"></div></div><span class="small">本轮自动检查</span></td><td style="text-align:right;font-weight:700">268</td></tr>
+        <tr><td style="padding:1.6mm 0;font-weight:700">2.7</td><td><div style="height:1.6mm;background:var(--line);border-radius:1mm"><div style="width:100%;height:100%;background:var(--green);border-radius:1mm"></div></div><span class="small">本轮自动检查</span></td><td style="text-align:right;font-weight:700">312</td></tr>
+      </table>
+    </div>
+    <div class="card tint" style="display:flex;flex-direction:column;justify-content:center">
+      <div class="label">最新一轮 · 2.7</div>
+      <div style="font-size:40pt;font-weight:700;line-height:1;color:var(--deep)">312<span style="font-size:16pt;color:var(--muted);font-weight:400"> / 312</span></div>
+      <p style="margin-top:2mm">前端与服务端自动检查通过，fail 0。</p>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="label">工程记录</div>
+    <div class="grid g4" style="gap:3mm">
+      <div class="card"><p class="small">VERIFICATION 2.4</p><h3>client 73 / server 43</h3><p class="small">116 assertions</p></div>
+      <div class="card"><p class="small">VERIFICATION 2.5</p><h3>client 83 / server 58</h3><p class="small">141 assertions</p></div>
+      <div class="card"><p class="small">RELEASE 2.7</p><h3>matchingSourceAssets: 101</h3><p class="small">APK 源资源核对</p></div>
+      <div class="card"><p class="small">FINAL TEST LOG</p><h3>tests 312 / pass 312</h3><p class="small">fail 0</p></div>
+      <div class="card"><p class="small">SOCIAL RETEST</p><h3>21 项相关检查</h3><p class="small">pass</p></div>
+      <div class="card"><p class="small">NATIVE CHROME</p><h3>发布冒烟用例</h3><p class="small">pass</p></div>
+      <div class="card"><p class="small">NATIVE MAP</p><h3>路线与触控</h3><p class="small">pass</p></div>
+      <div class="card"><p class="small">VIDEO V4 · 专项</p><h3>67 项相关测试</h3><p class="small">30 秒云端样片 1920×1080 · 30fps</p></div>
+    </div>
+    <p class="small" style="margin-top:2.5mm">另记录一条历史问题：Android 崩溃 SIGSEGV（map-loaddata3）。该记录仅表明已发现与排查，不代表厂商崩溃已根除。</p>
+  </div>
+  <div class="foot"><span>来源：团队开发记录视频（v24/v25 verification · v26/v27 test logs · video-v4 verification）</span><span>12</span></div>
+</section>
+<section class="page">
+  <div class="top"><div class="brand"><img src="assets/brand-mark.png">一起游 InsTrip</div><div>11 / INNOVATION · 创新点</div></div>
+  <div class="kicker">WHAT IS NEW</div>
+  <h1>六个不那么常见的决定。</h1>
+  <p class="lead">创新不在于多用一个技术名词，而在于在几个具体的地方，做了别人通常会绕开的选择。</p>
+
+  <div class="grid g2 sec" style="gap:4mm">
+    <div class="card"><div class="num" style="font-size:17pt">01</div><h2>把“陪伴”设计进产品结构</h2><p>向导资料、同行计划、消息、只读 / 编辑邀请与双向私聊是主流程。行前确认与回访写成服务流程档案：见面地点、往返安排、休息节奏、联系方式，以及“如果今天状态不好，可以缩短或取消”。</p></div>
+    <div class="card"><div class="num" style="font-size:17pt">02</div><h2>适老不是换一套皮肤</h2><p>适老是独立开关：三个入口、放大的字号与操作区、默认关闭智能生成入口。在户外，熟悉的操作顺序比功能数量重要。</p></div>
+    <div class="card"><div class="num" style="font-size:17pt">03</div><h2>照片、故事、三维文创一条链路</h2><p>从下拉拍照、三维翻面写回忆，到插画示意、参数化建模、GLB 下载与网页 360° 观察，一条链路走完。数字藏品是照片与创作，不涉及代币或交易。</p></div>
+    <div class="card"><div class="num" style="font-size:17pt">04</div><h2>先征询，再按快门</h2><p>愿意同行不等于愿意出镜，愿意保存不等于愿意公开。授权拆成私人留存、社区分享、宣传使用三件事，重要片段由当事人看过再用，随时可以说停。</p></div>
+    <div class="card"><div class="num" style="font-size:17pt">05</div><h2>内容可信度工程</h2><p>44 份档案逐条标注状态与依据，区分“已实现”“提案”“待验证”；不冒充真实志愿者、不编造受访故事、不展示虚构的评分与服务量。</p></div>
+    <div class="card"><div class="num" style="font-size:17pt">06</div><h2>轻交付的双端架构</h2><p>Android 应用 + 116.5 MB 纯静态展示站，三维内容随包交付。双击就能看，拷进服务器根目录就能上线，没有数据库、API 和构建步骤。</p></div>
+  </div>
+
+  <div class="card tint sec">
+    <h3>六条的共同点</h3>
+    <p>它们都不是“多做一个功能”，而是在某处多花了力气：多做一次确认、多写一条边界、多校验一遍几何、多打一次包。这些东西不出现在宣传语里，但决定了一件作品是否值得被托付。</p>
+  </div>
+  <div class="card sec" style="border:.35mm solid var(--line)">
+    <h3>如果只有三分钟</h3>
+    <p class="small">打开展示站的三维记忆馆，翻两页档案；打开应用的适老版，走到“规划路线”；再回来看这一页的六条创新点。它们都能被当场验证，而不是只能被相信。</p>
+  </div>
+  <div class="foot"><span>Rank8848 · 赛道三 AI + 社会公益</span><span>13</span></div>
+</section>
+<section class="page">
+  <div class="top"><div class="brand"><img src="assets/brand-mark.png">一起游 InsTrip</div><div>12 / BOUNDARIES · 能力边界</div></div>
+  <div class="kicker">WHAT WORKS TODAY</div>
+  <h1>哪些已经能用，<br>哪些还只是计划。</h1>
+  <p class="lead">用一张表代替形容词。“已实现”指当前应用或展示站中可当场打开的部分；“提案”指已写进设计但尚未落地；“待开展”指方向成立但结果未知。</p>
+
+  <table class="sec" style="width:100%;border-collapse:collapse;font-size:9pt;line-height:1.5;background:#fff">
+    <tr style="background:var(--green);color:#fff"><th style="text-align:left;padding:2.4mm 4mm;width:30%">能力</th><th style="text-align:left;padding:2.4mm 2mm;width:18%">当前状态</th><th style="text-align:left;padding:2.4mm 4mm 2.4mm 2mm">说明与后续</th></tr>
+    <tr><td style="padding:2.2mm 4mm">首页天气与每日行程</td><td><span class="tag">已实现</span></td><td style="padding-right:4mm">天气附数据时间；线上查询不可用时明确提示</td></tr>
+    <tr style="background:var(--paper)"><td style="padding:2.2mm 4mm">南京地点与慢行路线</td><td><span class="tag">已实现</span></td><td style="padding-right:4mm">24 个地点、4 条参考路线，含台阶与休息提示</td></tr>
+    <tr><td style="padding:2.2mm 4mm">地图步行路线与分天安排</td><td><span class="tag">已实现</span></td><td style="padding-right:4mm">百度地图联网计算；失败时退回地点顺序示意</td></tr>
+    <tr style="background:var(--paper)"><td style="padding:2.2mm 4mm">行程分享与协作编辑</td><td><span class="tag">已实现</span></td><td style="padding-right:4mm">只读 / 编辑邀请，多人编辑保留版本冲突提示</td></tr>
+    <tr><td style="padding:2.2mm 4mm">志愿向导搜索与私聊</td><td><span class="tag">已实现</span></td><td style="padding-right:4mm">使用匿名设备身份，未完成实名认证与资质审核</td></tr>
+    <tr style="background:var(--paper)"><td style="padding:2.2mm 4mm">同城社区与群聊</td><td><span class="tag">已实现</span></td><td style="padding-right:4mm">同城 / 关注 / 发现；体验账号与器材标签为演示设定</td></tr>
+    <tr><td style="padding:2.2mm 4mm">适老模式</td><td><span class="tag">已实现</span></td><td style="padding-right:4mm">独立开关，收敛为地图、向导、消息三个入口</td></tr>
+    <tr style="background:var(--paper)"><td style="padding:2.2mm 4mm">数字藏品与照片回忆</td><td><span class="tag">已实现</span></td><td style="padding-right:4mm">默认私密，主动发布才进入社区</td></tr>
+    <tr><td style="padding:2.2mm 4mm">旅行文创（三维）</td><td><span class="tag">已实现（示意）</span></td><td style="padding-right:4mm">模型可旋转、可下载；实体成品需按材质打样</td></tr>
+    <tr style="background:var(--paper)"><td style="padding:2.2mm 4mm">旅行短片</td><td><span class="tag">已实现</span></td><td style="padding-right:4mm">30 / 60 / 90 秒成片，模板、运镜、字幕与素材可调</td></tr>
+    <tr><td style="padding:2.2mm 4mm">AI 客服与小宁对话</td><td><span class="tag">已实现（受限）</span></td><td style="padding-right:4mm">取决于已配置的模型服务；人工客服尚未接入</td></tr>
+    <tr style="background:var(--paper)"><td style="padding:2.2mm 4mm">影石相机直连与自动导入</td><td><span class="tag warm">提案</span></td><td style="padding-right:4mm">当前通过手机系统相册衔接</td></tr>
+    <tr><td style="padding:2.2mm 4mm">服务试点、访谈与回访</td><td><span class="tag warm">待开展</span></td><td style="padding-right:4mm">访谈 → 短距离试点 → 影像回访</td></tr>
+    <tr style="background:var(--paper)"><td style="padding:2.2mm 4mm">无障碍路线认证 / 逐步导航</td><td><span class="tag grey">不做承诺</span></td><td style="padding-right:4mm">需实地核验与专业评估</td></tr>
+  </table>
+
+  <div class="grid g3 sec" style="gap:4mm">
+    <div class="card tint"><h3>为什么不做逐步导航？</h3><p class="small">做不好会害人。路况、台阶与临时施工变化太快，与其给一个看起来精确的箭头，不如把地点顺序、距离与休息点讲清楚。</p></div>
+    <div class="card tint"><h3>三维文创是扫描的吗？</h3><p class="small">不是。从照片出发做插画与浮雕建模：人物保持平面，板体有真实厚度与倒角，是用来沟通形状与尺寸的设计示意。</p></div>
+    <div class="card tint"><h3>只有南京，够吗？</h3><p class="small">先做透一座城市再谈复制。24 个地点与 4 条路线，是验证“慢行 + 休息 + 陪伴”逻辑的最小样本。</p></div>
+  </div>
+  <div class="foot"><span>状态口径与作品介绍文档 v1.0 一致，并按 v2.7 更新</span><span>14</span></div>
+</section>
+<section class="page">
+  <div class="top"><div class="brand"><img src="assets/brand-mark.png">一起游 InsTrip</div><div>13 / TEAM · 团队与合作</div></div>
+  <div class="kicker">WHY US</div>
+  <h1>让想法落地的人。</h1>
+
+  <div class="grid g4 sec" style="gap:3mm">
+    <div class="card"><h2 style="margin-bottom:.5mm">陈健男</h2><span class="tag">队长 / 项目经理</span><p class="small" style="margin-top:2mm">华为开发者大会全国 16 强；南京高新技术人才 Zstar 席位；南京智澎科技有限公司技术；江苏省团委表扬信；组织多次国家级、省重点志愿活动。</p></div>
+    <div class="card"><h2 style="margin-bottom:.5mm">孙国豪</h2><span class="tag">宣发与物料</span><p class="small" style="margin-top:2mm">AI 创业者 / 独立开发者；南京市诚果科技公司股东；S创+东虹桥国际青年科创；OPC 社区负责人。</p></div>
+    <div class="card"><h2 style="margin-bottom:.5mm">王广运</h2><span class="tag">技术与开发</span><p class="small" style="margin-top:2mm">TokenNest 创始人。</p></div>
+    <div class="card"><h2 style="margin-bottom:.5mm">张厚立</h2><span class="tag">路演与汇报</span><p class="small" style="margin-top:2mm">AIGC creator / 创业者 / FDE；深圳市粤锦辰传媒公司股东；Rebuild-Z 硬科技社区品牌负责人；opendev“赞助计划”负责人；立云音文化工作室负责人。</p></div>
+  </div>
+
+  <div class="grid sec" style="grid-template-columns:1.2fr 1fr;gap:4mm;align-items:stretch">
+    <div><img class="img" src="assets/team-practice.jpg" style="height:52mm"><p class="cap">团队社会实践照片（来源：参赛 PPT 团队页）。</p></div>
+    <div class="card tint" style="display:flex;flex-direction:column;justify-content:center">
+      <h3>支持与指导</h3>
+      <p class="small"><b style="color:var(--ink)">技术支持</b>：影石 Insta360（运动与全景影像方案）、百度地图开放平台（地图与步行路线）、阿里云（服务与资源支撑）、Qoder（研发工具）。</p>
+      <p class="small" style="margin-top:1.5mm"><b style="color:var(--ink)">合作单位</b>：南京林业大学心理健康协会、Rebuild-Z 等。</p>
+      <p class="small" style="margin-top:1.5mm"><b style="color:var(--ink)">指导单位</b>：中国助残志愿者协会、中国肢残人协会、长江商学院公益部、北京市房山区残疾人服务中心。</p>
+    </div>
+  </div>
+  <div class="sec"><img src="assets/partners.png" style="width:100%;border-radius:2mm;background:#111"><p class="cap">合作方标志仅用于说明合作关系，不构成背书或认证。</p></div>
+
+  <div class="sec">
+    <div class="label">三步路线图 · 从工具到服务</div>
+    <div class="grid g3" style="gap:4mm">
+      <div class="card"><span class="tag">正在推进</span><h3 style="margin-top:2mm">① 访谈与需求验证</h3><p class="small">面向老年与残障群体、志愿者与文旅场景开展访谈，记录个人偏好与明确的协助需求。</p></div>
+      <div class="card"><span class="tag warm">下一阶段</span><h3 style="margin-top:2mm">② 小规模陪伴试点</h3><p class="small">从短距离、可退出的线路开始，双方确认协助范围，专业照护与应急另行安排。</p></div>
+      <div class="card"><span class="tag grey">试点之后</span><h3 style="margin-top:2mm">③ 影像回访与沉淀</h3><p class="small">回访路线负担、交流体验与拍摄感受，由本人挑选愿意留下的故事与影像。</p></div>
+    </div>
+    <p class="small" style="margin-top:2.5mm">拟采用的观察指标（尚无数据）：试点场次与成行率 · 哪段路最累、哪里适合休息 · 影像授权留存与撤回处理 · 当事人与志愿者是否愿意再来一次。</p>
+  </div>
+  <div class="foot"><span>Rank8848 · 赛道三 AI + 社会公益</span><span>15</span></div>
+</section>
+<section class="page">
+  <div class="top"><div class="brand"><img src="assets/brand-mark.png">一起游 InsTrip</div><div>14 / DELIVERY · 交付与来源</div></div>
+  <div class="kicker">HOW TO OPEN IT</div>
+  <h1>打开它，只需要一次双击。</h1>
+
+  <table class="sec" style="width:100%;border-collapse:collapse;font-size:9pt;line-height:1.5;background:#fff">
+    <tr style="background:var(--green);color:#fff"><th style="text-align:left;padding:2.2mm 4mm;width:20%">形态</th><th style="text-align:left;padding:2.2mm 2mm">内容</th><th style="text-align:left;padding:2.2mm 4mm;width:27%">体量</th></tr>
+    <tr><td style="padding:2.2mm 4mm">Android 应用</td><td>一起游 v2.7.0（Android 6.0 及以上）</td><td style="padding:2.2mm 4mm">安装包约 95 MB</td></tr>
+    <tr style="background:var(--paper)"><td style="padding:2.2mm 4mm">Web 展示站</td><td>产品章节 + 三维记忆馆 + 44 份档案</td><td style="padding:2.2mm 4mm">216 个文件 / 116.5 MB</td></tr>
+    <tr><td style="padding:2.2mm 4mm">三维文创</td><td>12 件 GLB（6 冰箱贴 / 6 钥匙扣）+ 模型清单</td><td style="padding:2.2mm 4mm">单件 0.9–4.2 MB</td></tr>
+    <tr style="background:var(--paper)"><td style="padding:2.2mm 4mm">演示视频</td><td>产品演示 60 秒 · 开发与验证记录 60 秒</td><td style="padding:2.2mm 4mm">1280×720</td></tr>
+  </table>
+
+  <div class="grid g3 sec" style="gap:4mm">
+    <div class="card"><div class="idx">01 / WINDOWS</div><h3>双击就能看</h3><p class="small">完整解压后双击“打开网站.cmd”，浏览器自动打开；查看时保持窗口开启。无需 Node.js 或 Python。</p></div>
+    <div class="card"><div class="idx">02 / DEPLOY</div><h3>上传即可上线</h3><p class="small">把 website 内全部文件上传到静态站点根目录，index.html 位于根目录，资源路径以 / 开头。</p></div>
+    <div class="card"><div class="idx">03 / OTHER</div><h3>其他系统预览</h3><p class="small">Python 3：python3 -m http.server 8080；Node.js：node preview.cjs。三维记忆馆建议新版 Chrome / Edge 横屏浏览。</p></div>
+  </div>
+
+  <div class="grid g2 sec" style="gap:4mm">
+    <div class="card tint">
+      <h3>参考资料</h3>
+      <ul class="small" style="line-height:1.7">
+        <li>国务院办公厅《关于发展银发经济增进老年人福祉的意见》国办发〔2024〕1号</li>
+        <li>文化和旅游部资源开发司 资源函〔2022〕54号</li>
+        <li>国家统计局《2025 年统计公报》；联合国 UNData；WHO《Ageing and health》</li>
+        <li>WHO《关于老龄化与健康的全球报告》：不存在“典型的老年人”</li>
+        <li>百度地图开放平台、影石 Insta360 产品页、three.js 文档、MiSans 字体许可</li>
+      </ul>
+    </div>
+    <div class="card tint">
+      <h3>图片来源与说明</h3>
+      <ul class="small" style="line-height:1.7">
+        <li>志愿陪伴照片：用户授权作为原图展示，不声称为本项目活动记录</li>
+        <li>南京实景（Wikimedia Commons）：玄武湖 A Chinese user，CC BY-SA 4.0；老门东 钉钉，CC BY-SA 4.0；夫子庙夜景 纳瓦拉的亨利，CC BY-SA 4.0</li>
+        <li>应用与网站截图：真实安装包与本机运行的展示站</li>
+        <li>文创示意与模型：项目 AI 设计与 Lux3D 云建模流程生成</li>
+        <li>字体：MiSans（小米），许可随包提供</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card sec" style="background:var(--deep);color:#fff;text-align:center;padding:4mm 6mm">
+    <img src="assets/brand-mark.png" style="height:7mm;filter:invert(1);margin:0 auto 2.5mm">
+    <div style="font-size:11.5pt;font-weight:600;line-height:1.65">让每一次出发，都有人陪伴；<br>让每一段旅程，都有影像留存；<br>让每一个人，都有尊严地被看见。</div>
+    <div style="font-size:8pt;letter-spacing:.2em;color:#a9c0b2;margin-top:3mm">INSTRIP 一起游 · RANK8848 · 2026</div>
+  </div>
+  <div class="foot"><span>2026 影石 Bold Maker 智能影像挑战赛 · 赛道三 AI + 社会公益</span><span>16</span></div>
+</section>
+
+<script>
+// Spread leftover page height across section gaps (max 12mm each) so short pages don't pool blank space above the footer.
+function balancePages(){
+  const mm = 96/25.4;
+  document.querySelectorAll('.page').forEach(p => {
+    const foot = p.querySelector(':scope>.foot');
+    const secs = p.querySelectorAll(':scope>.sec');
+    if (!foot || !secs.length) return;
+    const kids = [...p.children].filter(c => c !== foot && c.tagName !== 'IMG');
+    const gap = foot.getBoundingClientRect().top - kids[kids.length-1].getBoundingClientRect().bottom - 4*mm;
+    if (gap <= 0) return;
+    const add = Math.min(gap / secs.length, 12*mm);
+    secs.forEach(s => { s.style.marginTop = (parseFloat(getComputedStyle(s).marginTop) + add) + 'px'; });
+  });
+  document.documentElement.dataset.balanced = '1';
+}
+window.addEventListener('load', () => document.fonts.ready.then(() => { if (matchMedia('print').matches || !matchMedia('(max-width:900px)').matches) balancePages(); }));
+</script>
+</body>
+</html>

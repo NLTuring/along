@@ -134,7 +134,7 @@
   "community.error.idempotencyKey": "This request needs a fresh submission key. Refresh the form.",
   "community.inquiry.title": "Ask about making it",
   "community.inquiry.myRequests": "My production inquiries",
-  "community.inquiry.backAccount": "Back to my account",
+  "community.inquiry.backAccount": "Back to the workshop",
   "community.inquiry.detail": "Production inquiry",
   "community.inquiry.noPayment": "A manual production inquiry, not checkout. Feasibility, price and delivery require a real quote. No payment is taken here.",
   "community.inquiry.signIn": "Sign in to access your private models and production inquiries.",

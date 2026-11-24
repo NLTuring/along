@@ -165,7 +165,7 @@ function captureSheet() {
         closeSheet();
         if (key === 'photo') openCamera();
         else if (key === 'film') location.hash = '#/studio';
-        else if (key === 'craft') location.hash = '#/craft/new';
+        else if (key === 'craft') location.hash = '#/workshop';
         else if (key === 'story') openPostComposer();
       });
     },

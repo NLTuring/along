@@ -1,0 +1,30 @@
+{
+  "hero.title": "Pick a city. Leave with a friend and a film.",
+  "hero.sub": "We plan your three days and put a local friend beside you.",
+  "arrive.when": "When do you arrive",
+  "arrive.budget.hint": "In Chinese yuan, not counting your hotel.",
+  "plan.lands": "You arrive in {days} d {hours} h",
+  "plan.lands.today": "You arrive in {hours} h",
+  "plan.share.text": "My {days} days, planned with Along",
+
+  "checkout.pay.cash": "Pay in person on the day",
+  "checkout.cta.cash": "Confirm, pay {amount} in person on the day",
+  "error.UPSTREAM_ERROR": "The card payment was not completed. Try again or choose to pay in person on the day.",
+  "pay.error.declined": "This card was declined (demo). Use another card, or choose to pay in person on the day.",
+  "pay.error.failed": "The card payment did not go through and nothing was charged. Try again or choose to pay in person on the day.",
+  "pay.card.brands": "UnionPay, Visa, Mastercard and more · demo mode",
+  "pay.empty.body": "You can add UnionPay, Visa, Mastercard, American Express, JCB, Discover and Diners Club cards.",
+
+  "support.answer.payment": "WeChat Pay and Alipay work at most sights, restaurants and stalls. A few car parks and remote stalls take cash only, so carry a little.",
+  "support.answer.internet": "Mobile data can slow down at crowded sights. Open your plan before you set off: what is saved on this phone still works offline.",
+  "support.answer.tickets": "Museums and major sights usually need a timed, real-name reservation on their official account or mini program, and your ID card at the gate. Book a few days ahead for holidays.",
+  "support.answer.safety": "In an emergency call 110 for police or 120 for an ambulance. Carry your ID card and keep valuables with you.",
+  "support.human.off": "Contact details for our team are not set up yet.",
+
+  "style.CHINA_TRAVEL": "Travel Diary",
+  "share.caption.default": "72 hours, two cities: noodles at noon, a night ferry, and a friend who knew every alley. Made with Along.",
+  "assistant.local.howto": "There are four tabs. Trip turns your arrival time and city into a three to seven day plan, with lunch, dinner and where to sleep for each day. Friends finds a local volunteer or licensed guide. Stories shows travellers’ notes. You holds settings, saved places, orders and Food and stays, where you set what you avoid and show the staff a card. The round button in the middle takes photos and makes 3D keepsakes.",
+  "travel.tips.checkin": "Bring your ID card: the front desk checks and registers it at check-in. Before booking a guesthouse, ask whether it can register your stay and whether it has a front desk.",
+  "travel.card.title": "Ordering card",
+  "travel.sub": "Where to eat between stops, and which area to sleep in each night, to your taste and budget."
+}

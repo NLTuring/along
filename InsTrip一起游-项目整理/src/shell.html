@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>InsTrip 一起游 · 项目整理</title>
+<style>
+@font-face{font-family:"MiSans";src:url(assets/fonts/MiSans-Light.woff2) format("woff2");font-weight:300}
+@font-face{font-family:"MiSans";src:url(assets/fonts/MiSans-Regular.woff2) format("woff2");font-weight:400}
+@font-face{font-family:"MiSans";src:url(assets/fonts/MiSans-Demibold.woff2) format("woff2");font-weight:600}
+@font-face{font-family:"MiSans";src:url(assets/fonts/MiSans-Bold.woff2) format("woff2");font-weight:700}
+@page{size:210mm 297mm;margin:0}
+:root{--ink:#1f2b25;--green:#4e6c5d;--deep:#24362d;--muted:#7a877f;--paper:#f4f6f2;--card:#ffffff;--line:#d9e0db;--tint:#e6ede8;--warm:#b28f4a;--warm-tint:#f4ede0}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{margin:0;padding:0;width:210mm;background:var(--deep);font-family:"MiSans","Microsoft YaHei",sans-serif;color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact;line-break:strict}
+.page{width:210mm;height:297mm;background:var(--paper);padding:14mm 16mm 10mm;display:flex;flex-direction:column;break-after:page;page-break-after:always;position:relative}
+.page:last-child{break-after:auto;page-break-after:auto}
+.top{display:flex;justify-content:space-between;align-items:center;font-size:7.5pt;color:var(--muted);letter-spacing:.12em;padding-bottom:4mm;border-bottom:.5px solid var(--line);margin-bottom:7mm}
+.top .brand{display:flex;align-items:center;gap:2mm;color:var(--ink);font-weight:600;letter-spacing:.02em;font-size:8.5pt}
+.top .brand img{height:4mm}
+.foot{margin-top:auto;display:flex;justify-content:space-between;font-size:7.5pt;color:var(--muted);padding-top:3mm;border-top:.5px solid var(--line)}
+.kicker{font-size:8pt;letter-spacing:.2em;color:var(--green);font-weight:600;margin-bottom:2mm}
+h1{font-size:23pt;line-height:1.28;font-weight:700}
+h2{font-size:12.5pt;font-weight:600;margin-bottom:2.5mm;line-height:1.35}
+h3{font-size:10.5pt;font-weight:600;margin-bottom:1.2mm;line-height:1.4}
+p,li{font-size:9.5pt;line-height:1.7}
+ul{padding-left:4.5mm}
+.lead{font-size:10.5pt;line-height:1.75;color:#3b4943;margin-top:3mm}
+.small{font-size:8pt;line-height:1.6;color:var(--muted)}
+.cap{font-size:7.5pt;line-height:1.5;color:var(--muted);margin-top:1.5mm}
+.card{background:var(--card);border-radius:3mm;padding:4.5mm 5mm}
+.card.tint{background:var(--tint)}
+.grid{display:grid;gap:4mm}
+.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}.g5{grid-template-columns:repeat(5,1fr)}.g6{grid-template-columns:repeat(6,1fr)}
+.sec{margin-top:6mm}
+.label{font-size:8pt;letter-spacing:.16em;color:var(--muted);font-weight:600;margin-bottom:2.5mm}
+.num{font-size:21pt;font-weight:700;color:var(--green);line-height:1.1}
+.num small{font-size:9pt;font-weight:600;margin-left:.6mm}
+.idx{font-size:8pt;font-weight:700;color:var(--green);letter-spacing:.08em;margin-bottom:1.2mm}
+.tag{display:inline-block;font-size:7.5pt;padding:.5mm 2.2mm;border-radius:10mm;background:var(--tint);color:var(--green);font-weight:600;white-space:nowrap}
+.tag.warm{background:var(--warm-tint);color:#86672b}
+.tag.grey{background:#eceeed;color:var(--muted)}
+img{display:block}
+.img{width:100%;border-radius:2.5mm;object-fit:cover}
+.phone{width:100%;border-radius:2.5mm;border:.35mm solid var(--line);background:#fff}
+.quote{font-size:10pt;line-height:1.75;color:#33413a}
+.who{font-size:8pt;color:var(--muted);margin-top:2mm}
+@media screen{html,body{width:auto;background:#cfd6d1}.page{margin:8mm auto;box-shadow:0 2mm 8mm rgba(0,0,0,.15)}}
+@media screen and (max-width:900px){.page{zoom:.6}}
+</style>
+</head>
+<body>
+<!--PAGES-->
+<script>
+// Spread leftover page height across section gaps (max 12mm each) so short pages don't pool blank space above the footer.
+function balancePages(){
+  const mm = 96/25.4;
+  document.querySelectorAll('.page').forEach(p => {
+    const foot = p.querySelector(':scope>.foot');
+    const secs = p.querySelectorAll(':scope>.sec');
+    if (!foot || !secs.length) return;
+    const kids = [...p.children].filter(c => c !== foot && c.tagName !== 'IMG');
+    const gap = foot.getBoundingClientRect().top - kids[kids.length-1].getBoundingClientRect().bottom - 4*mm;
+    if (gap <= 0) return;
+    const add = Math.min(gap / secs.length, 12*mm);
+    secs.forEach(s => { s.style.marginTop = (parseFloat(getComputedStyle(s).marginTop) + add) + 'px'; });
+  });
+  document.documentElement.dataset.balanced = '1';
+}
+window.addEventListener('load', () => document.fonts.ready.then(() => { if (matchMedia('print').matches || !matchMedia('(max-width:900px)').matches) balancePages(); }));
+</script>
+</body>
+</html>

@@ -2,6 +2,7 @@
 // Money is stored as integer USD cents; times are stored in UTC and shown in the city's time zone.
 
 import { getLocale } from './i18n.js';
+import { isDomestic } from './audience.js';
 
 export const FX_CNY_PER_USD = 7.15; // spec §7.1, display reference only
 
@@ -17,6 +18,31 @@ export function usd(cents) {
 // USD cents -> "¥657" at the configured reference rate
 export function cny(cents) {
   return `¥${group(Math.round((cents / 100) * FX_CNY_PER_USD))}`;
+}
+
+// A price in the traveller's own currency: yuan for someone who lives in China, US dollars
+// for a visitor from abroad.
+export function money(cents) {
+  return isDomestic() ? cny(cents) : usd(cents);
+}
+
+// An amount already in Chinese fen (1/100 yuan), e.g. a workshop kit: 2580 -> "¥25.80", 4300 -> "¥43".
+export function fen(value) {
+  const whole = Math.trunc(value / 100), rest = Math.abs(value % 100);
+  return rest ? `¥${group(whole)}.${String(rest).padStart(2, '0')}` : `¥${group(whole)}`;
+}
+
+// Estimates written in whole yuan: 1500 -> "¥1,500"; [80, 150] -> "¥80–150".
+export function yuan(value) {
+  return `¥${group(Math.round(value))}`;
+}
+export function yuanRange([lo, hi]) {
+  return lo === hi ? yuan(lo) : `${yuan(lo)}–${group(Math.round(hi))}`;
+}
+// The same range in US dollars at the reference rate, for visitors: [80, 150] -> "$11–$21".
+export function usdRange([lo, hi]) {
+  const dollars = (n) => usd(Math.round(Math.round((n * 100) / FX_CNY_PER_USD) / 100) * 100);
+  return lo === hi ? dollars(lo) : `${dollars(lo)}–${dollars(hi)}`;
 }
 
 // 4.9 -> "4.9", 5 -> "5.0"

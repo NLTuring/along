@@ -191,7 +191,7 @@ done`, { timeout: 3600000 });
     const stamp = new Date().toISOString().replace(/\D/g, '').slice(0, 14);
     const archive = join(tmpdir(), `along-release-${stamp}.tar.gz`);
     const files = ['package.json', 'package-lock.json', 'mobile/assets', 'admin', 'deploy', 'server/package.json', 'server/package-lock.json',
-      'server/tsconfig.json', 'server/tsconfig.build.json', 'server/src', 'server/migrations', 'mobile/tools/build-3d.mjs', 'mobile/tools/check.mjs'];
+      'server/tsconfig.json', 'server/tsconfig.build.json', 'server/src', 'server/migrations', 'mobile/pinch', 'mobile/tools/build-3d.mjs', 'mobile/tools/check.mjs'];
     execFileSync('tar', ['-czf', archive, '--exclude=__pycache__', '--exclude=node_modules', ...files], { cwd: ROOT });
     const archiveText = execFileSync('tar', ['-tzf', archive], { encoding: 'utf8' });
     if (/(^|\/)(\.env|production\.env|.*\.p12|.*\.apk)$/m.test(archiveText)) throw Error('Release archive would include a secret or APK');

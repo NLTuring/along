@@ -11,6 +11,7 @@ import { CITIES, DAY_OPTIONS } from './seed.js';
 import { buildPlan, savePlan, TZ } from './plan.js';
 import { windowShowHtml, mountWindowShow } from './window-show.js';
 import { go } from './router.js';
+import { isDomestic } from './audience.js';
 
 const STORE_KEY = 'instrip.arrival';
 const INTERESTS = [
@@ -225,7 +226,7 @@ function building(root, state, onBuilt) {
   root.querySelector('h1').focus({ preventScroll: true });
 
   const items = [...root.querySelectorAll('.progress li')];
-  const plan = buildPlan(state, { interests: state.interests, pace: state.pace, budget: state.budget });
+  const plan = buildPlan(state, { interests: state.interests, pace: state.pace, budget: state.budget, budgetCurrency: isDomestic() ? 'CNY' : 'USD' });
   const finish = () => {
     if (!savePlan(plan)) {
       renderArrive(root, { onBuilt, draft: state });

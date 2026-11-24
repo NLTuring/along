@@ -23,7 +23,7 @@ export type ProviderResponse = { bytes: Buffer; type: string };
 export type ProviderTransport = typeof safeHttps;
 // Resolve and pin only public addresses. The deadline includes DNS, TLS and body reads.
 // Never follow redirects; never decompress an unbounded encoded response.
-export async function safeHttps(url: URL, method: 'POST' | 'GET', body: Buffer | undefined, headers: Record<string, string>, maxBytes: number, timeout = 60000): Promise<ProviderResponse> {
+export async function safeHttps(url: URL, method: 'POST' | 'GET', body: Buffer | undefined, headers: Record<string, string>, maxBytes: number, timeout = 60000, accepted: readonly number[] = [200]): Promise<ProviderResponse> {
   checkHttps(url);
   if (!Number.isSafeInteger(maxBytes) || maxBytes < 1 || !Number.isSafeInteger(timeout) || timeout < 1) throw new Error('PROVIDER_LIMIT_INVALID');
   return new Promise((resolve, reject) => {
@@ -46,7 +46,7 @@ export async function safeHttps(url: URL, method: 'POST' | 'GET', body: Buffer |
         }, res => {
           response = res;
           if (settled) { res.destroy(); return; }
-          if (res.statusCode !== 200) { finish(new Error('PROVIDER_REJECTED')); return; }
+          if (!accepted.includes(res.statusCode || 0)) { finish(new Error('PROVIDER_REJECTED')); return; }
           const length = res.headers['content-length'];
           if (length !== undefined && (!/^\d+$/.test(length) || !Number.isSafeInteger(Number(length)) || Number(length) > maxBytes)) { finish(new Error('PROVIDER_RESPONSE_TOO_LARGE')); return; }
           if (res.headers['content-encoding'] && res.headers['content-encoding'].toLowerCase() !== 'identity') { finish(new Error('PROVIDER_ENCODING_INVALID')); return; }

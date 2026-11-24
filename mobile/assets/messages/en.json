@@ -427,10 +427,8 @@
   "you.title": "You",
   "you.guest": "Not signed in",
   "you.signin": "Sign in with your email",
-  "you.trips": "My trips",
   "you.orders": "Bookings and orders",
   "you.films": "My films",
-  "you.crafts": "My digital collection",
   "you.saved": "Saved places",
   "saved.title": "Saved places",
   "saved.sub": "Places you want to find again.",
@@ -539,5 +537,13 @@
 
   "legal.terms": "Terms",
   "legal.privacy": "Privacy",
-  "legal.refunds": "Refunds"
+  "legal.refunds": "Refunds",
+  "share.system": "Share to another app",
+  "share.caption.default": "72 hours in China: noodles at noon, a night ferry, and a friend who knew every alley. Made with Along.",
+  "you.audience": "I am",
+  "you.audience.note": "Sets whether prices show in yuan or US dollars, and which travel advice you see.",
+  "audience.domestic": "Living in China",
+  "audience.inbound": "Visiting China",
+  "audience.changed.domestic": "Set to living in China: prices show in yuan.",
+  "audience.changed.inbound": "Set to visiting China: prices show in US dollars."
 }

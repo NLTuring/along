@@ -1,0 +1,19 @@
+{
+  "community.admin.gallery": "Gallery",
+  "community.admin.bead-orders": "Bead kits",
+  "workshop.admin.price": "Unlock price: {n} points",
+  "workshop.admin.remixYes": "remixes allowed",
+  "workshop.admin.remixNo": "no remixes",
+  "workshop.admin.remixOf": "a remix of another work",
+  "workshop.admin.model": "Download the 3D model to check it",
+  "workshop.admin.demoNote": "Payments for bead kits are demonstrations: no money was taken. Addresses are for packing only.",
+  "workshop.admin.kit.FULL_KIT": "Full kit",
+  "workshop.admin.kit.BEADS": "Beads only",
+  "workshop.admin.beads": "{w} × {h} pattern, {beads} beads",
+  "workshop.admin.bead.PAID_DEMO": "Paid (demo)",
+  "workshop.admin.bead.PACKING": "Packing",
+  "workshop.admin.bead.SHIPPED": "Sent",
+  "workshop.admin.bead.CANCELLED": "Cancelled",
+  "workshop.admin.carrier": "Carrier",
+  "workshop.admin.tracking": "Tracking number"
+}

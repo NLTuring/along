@@ -63,6 +63,31 @@ function loadAI(env: NodeJS.ProcessEnv) {
     mask: z.enum(['grayscale-white-foreground', 'alpha-foreground']).parse(env.AI_MASK_REPRESENTATION || 'grayscale-white-foreground'),
   };
 }
+// Photo-to-3D for the clay workshop (PINCH adapter). Keys stay in server .env; result downloads
+// are restricted to an exact CDN hostname allowlist because providers return signed URLs.
+const meshBases = { tripo: 'https://api.tripo3d.ai/v2/openapi', meshy: 'https://api.meshy.ai/openapi' } as const;
+const modelName = z.string().max(128).regex(/^[a-zA-Z0-9][a-zA-Z0-9._:/-]*$/);
+function loadMesh(env: NodeJS.ProcessEnv) {
+  // openai-layout: an OpenAI-compatible vision model lays the photo out as clay parts (the PINCH method);
+  // tripo / meshy: a mesh-generation service returns a GLB.
+  const provider = z.enum(['disabled', 'tripo', 'meshy', 'openai-layout']).parse(env.MESH_PROVIDER || 'disabled');
+  const layout = provider === 'openai-layout';
+  const llmBaseUrl = layout ? endpoint(env.MESH_LLM_BASE_URL) : '';
+  const llmHosts = layout ? hostList(env.MESH_LLM_ALLOWED_HOSTS) : [];
+  if (llmBaseUrl) {
+    const url = new URL(llmBaseUrl);
+    if (!/^\/v1\/?$/.test(url.pathname) || url.search) throw new Error('MESH_LLM_BASE_URL must use the /v1 path without a query');
+    if (llmHosts.length && !llmHosts.includes(url.hostname)) throw new Error('MESH_LLM_BASE_URL is not in MESH_LLM_ALLOWED_HOSTS');
+  }
+  const apiKey = provider === 'tripo' ? env.TRIPO_API_KEY || '' : provider === 'meshy' ? env.MESHY_API_KEY || '' : layout ? env.MESH_LLM_API_KEY || '' : '';
+  return {
+    provider, apiKey, baseUrl: provider === 'tripo' || provider === 'meshy' ? meshBases[provider] : llmBaseUrl,
+    llmHosts, llmModel: layout && env.MESH_LLM_MODEL ? modelName.parse(env.MESH_LLM_MODEL) : '',
+    llmTimeoutMs: z.coerce.number().int().min(10_000).max(300_000).parse(env.MESH_LLM_TIMEOUT_MS || 150_000),
+    resultHosts: hostList(env.MESH_RESULT_HOSTS),
+    timeoutMs: z.coerce.number().int().min(60_000).max(3_600_000).parse(env.MESH_JOB_TIMEOUT_MS || 900_000),
+  };
+}
 export function loadConfig(env: NodeJS.ProcessEnv = process.env) {
   const mode = env.NODE_ENV === 'production' ? 'production' : 'development';
   const local = flag(env.DEVELOPMENT_LOCAL);
@@ -87,7 +112,13 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env) {
   const aiEditReady = ai.provider === 'openai-person' ? Boolean(ai.openaiImageBaseUrl && ai.openaiImageHosts.length && ai.openaiImageModel && ai.openaiImageApiKey) : aiReady;
   // The in-app assistant reuses the openai-person chat gateway with its own (smaller, faster) model.
   const assistantReady = ai.provider === 'openai-person' && Boolean(ai.openaiBaseUrl && ai.openaiHosts.length && ai.assistantModel && ai.openaiApiKey);
-  if (local && (smtpReady || aiDetectReady || aiEditReady || assistantReady)) throw new Error('DEVELOPMENT_LOCAL forbids external mail/AI calls');
+  const mesh = loadMesh(env);
+  const meshReady = mesh.provider === 'openai-layout'
+    ? Boolean(mesh.apiKey && mesh.baseUrl && mesh.llmHosts.length && mesh.llmModel)
+    : mesh.provider !== 'disabled' && Boolean(mesh.apiKey && mesh.resultHosts.length);
+  // Local test mode never calls out, except the clay photo-to-3D gateway when explicitly allowed for a demo.
+  const localMesh = local && flag(env.DEVELOPMENT_LOCAL_ALLOW_MESH);
+  if (local && (smtpReady || aiDetectReady || aiEditReady || assistantReady || (meshReady && !localMesh))) throw new Error('DEVELOPMENT_LOCAL forbids external mail/AI calls');
   return {
     mode, local, secret, origins, publicBasePath, host: env.HOST || '127.0.0.1', port: z.coerce.number().int().min(1).max(65535).parse(env.PORT || 3001),
     devOtp: mode === 'development' && flag(env.DEV_OTP_DISPLAY),
@@ -100,7 +131,9 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env) {
     smtp: { host: env.SMTP_HOST || '', port: Number(env.SMTP_PORT || 465), secure: env.SMTP_SECURE !== 'false', user: env.SMTP_USER || '', password: env.SMTP_PASSWORD || '', from: env.SMTP_FROM || '' },
     smtpReady, aiReady, aiDetectReady, aiEditReady, assistantReady,
     workerConcurrency: z.coerce.number().int().min(1).max(4).parse(env.WORKER_CONCURRENCY || 2),
-    ai,
+    ai, mesh, meshReady,
+    // No payment processor is connected: top-ups are labelled demo purchases and never charge.
+    pointsDemoTopup: env.POINTS_DEMO_TOPUP !== 'false',
     ffmpeg: env.FFMPEG_PATH || 'ffmpeg', ffprobe: env.FFPROBE_PATH || 'ffprobe',
     limits: { imageBytes: 12 * 1024 * 1024, videoBytes: 80 * 1024 * 1024, videoSeconds: 60, modelBytes: 32 * 1024 * 1024, pixels: 25_000_000 },
   } as const;

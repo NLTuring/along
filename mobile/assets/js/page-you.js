@@ -3,7 +3,8 @@
 // display settings (language, motion, transparency, larger text).
 
 import { t, te, esc, getLocale, setLocale, LOCALES } from './i18n.js';
-import { usd } from './format.js';
+import { money } from './format.js';
+import { AUDIENCES, getAudience, setAudience } from './audience.js';
 import { icon } from './icons.js';
 import { toast, getSettings, setSetting, skyline } from './ui.js';
 import { go } from './router.js';
@@ -11,19 +12,19 @@ import { getSession, signOut } from './auth.js';
 import { openLogin } from './login.js';
 import { PASS_PRICE_CENTS } from './seed.js';
 
+// The Trip tab already holds the plan and the map; these are the things it does not show.
 const LINKS = [
-  ['trips', 'trip'],
+  ['eat', 'bowl'],
   ['orders', 'check'],
   ['films', 'film'],
-  ['crafts', 'craft'],
+  // One door to everything hand-made: keepsakes, clay, beads, the gallery, points and their orders.
+  ['workshop', 'clay'],
   ['saved', 'heart'],
   ['social', 'message'],
   ['wallet', 'card'],
-  ['map', 'globe'],
-  ['production', 'craft'],
 ];
 
-const ROUTES = { trips: 'trip', orders: 'orders', films: 'library', crafts: 'crafts', saved: 'saved', social: 'social', wallet: 'wallet', map: 'map', production: 'make-orders' };
+const ROUTES = { eat: 'travel', orders: 'orders', films: 'library', workshop: 'workshop', saved: 'saved', social: 'social', wallet: 'wallet' };
 
 function link(key, name) {
   const route = ROUTES[key];
@@ -44,6 +45,7 @@ function toggle(key, on) {
 export function renderYou(root) {
   const settings = getSettings();
   const locale = getLocale();
+  const audience = getAudience();
   const session = getSession();
 
   root.innerHTML = `
@@ -69,7 +71,7 @@ export function renderYou(root) {
         <div class="pass__copy">
           <h2 class="t-heading">${te('pass.title')}</h2>
           <p class="t-body">${te('pass.body')}</p>
-          <p class="t-small t-num">${te('pass.price', { price: usd(PASS_PRICE_CENTS) })}</p>
+          <p class="t-small t-num">${te('pass.price', { price: money(PASS_PRICE_CENTS) })}</p>
           <button class="btn btn--small" data-soon data-track="pass_cta">${te('pass.cta')}</button>
         </div>
         <div class="pass__locked glass glass--reeded" role="img" aria-label="${te('pass.locked')}">${icon('lock')}</div>
@@ -85,6 +87,14 @@ export function renderYou(root) {
           <div class="segmented segmented--compact" role="radiogroup" aria-labelledby="lang-label">
             ${LOCALES.map((code) => `
               <button class="segmented__item${code === locale ? ' is-on' : ''}" role="radio" aria-checked="${code === locale}" data-locale="${code}" lang="${code === 'zh' ? 'zh-CN' : 'en'}"><span>${te(`lang.${code}`)}</span></button>`).join('')}
+          </div>
+        </div>
+        <div class="row row--static row--stack">
+          <span class="row__icon">${icon('pin')}</span>
+          <span class="row__text"><strong id="audience-label">${te('you.audience')}</strong><span class="t-small">${te('you.audience.note')}</span></span>
+          <div class="segmented segmented--compact" role="radiogroup" aria-labelledby="audience-label">
+            ${AUDIENCES.map((kind) => `
+              <button class="segmented__item${kind === audience ? ' is-on' : ''}" role="radio" aria-checked="${kind === audience}" data-audience="${kind}"><span>${te(`audience.${kind}`)}</span></button>`).join('')}
           </div>
         </div>
         <button class="row row--switch" role="switch" aria-checked="${settings.assistant === true}" data-setting="assistant" aria-describedby="assistant-setting-note">
@@ -118,6 +128,15 @@ export function renderYou(root) {
       if (localeBtn.dataset.locale === getLocale()) return;
       await setLocale(localeBtn.dataset.locale); // app.js re-renders on locale change
       toast(t('lang.changed'));
+      return;
+    }
+
+    const audienceBtn = event.target.closest('[data-audience]');
+    if (audienceBtn) {
+      const kind = audienceBtn.dataset.audience;
+      if (kind === getAudience()) return;
+      setAudience(kind); // i18n.js swaps the copy and app.js redraws the page
+      toast(t(`audience.changed.${kind}`));
       return;
     }
 

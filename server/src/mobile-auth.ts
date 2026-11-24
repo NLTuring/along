@@ -1,5 +1,6 @@
 import type { FastifyRequest } from 'fastify';
 import { digest, equal, fail, sendFile, type App, type Services, type User } from './core.js';
+import { workshopFile, workshopPath } from './workshop-files.js';
 
 export const NATIVE_APP_ORIGIN = 'https://appassets.androidplatform.net';
 // Phone sign-ins stay valid for 30 days of inactivity. Any authenticated use renews the deadline
@@ -62,6 +63,17 @@ export function createMobileAuthHooks(app: App, s: Services) {
     if (question < 0) return;
     const path = rawPath.slice(0, question), query = new URLSearchParams(rawPath.slice(question + 1));
     if (!query.has('ticket')) return;
+    const workshop = workshopPath.exec(path);
+    if (workshop) {
+      if (req.method !== 'GET' || query.getAll('ticket').length !== 1 || [...query.keys()].some(key => key !== 'ticket') || !s.config.origins.includes(NATIVE_APP_ORIGIN) || (origin !== undefined && !nativeOriginAllowed(s, origin))) fail(403, 'FILE_TICKET_INVALID');
+      const ticket = readTicket(s, query.get('ticket')!, path);
+      const session = await s.db.one("SELECT s.*,u.email,u.display_name FROM sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>$2 AND s.client_kind='mobile' AND s.native_origin=$3", [ticket.s, Date.now(), NATIVE_APP_ORIGIN]);
+      if (!session || ticket.e > Number(session.expires_at)) fail(403, 'FILE_TICKET_INVALID');
+      const user: User = { id: session!.user_id, email: session!.email, displayName: session!.display_name, role: s.config.admins.has(session!.email) ? 'ADMIN' : 'USER' };
+      const file = await workshopFile(s, user, workshop[1], workshop[2], workshop[3]);
+      req.fileTicket = true;
+      return sendFile(req, reply, s.storage, file.key, file.mime, file.filename);
+    }
     const match = filePath.exec(path);
     if (!match || req.method !== 'GET' || query.getAll('ticket').length !== 1 || [...query.keys()].some(key => key !== 'ticket') || !s.config.origins.includes(NATIVE_APP_ORIGIN) || (origin !== undefined && !nativeOriginAllowed(s, origin))) fail(403, 'FILE_TICKET_INVALID');
     const ticket = readTicket(s, query.get('ticket')!, path);
@@ -95,9 +107,10 @@ export function createMobileAuthHooks(app: App, s: Services) {
     const walk = (value: any, depth = 0) => {
       if (!value || typeof value !== 'object' || depth > 40) return;
       for (const [key, child] of Object.entries(value)) {
-        if (['url', 'posterUrl', 'glbUrl', 'stlUrl'].includes(key) && typeof child === 'string') {
-          const match = filePath.exec(child);
-          if (match && value.id === (match[2] || match[4])) {
+        if (['url', 'posterUrl', 'glbUrl', 'stlUrl', 'coverUrl', 'modelUrl'].includes(key) && typeof child === 'string') {
+          // Workshop files carry the id of their own record (gallery work or AI job).
+          const match = filePath.exec(child), workshop = workshopPath.exec(child);
+          if ((match && value.id === (match[2] || match[4])) || (workshop && value.id === workshop[2])) {
             value[key] = `${child}?ticket=${ticketFor(s, req.sessionHash!, child, req.sessionExpiresAt!)}`;
             changed = true;
           }

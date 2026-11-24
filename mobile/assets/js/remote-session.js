@@ -65,7 +65,7 @@ export function approvedApiFile(value, base, origin = globalThis.location?.origi
     if (url.origin !== expected.origin || !['https:', 'http:'].includes(url.protocol) || url.username || url.password || url.hash
       || !url.pathname.startsWith(`${prefix}/api/`)) return '';
     const canonical = url.pathname.slice(prefix.length);
-    if (!/^\/api\/(?:media\/[A-Za-z0-9_-]{1,128}\/(?:file|poster)|craft-models\/[A-Za-z0-9_-]{1,128}\/(?:glb|stl))$/.test(canonical)) return '';
+    if (!/^\/api\/(?:media\/[A-Za-z0-9_-]{1,128}\/(?:file|poster)|craft-models\/[A-Za-z0-9_-]{1,128}\/(?:glb|stl)|gallery\/[A-Za-z0-9_-]{1,128}\/(?:cover|model)|ai-models\/[A-Za-z0-9_-]{1,128}\/glb)$/.test(canonical)) return '';
     const keys = [...url.searchParams.keys()];
     if (keys.some(key => key !== 'ticket') || url.searchParams.getAll('ticket').length > 1 || (url.searchParams.get('ticket') || '').length > 1024) return '';
     return base ? url.href : `${url.pathname}${url.search}`;

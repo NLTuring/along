@@ -1,0 +1,47 @@
+<section class="page">
+  <div class="top"><div class="brand"><img src="assets/brand-mark.png">一起游 InsTrip</div><div>09 / ARCHITECTURE · 技术架构</div></div>
+  <div class="kicker">HOW IT IS BUILT</div>
+  <h1>两端一线：<br>应用、展示站与内容管线。</h1>
+  <p class="lead">客户端负责随身的行程与记录，展示站负责把作品与理念讲清楚，内容管线把照片变成可以转起来的三维纪念。三者共享同一套内容与口径。</p>
+
+  <div class="sec" style="display:flex;flex-direction:column;gap:2.5mm">
+    <div style="display:grid;grid-template-columns:30mm 1fr;gap:3mm;align-items:stretch">
+      <div class="card" style="background:var(--green);color:#fff;display:flex;flex-direction:column;justify-content:center"><b style="font-size:10pt">交付层</b><span style="font-size:7.5pt;letter-spacing:.14em;opacity:.8">DELIVERY</span></div>
+      <div class="card" style="display:flex;gap:2mm;flex-wrap:wrap;align-items:center"><span class="tag">Android 应用 v2.7.0</span><span class="tag">Web 静态展示站</span><span class="tag">Windows 一键启动器</span><span class="tag">零依赖本地预览服务</span><span class="tag">静态部署（Nginx / 宝塔）</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:30mm 1fr;gap:3mm">
+      <div class="card" style="background:#5d7b6b;color:#fff;display:flex;flex-direction:column;justify-content:center"><b style="font-size:10pt">体验层</b><span style="font-size:7.5pt;letter-spacing:.14em;opacity:.8">EXPERIENCE</span></div>
+      <div class="card" style="display:flex;gap:2mm;flex-wrap:wrap;align-items:center"><span class="tag">首页与每日行程</span><span class="tag">地图与路线规划</span><span class="tag">志愿向导与消息</span><span class="tag">同城社区与城市故事</span><span class="tag">数字藏品与照片回忆</span><span class="tag">旅行短片与旅行文创</span><span class="tag">三维记忆馆</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:30mm 1fr;gap:3mm">
+      <div class="card" style="background:#7a9586;color:#fff;display:flex;flex-direction:column;justify-content:center"><b style="font-size:10pt">能力层</b><span style="font-size:7.5pt;letter-spacing:.14em;opacity:.8">CAPABILITY</span></div>
+      <div class="card" style="display:flex;gap:2mm;flex-wrap:wrap;align-items:center"><span class="tag">百度地图 SDK（地图 / 步行路线）</span><span class="tag">天气与在线地点数据</span><span class="tag">CameraX 相机与相册</span><span class="tag">AI 对话与插画生成</span><span class="tag">Lux3D 云端建模</span><span class="tag">浮雕几何加工</span><span class="tag">three.js / WebGL</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:30mm 1fr;gap:3mm">
+      <div class="card" style="background:#9db0a5;color:#fff;display:flex;flex-direction:column;justify-content:center"><b style="font-size:10pt">内容层</b><span style="font-size:7.5pt;letter-spacing:.14em;opacity:.8">CONTENT</span></div>
+      <div class="card" style="display:flex;gap:2mm;flex-wrap:wrap;align-items:center"><span class="tag">44 份主题档案</span><span class="tag">12 件 GLB 文创 + 模型清单</span><span class="tag">南京实景（附原图与许可）</span><span class="tag">9 张应用截图</span><span class="tag">MiSans 字体</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:30mm 1fr;gap:3mm">
+      <div class="card" style="background:#c0cdc5;color:var(--ink);display:flex;flex-direction:column;justify-content:center"><b style="font-size:10pt">质量层</b><span style="font-size:7.5pt;letter-spacing:.14em;opacity:.8">TRUST</span></div>
+      <div class="card" style="display:flex;gap:2mm;flex-wrap:wrap;align-items:center"><span class="tag">sha256 文件清单</span><span class="tag">三态状态标注</span><span class="tag">失败降级与重试</span><span class="tag">素材来源与许可留档</span><span class="tag">减少动态效果 / 键盘可达</span></div>
+    </div>
+  </div>
+
+  <div class="grid g2 sec" style="gap:4mm">
+    <div class="card">
+      <h3>技术栈速查</h3>
+      <table style="width:100%;border-collapse:collapse;font-size:8.5pt;line-height:1.55">
+        <tr><td style="color:var(--muted);width:16mm;padding:1mm 0;vertical-align:top">客户端</td><td>Android 原生（Kotlin）外壳 + WebView 页面层；百度地图 SDK、CameraX</td></tr>
+        <tr><td style="color:var(--muted);padding:1mm 0;vertical-align:top">云服务</td><td>社区、同行伙伴、会话消息、短片任务、行程与客服接口</td></tr>
+        <tr><td style="color:var(--muted);padding:1mm 0;vertical-align:top">展示端</td><td>原生 JavaScript（无前端框架）+ three.js；CSS 玻璃拟态</td></tr>
+        <tr><td style="color:var(--muted);padding:1mm 0;vertical-align:top">三维</td><td>glTF Binary（GLB）、参数化浮雕建模，mm 记录尺寸</td></tr>
+      </table>
+    </div>
+    <div class="card tint">
+      <h3>一条数据，怎么走完全程</h3>
+      <p class="small">照片（相册 / 相机）→ 插画示意（AI 风格化）→ 云端网格（Lux3D）→ 浮雕加工（闭合背面、挂孔或磁贴）→ 几何校验 → GLB → WebGL 展陈（360° 观察、拆开看故事、下载）</p>
+      <p class="small" style="margin-top:2mm">取舍：展示端刻意不用前端框架，换来更小的体积、更少的依赖。</p>
+    </div>
+  </div>
+  <div class="foot"><span>依据：安装包 v2.7.0 结构、作品介绍文档与展示站资料</span><span>11</span></div>
+</section>

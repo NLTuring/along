@@ -281,6 +281,10 @@
 .row__text { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; }
 .row__text > strong { font-weight: 600; font-size: var(--fs-15); }
 .row__text > small { font-size: var(--fs-13); color: var(--body); }
+/* A row whose choice takes its own line under the label and its note. */
+.row--stack { flex-wrap: wrap; }
+.row--stack > .row__text { flex: 1 1 0; }
+.row--stack > .segmented { flex: 1 1 100%; }
 
 .switch {
   flex: none;

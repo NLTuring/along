@@ -14,7 +14,6 @@
   "online.auth.local": "本机开发账号：{email}，未发送邮件。",
   "online.auth.devcode": "仅本机开发环境：验证码 {code}，未发送邮件。正式环境不会在页面显示验证码。",
   "you.map": "地图与导航",
-  "you.production": "制作与邮寄",
   "map.title": "百度地图与导航",
   "map.privacy": "加载地图会连接百度地图服务。仅当你选择“使用我的位置”时请求定位，路线查询会发送给地图服务商。",
   "map.load": "加载百度地图",

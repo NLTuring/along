@@ -1,6 +1,7 @@
 // InsTrip mobile — entry point: settings, language, sky, routing.
 
 import { initI18n, onLocaleChange, t } from './i18n.js';
+import { prefersChinese } from './audience.js';
 import { time24 } from './format.js';
 import { startSky, clearSkyPreview, onSkyTick } from './sky.js';
 import { initSettings, closeSheet, sheetIsOpen, onSettingsChange } from './ui.js';
@@ -20,6 +21,7 @@ import { renderYou } from './page-you.js';
 import { renderOrders } from './page-orders.js';
 import { renderLibrary } from './page-library.js';
 import { renderSaved } from './page-saved.js';
+import { renderTravel } from './page-travel.js';
 import { renderGuide } from './page-guide.js';
 import { renderCheckout } from './page-checkout.js';
 import { renderMessages } from './page-messages.js';
@@ -34,6 +36,11 @@ import { renderDm } from './page-dm.js';
 import { renderSocial } from './page-social.js';
 import { renderWallet } from './page-wallet.js';
 import { renderProfile } from './page-profile.js';
+import { renderWorkshop } from './page-workshop.js';
+import { renderPoints } from './page-points.js';
+import { renderBeads } from './page-beads.js';
+import { renderClay } from './page-clay.js';
+import { renderGallery } from './page-gallery.js';
 import { maybeWelcome } from './welcome.js';
 import { initAssistant, assistantRoute } from './assistant.js';
 
@@ -45,6 +52,7 @@ const PAGES = {
   orders: renderOrders,
   library: renderLibrary,
   saved: renderSaved,
+  travel: renderTravel,
   guide: renderGuide,
   checkout: renderCheckout,
   messages: renderMessages,
@@ -63,6 +71,11 @@ const PAGES = {
   social: renderSocial,
   wallet: renderWallet,
   profile: renderProfile,
+  workshop: renderWorkshop,
+  points: renderPoints,
+  beads: renderBeads,
+  clay: renderClay,
+  gallery: renderGallery,
 };
 
 const DESTINATION_TZ = 'Asia/Shanghai';
@@ -221,5 +234,6 @@ async function start() {
 
 start().catch((error) => {
   console.error('[app] failed to start:', error);
-  app.textContent = 'Along could not start. Close the app and open it again.';
+  // The copy files may be what failed to load, so this one line is written out here.
+  app.textContent = prefersChinese() ? '一起游未能启动，请关闭后重新打开。' : 'Along could not start. Close the app and open it again.';
 });

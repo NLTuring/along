@@ -14,7 +14,6 @@
   "online.auth.local": "Local development account: {email}. No email was sent.",
   "online.auth.devcode": "Local development only — this code was not emailed: {code}. Production never shows codes here.",
   "you.map": "Map and navigation",
-  "you.production": "Making and delivery",
   "map.title": "Baidu map and navigation",
   "map.privacy": "Loading the map connects to Baidu. Location is requested only when you choose Use my location. Route searches are sent to the map provider.",
   "map.load": "Load Baidu map",

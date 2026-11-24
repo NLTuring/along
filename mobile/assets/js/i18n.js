@@ -1,6 +1,11 @@
 // InsTrip mobile — i18n.
 // All UI copy lives in messages/en.json and messages/zh.json (spec §0: no hard-coded strings).
-// English is the default and the fallback for any key missing in another locale.
+// English is the fallback for any key missing in another locale. The first launch follows the
+// phone's language; after that the saved choice wins.
+// messages/domestic.<locale>.json replaces part of the copy for travellers who live in China
+// (audience.js): the same keys, written for them instead of for visitors from abroad.
+
+import { isDomestic, onAudienceChange, prefersChinese } from './audience.js';
 
 export const LOCALES = ['en', 'zh'];
 const DEFAULT_LOCALE = 'en';
@@ -9,22 +14,28 @@ const STORE_KEY = 'instrip.locale';
 let locale = DEFAULT_LOCALE;
 let dict = {};
 let fallback = {};
+let source = null;         // the files of the current language: { base, domestic }
+let fallbackSource = null; // the same for English
 const cache = new Map();
 const missing = new Set();
 const listeners = new Set();
 
+async function read(path) {
+  const res = await fetch(new URL(`../${path}`, import.meta.url));
+  if (!res.ok) throw new Error(`${path}: HTTP ${res.status}`);
+  return res.json();
+}
+
 async function load(code) {
   if (cache.has(code)) return cache.get(code);
-  const paths = [`messages/${code}.json`, ...['online', 'community', 'craft-online', 'native-map', 'assistant', 'social', 'pay'].map((feature) => `messages/${feature}.${code}.json`)];
-  const dictionaries = await Promise.all(paths.map(async (path) => {
-    const res = await fetch(new URL(`../${path}`, import.meta.url));
-    if (!res.ok) throw new Error(`${path}: HTTP ${res.status}`);
-    return res.json();
-  }));
-  const data = Object.assign({}, ...dictionaries);
+  const paths = [`messages/${code}.json`, ...['online', 'community', 'craft-online', 'native-map', 'assistant', 'social', 'pay', 'travel', 'workshop'].map((feature) => `messages/${feature}.${code}.json`)];
+  const [domestic, ...dictionaries] = await Promise.all([`messages/domestic.${code}.json`, ...paths].map(read));
+  const data = { base: Object.assign({}, ...dictionaries), domestic };
   cache.set(code, data);
   return data;
 }
+
+const pick = (data) => (isDomestic() ? { ...data.base, ...data.domestic } : data.base);
 
 function stored() {
   try {
@@ -37,19 +48,21 @@ function stored() {
 
 function apply(code, data) {
   locale = code;
-  dict = data;
+  source = data;
+  dict = pick(data);
+  fallback = pick(fallbackSource);
   document.documentElement.lang = code === 'zh' ? 'zh-CN' : 'en';
   document.title = t('app.title');
 }
 
 export async function initI18n() {
-  fallback = await load(DEFAULT_LOCALE);
-  const code = stored() || DEFAULT_LOCALE;
+  fallbackSource = await load(DEFAULT_LOCALE);
+  const code = stored() || (prefersChinese() ? 'zh' : DEFAULT_LOCALE);
   try {
-    apply(code, code === DEFAULT_LOCALE ? fallback : await load(code));
+    apply(code, code === DEFAULT_LOCALE ? fallbackSource : await load(code));
   } catch (error) {
     console.warn('[i18n] falling back to English:', error.message);
-    apply(DEFAULT_LOCALE, fallback);
+    apply(DEFAULT_LOCALE, fallbackSource);
   }
 }
 
@@ -63,6 +76,13 @@ export async function setLocale(code) {
   }
   listeners.forEach((fn) => fn(code));
 }
+
+// The traveller type swaps part of the copy, so whatever redraws for a new language redraws now.
+onAudienceChange(() => {
+  if (!source) return;
+  apply(locale, source);
+  listeners.forEach((fn) => fn(locale));
+});
 
 export function getLocale() {
   return locale;

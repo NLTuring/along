@@ -3,6 +3,8 @@
 // turn display settings on or off. Pure: it only reads the words and returns what to do; the
 // caller carries it out. Nothing outside these lists can be reached this way.
 import { routePath } from './assistant-core.js';
+// Local pages are listed below alongside the server's; LOCAL_ROUTES in assistant-core.js names them.
+import { GUIDE_ZH } from './seed-zh.js';
 
 // [route, Chinese words, English words]. The longest word found in a message wins, so
 // "我的短片" opens the film library and "文创订单" the keepsake orders.
@@ -16,6 +18,7 @@ const PAGES = [
   ['crafts', ['数字藏品', '藏品', '文创', '3d文创', '冰箱贴', '挂件', '钥匙扣'], ['keepsake', 'keepsakes', 'collectible', 'collectibles', 'digital collection', 'crafts']],
   ['craft-new', ['做文创', '制作文创', '新建文创', '新的文创', '做一个文创', '做冰箱贴', '做一个冰箱贴', '做挂件', '做一个挂件', '做钥匙扣', '做藏品', '制作藏品'], ['make a keepsake', 'new keepsake', 'create a keepsake']],
   ['saved', ['收藏'], ['saved', 'favorites', 'favourites', 'bookmarks']],
+  ['travel', ['美食与住宿', '美食', '吃什么', '去哪吃', '餐厅', '餐馆', '住宿', '住哪', '酒店', '清真', '素食', '点菜卡'], ['food and stays', 'where to eat', 'restaurants', 'where to stay', 'hotels', 'halal', 'vegetarian']],
   ['orders', ['订单', '预约'], ['orders', 'bookings']],
   ['make-orders', ['文创订单', '制作订单', '藏品订单'], ['keepsake orders']],
   ['studio', ['短片', '做短片', '拍短片', '制作短片', '视频制作'], ['studio', 'film studio', 'make a film']],
@@ -24,6 +27,11 @@ const PAGES = [
   ['social', ['私信', '消息列表', '关注的人', '我关注的'], ['inbox', 'direct messages', 'who i follow']],
   ['profile', ['个人主页', '我的主页', '我的故事', '粉丝'], ['profile', 'my page', 'my stories', 'followers']],
   ['apply', ['成为伙伴', '申请伙伴', '成为向导', '申请成为', '当伙伴', '当向导'], ['become a guide', 'become a friend']],
+  ['workshop', ['文创工坊', '手作工坊', '工坊', '做手工', '手作'], ['workshop', 'craft workshop', 'crafts workshop']],
+  ['points', ['积分', '充值', '我的积分', '积分充值'], ['points', 'top up', 'my points']],
+  ['beads', ['拼豆', '拼豆图纸', '做拼豆', '拼豆材料'], ['perler', 'perler beads', 'fuse beads', 'bead pattern']],
+  ['clay-new', ['捏泥', '捏个', '捏泥巴', '3d建模', '捏模型', '捏一个', '图生3d', '照片生成3d'], ['clay', 'sculpt', 'pinch clay', '3d model']],
+  ['gallery', ['文创画廊', '画廊', '作品画廊', '二创'], ['gallery', 'craft gallery', 'remix']],
 ];
 const ACTIONS = [
   ['camera', ['拍照', '拍张照', '拍一张', '打开相机', '相机', '照相'], ['camera', 'take a photo', 'take a picture']],
@@ -72,7 +80,8 @@ function placeWords(place) {
 }
 function guideWords(guide) {
   const name = normal(guide.name), parts = name.split(' ');
-  return [name, ...parts.filter((p) => p.length >= 4)];
+  const zh = normal(GUIDE_ZH[guide.id]?.name);
+  return [name, ...parts.filter((p) => p.length >= 4), ...(zh.length >= 2 ? [zh] : [])];
 }
 
 function settingCommand(text) {

@@ -6,7 +6,7 @@
 
 import { POIS, PLAN_TEMPLATE } from './seed-places.js';
 import { CITIES, DAY_OPTIONS } from './seed.js';
-import { isoDateIn, time24 } from './format.js';
+import { isoDateIn, time24, FX_CNY_PER_USD } from './format.js';
 
 const STORE_KEY = 'instrip.plan';
 export const TZ = 'Asia/Shanghai';
@@ -15,7 +15,15 @@ export function poi(id) {
   return POIS[id] || null;
 }
 
+// The budget is typed in whole units of the traveller's own currency. Like every other amount
+// it is kept as integer USD cents; yuan are converted at the display reference rate.
+function budgetCents(value, currency) {
+  if (!/^\d{1,5}$/.test(String(value ?? ''))) return null;
+  return currency === 'CNY' ? Math.round((Number(value) * 100) / FX_CNY_PER_USD) : Number(value) * 100;
+}
+
 // arrival: { date: 'YYYY-MM-DD', time: 'HH:MM', city, days }
+// prefs: { interests, pace, budget, budgetCurrency: 'USD' (the default) or 'CNY' }
 export function buildPlan(arrival, prefs = {}) {
   const daysData = PLAN_TEMPLATE.daysData.slice(0, arrival.days).map((day) => ({
     dayIndex: day.dayIndex,
@@ -32,9 +40,11 @@ export function buildPlan(arrival, prefs = {}) {
     arrival: { date: arrival.date, time: arrival.time, city: arrival.city },
     interests: prefs.interests || [],
     pace: prefs.pace || 'balanced',
-    budgetCents: /^\d{1,5}$/.test(String(prefs.budget ?? '')) ? Number(prefs.budget) * 100 : null,
+    budgetCents: budgetCents(prefs.budget, prefs.budgetCurrency),
     daysData,
   };
+  // A budget typed in yuan is shown back as typed ("¥400"), not as converted cents ("$55.94").
+  if (plan.budgetCents != null && prefs.budgetCurrency === 'CNY') plan.budgetYuan = Number(prefs.budget);
   plan.totalCostCents = planCostCents(plan);
   return plan;
 }
@@ -80,6 +90,9 @@ export function validatePlan(plan) {
   }
   if (!Number.isSafeInteger(plan.totalCostCents) || plan.totalCostCents < 0) problems.push('invalid total');
   if (plan.budgetCents != null && (!Number.isSafeInteger(plan.budgetCents) || plan.budgetCents < 0 || plan.budgetCents > 9_999_900)) {
+    problems.push('invalid budget');
+  }
+  if (plan.budgetYuan !== undefined && (plan.budgetCents == null || !Number.isSafeInteger(plan.budgetYuan) || plan.budgetYuan < 0 || plan.budgetYuan > 99_999)) {
     problems.push('invalid budget');
   }
   if (!problems.length && plan.totalCostCents !== planCostCents(plan)) problems.push('incorrect total');

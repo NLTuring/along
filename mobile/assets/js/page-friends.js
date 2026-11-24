@@ -2,7 +2,8 @@
 // Phase three: "See times" opens the friend's page. Filters are still to come.
 
 import { t, te, esc } from './i18n.js';
-import { usd, rating } from './format.js';
+import { money, rating } from './format.js';
+import { guideText } from './seed-text.js';
 import { icon } from './icons.js';
 import { skyline } from './ui.js';
 import { go } from './router.js';
@@ -35,27 +36,28 @@ export { filterGuides } from './guide-filter.js';
 function price(guide) {
   return guide.priceHalfCents === 0
     ? te('guide.price.free')
-    : te('guide.price.half', { price: usd(guide.priceHalfCents) });
+    : te('guide.price.half', { price: money(guide.priceHalfCents) });
 }
 
 // Kept short so three friends fit on the first screen (spec §6.5 acceptance).
 function card(guide) {
   const volunteer = guide.kind === 'VOLUNTEER';
   const score = rating(guide.ratingAvg);
+  const shown = guideText(guide); // name, headline and topics in the reader's language
   return `
     <article class="card guide">
       <div class="window window--moon guide__photo">
-        <img src="${esc(guide.photo)}" alt="${te('guide.photo.alt', { name: guide.name })}" width="128" height="128" />
+        <img src="${esc(guide.photo)}" alt="${te('guide.photo.alt', { name: shown.name })}" width="128" height="128" />
       </div>
       <div class="guide__main">
         <div class="guide__top">
-          <h2 class="t-heading">${esc(guide.name)}</h2>
+          <h2 class="t-heading">${esc(shown.name)}</h2>
           <p class="t-small guide__rating" aria-label="${te('guide.rating.label', { rating: score, count: guide.ratingCount })}">
             ${icon('star', { size: 14 })}<span class="t-num" aria-hidden="true">${te('guide.rating', { rating: score, count: guide.ratingCount })}</span>
           </p>
         </div>
-        <p class="t-small guide__who">${esc(guide.headline)}</p>
-        <ul class="tags">${guide.topics.map((topic) => `<li>${esc(topic)}</li>`).join('')}</ul>
+        <p class="t-small guide__who">${esc(shown.headline)}</p>
+        <ul class="tags">${shown.topics.map((topic) => `<li>${esc(topic)}</li>`).join('')}</ul>
       </div>
       <div class="guide__foot">
         <div class="guide__terms">

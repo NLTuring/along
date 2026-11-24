@@ -1,0 +1,30 @@
+{
+  "hero.title": "去一座城，带走一位朋友和一部短片。",
+  "hero.sub": "我们为你安排三天行程，再请一位本地朋友陪你同行。",
+  "arrive.when": "什么时候到",
+  "arrive.budget.hint": "以人民币计，不含酒店。",
+  "plan.lands": "距离到达还有 {days} 天 {hours} 小时",
+  "plan.lands.today": "距离到达还有 {hours} 小时",
+  "plan.share.text": "我的 {days} 天行程，由 Along 一起游安排",
+
+  "checkout.pay.cash": "见面时当面支付",
+  "checkout.cta.cash": "确认，见面时当面支付 {amount}",
+  "error.UPSTREAM_ERROR": "刷卡付款没有完成。请重试，或选择见面时当面支付。",
+  "pay.error.declined": "这张卡被拒绝了（演示）。请换一张卡，或选择见面时当面支付。",
+  "pay.error.failed": "刷卡付款没有完成，未扣款。请重试，或选择见面时当面支付。",
+  "pay.card.brands": "银联、Visa、Mastercard 等 · 演示模式",
+  "pay.empty.body": "可添加银联、Visa、Mastercard、American Express、JCB、Discover 和 Diners Club 卡。",
+
+  "support.answer.payment": "景区、餐馆和小摊大多支持微信支付和支付宝。少数停车场和偏远摊位只收现金，可以备一点零钱。",
+  "support.answer.internet": "热门景区人多时，手机网络可能变慢。出发前先打开行程：保存在这部手机上的内容断网后仍可使用。",
+  "support.answer.tickets": "博物馆和热门景点大多需要在官方公众号或小程序上实名预约时段，入场时刷身份证。节假日名额紧张，请提前几天预约。",
+  "support.answer.safety": "紧急情况请拨打 110 报警或 120 急救。请随身携带身份证，并保管好贵重物品。",
+  "support.human.off": "人工客服的联系方式尚未设置。",
+
+  "style.CHINA_TRAVEL": "旅行纪录",
+  "share.caption.default": "72 小时两座城：中午一碗面，夜里一趟轮渡，还有一位认得每条巷子的朋友。用 Along 一起游制作。",
+  "assistant.local.howto": "底部有四个入口：「行程」输入到达时间和城市，生成三到七天的计划，每天还会推荐午饭、晚饭和当晚住哪；「伙伴」找本地志愿者或持证向导；「故事」看大家的旅行故事；「我」里有设置、收藏、订单和「美食与住宿」，可以选忌口、出示点菜卡。中间的圆形按钮可以拍照或做 3D 文创。",
+  "travel.tips.checkin": "请带好身份证，入住时前台会核验并登记。订民宿前，问清能否办理入住登记、有没有前台。",
+  "travel.card.title": "点菜卡",
+  "travel.sub": "两站之间去哪吃，每晚住在哪一片，按你的口味和预算来。"
+}

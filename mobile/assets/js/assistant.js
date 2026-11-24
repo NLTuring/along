@@ -20,6 +20,8 @@ import { openPostComposer } from './post-sheet.js';
 import { mascotSvg, setMascotState, ensureMascotDefs } from './assistant-mascot.js';
 import { clientActions, stashFriendsFilter, filterTopic, createPressGesture, createSettleSender, conversationPayload, voiceMode, HARD_SPEECH_ERRORS, LONG_PRESS_MS, SENIOR_LONG_PRESS_MS, NAVIGATING } from './assistant-core.js';
 import { parseCommand, asksToGo } from './assistant-commands.js';
+import { guideText } from './seed-text.js';
+import { TRAVEL_PLACES } from './seed-food.js';
 
 // Flow pages keep their own controls at the bottom; 小游 steps aside there.
 const HIDDEN_ON = new Set(['map', 'craft', 'film', 'studio', 'checkout', 'messages', 'guide', 'apply', 'post', 'make-order', 'example', 'dm']);
@@ -101,8 +103,8 @@ function bubble(role, text, actions = []) {
   return li;
 }
 
-// Trip stops and the window's own places: everything 小游 can find on the map.
-const PLACES = { ...POIS, ...WINDOW_PLACES };
+// Trip stops, the window's own places, restaurants and stay areas: everything 小游 can find on the map.
+const PLACES = { ...POIS, ...WINDOW_PLACES, ...TRAVEL_PLACES };
 const placeName = (id) => (getLocale() === 'zh' ? PLACES[id]?.nameZh : PLACES[id]?.nameEn) || '';
 const pageName = (route) => t(`assistant.page.${route}`);
 const COMMAND_DELAY_MS = 650;
@@ -110,7 +112,7 @@ const COMMAND_DELAY_MS = 650;
 // What 小游 says before doing a command, in the user's language.
 function commandReply(command) {
   if (command.kind === 'go' && command.place) return t('assistant.do.place', { name: placeName(command.place) });
-  if (command.kind === 'go' && command.guide) return t('assistant.do.guide', { name: GUIDES.find((g) => g.id === command.guide)?.name || '' });
+  if (command.kind === 'go' && command.guide) return t('assistant.do.guide', { name: guideText(GUIDES.find((g) => g.id === command.guide))?.name || '' });
   if (command.kind === 'go') return t('assistant.do.open', { page: pageName(command.route) });
   if (command.kind === 'locale') return t(`assistant.do.locale.${command.value}`);
   if (command.kind === 'setting') return t(`assistant.do.${command.key}.${command.value === true || command.value === 'reduced' ? 'on' : 'off'}`);
@@ -133,7 +135,7 @@ function actionButton(a) {
   let label = '';
   if (a.type === 'place') label = t('assistant.action.place', { name: zh ? place.nameZh : place.nameEn });
   else if (a.type === 'directions') label = t('assistant.action.directions', { name: zh ? place.nameZh : place.nameEn });
-  else if (a.type === 'guide') label = t('assistant.action.guide', { name: guide.name });
+  else if (a.type === 'guide') label = t('assistant.action.guide', { name: guideText(guide).name });
   else if (a.type === 'friends') {
     const topic = a.filter.topic ? filterTopic(a.filter.topic) : 'all';
     const topicLabel = topic === 'all' ? '' : t(topic === 'Architecture' ? 'guides.filter.architecture' : `interest.${topic}`);

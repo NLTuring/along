@@ -2,7 +2,8 @@
 // are free, what it costs, and the button that books the chosen time.
 
 import { t, te, esc } from './i18n.js';
-import { usd, rating, dateShort } from './format.js';
+import { money, rating, dateShort } from './format.js';
+import { guideText } from './seed-text.js';
 import { icon } from './icons.js';
 import { toast } from './ui.js';
 import { go, back } from './router.js';
@@ -55,7 +56,7 @@ function slotsHtml(slots, selected) {
 }
 
 export function renderGuide(root, guideId) {
-  const g = guide(guideId);
+  const g = guideText(guide(guideId)); // name, headline, topics and bio in the reader's language
   if (!g) {
     root.innerHTML = `
       <section class="page page--tab">
@@ -71,7 +72,7 @@ export function renderGuide(root, guideId) {
   let slots = active ? slotsFor(g.id) : [];
   let selected = storedPick(g.id);
   if (!slots.some((s) => s.id === selected && !s.taken)) selected = null;
-  const fee = usd(SERVICE_FEE_CENTS);
+  const fee = money(SERVICE_FEE_CENTS);
   const score = rating(g.ratingAvg);
 
   root.innerHTML = `
@@ -118,7 +119,7 @@ export function renderGuide(root, guideId) {
     </section>
 
     <div class="bookbar glass glass--2">
-      <p class="t-small t-num bookbar__price">${volunteer ? te('guide.fee.free', { fee }) : te('guide.fee', { price: usd(g.priceHalfCents), fee })}</p>
+      <p class="t-small t-num bookbar__price">${volunteer ? te('guide.fee.free', { fee }) : te('guide.fee', { price: money(g.priceHalfCents), fee })}</p>
       <button class="btn btn--primary" data-book data-track="guide_book_click"></button>
     </div>`;
 

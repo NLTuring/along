@@ -1,0 +1,122 @@
+/* Along — food and stays: the plan day's meals, nights and day cost, the Food and stays page,
+   the restaurant sheet and the card for restaurant staff. */
+
+/* Whether something suits what the traveller avoids. Written out; the colour only reinforces it. */
+.fit {
+  flex: none;
+  padding: 2px 8px;
+  border-radius: var(--r-pill);
+  border: 1.5px solid currentColor;
+  font-size: var(--fs-11);
+  font-weight: 700;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.fit--ok { color: var(--sage); }
+.fit--ask { color: var(--accent); border-style: dashed; }
+.fit--no { color: var(--muted-strong); text-decoration: line-through; }
+
+/* ---------- plan day ---------- */
+
+.meals,
+.stay-line,
+.day-cost {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-8);
+  padding: var(--sp-16);
+  border-radius: var(--r-20);
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+.meals > .t-label,
+.stay-line > .t-label {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-8);
+  color: var(--body);
+  font-weight: 600;
+}
+.meals__list { display: flex; flex-direction: column; }
+.meal { display: flex; align-items: baseline; gap: var(--sp-12); padding: var(--sp-4) 0; }
+.meal + .meal { border-top: 1px solid var(--line); }
+.meal__slot { flex: none; width: 4.5em; color: var(--body); }
+.meal__pick,
+.stay-line__pick {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: var(--tap);
+  min-width: 0;
+  padding: var(--sp-4) 0;
+  text-align: start;
+  color: var(--ink);
+}
+.meal__pick > strong,
+.stay-line__pick > strong { font-weight: 600; font-size: var(--fs-15); }
+.meals > .btn { align-self: flex-start; }
+.stay-line__move { color: var(--accent); font-weight: 600; }
+
+.day-cost { background: var(--paper); }
+.day-cost__budget { font-weight: 600; }
+.day-cost__budget--within { color: var(--sage); }
+.day-cost__budget--maybe,
+.day-cost__budget--over { color: var(--accent); }
+
+/* ---------- Food and stays page ---------- */
+
+.page--travel .segmented--compact { align-self: flex-start; }
+.dish { align-items: flex-start; }
+.dish > .fit { margin-top: 2px; }
+.eat-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  width: 100%;
+  text-align: start;
+  color: var(--ink);
+}
+.eat-card__top { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--sp-12); }
+.eat__seals { display: flex; flex-wrap: wrap; gap: 6px; }
+.stay { display: flex; flex-direction: column; gap: var(--sp-8); }
+.stay__head { display: flex; align-items: flex-start; gap: var(--sp-8); }
+.stay > .btn { align-self: flex-start; }
+.tips { display: flex; flex-direction: column; gap: var(--sp-8); }
+
+/* ---------- restaurant sheet ---------- */
+
+.eat { display: flex; flex-direction: column; gap: var(--sp-12); }
+.dish-list { display: flex; flex-direction: column; }
+.dish-list__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-12);
+  padding: var(--sp-8) 0;
+  border-top: 1px solid var(--line);
+}
+
+/* ---------- the card for restaurant staff: big, plain, high contrast ---------- */
+
+.diet-card { display: flex; flex-direction: column; gap: var(--sp-12); }
+.diet-card__list { display: flex; flex-direction: column; gap: var(--sp-12); }
+.diet-card__list > li {
+  padding: var(--sp-12) var(--sp-16);
+  border-radius: var(--r-12);
+  background: #fff;
+  border: 1.5px solid var(--ink);
+}
+.diet-card__zh { font-size: var(--fs-20); font-weight: 700; line-height: 1.45; color: #000; }
+.diet-card__en { margin-top: var(--sp-4); font-size: var(--fs-13); color: var(--body); }
+.diet-card__list--small > li { border-width: 1px; border-color: var(--line); }
+.diet-card__list--small .diet-card__zh { font-size: var(--fs-16); }
+
+/* Larger text for senior mode. */
+.senior .meal__pick > strong,
+.senior .stay-line__pick > strong { font-size: var(--fs-16); }
+.senior .diet-card__zh { font-size: var(--fs-26); }
+
+/* Today (senior mode): the next meal under the next stop. */
+.today-meal { display: flex; flex-direction: column; gap: var(--sp-4); }
+.today-meal .t-label { color: var(--body); font-weight: 700; }

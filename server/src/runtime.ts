@@ -21,7 +21,7 @@ export async function createServices(config: Config): Promise<Services> {
   services = { config, db, storage, tasks, mailer: createMailer(config), provider: config.ai.provider === 'openai-person' ? new OpenAIPersonProvider(config) : config.ai.provider === 'aliyun-dashscope' ? new AliyunImageProvider(config) : new HttpImageProvider(config) };
   await db.query('SELECT 1');
   if (!config.local) {
-    for (const name of ['001_initial.sql', '002_person_detection.sql', '003_mobile_auth.sql']) {
+    for (const name of ['001_initial.sql', '002_person_detection.sql', '003_mobile_auth.sql', '004_follows.sql', '005_workshop.sql', '006_clay_layout.sql']) {
       if (!await db.one('SELECT name FROM schema_migrations WHERE name=$1', [name])) throw new Error('Run npm run migrate first');
     }
   }

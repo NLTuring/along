@@ -8,11 +8,12 @@ import { go } from './router.js';
 import { poi } from './plan.js';
 import { openPoi } from './poi-sheet.js';
 import { listSaved } from './saved.js';
+import { placeName, placeSubName } from './seed-text.js';
 
 function row(place) {
   return `<button class="row" data-poi="${esc(place.id)}" data-track="saved_open">
     <span class="row__icon">${icon('heart')}</span>
-    <span class="row__text"><strong>${esc(place.nameEn)}</strong><small lang="zh-CN">${esc(place.nameZh)}</small><small>${esc(t('list.pair', { a: t(`city.${place.citySlug}`), b: t(`category.${place.category}`) }))}</small></span>
+    <span class="row__text"><strong>${esc(placeName(place))}</strong>${placeSubName(place) ? `<small lang="zh-CN">${esc(placeSubName(place))}</small>` : ''}<small>${esc(t('list.pair', { a: t(`city.${place.citySlug}`), b: t(`category.${place.category}`) }))}</small></span>
     ${icon('chevron', { size: 20 })}
   </button>`;
 }

@@ -8,11 +8,12 @@ import { go } from './router.js';
 import { getSession } from './auth.js';
 import { guide, listBookings, cancelBooking, canCancel, refundPercent } from './bookings.js';
 import { stampHtml, duration, bookingDay } from './booking-ui.js';
+import { guideText } from './seed-text.js';
 
 const DAY_MS = 86_400_000;
 
 function cardHtml(b, now, { details = false } = {}) {
-  const g = guide(b.guideId);
+  const g = guideText(guide(b.guideId));
   const open = b.status === 'REQUESTED' || b.status === 'CONFIRMED';
   const live = b.status === 'PAID' || b.status === 'IN_PROGRESS';
   const waiting = b.status === 'REQUESTED'

@@ -426,10 +426,8 @@
   "you.title": "我",
   "you.guest": "未登录",
   "you.signin": "用邮箱登录",
-  "you.trips": "我的行程",
   "you.orders": "预约与订单",
   "you.films": "我的短片",
-  "you.crafts": "我的纪念品",
   "you.saved": "收藏的地点",
   "saved.title": "收藏的地点",
   "saved.sub": "想再去看看的地方。",
@@ -538,5 +536,13 @@
 
   "legal.terms": "服务条款",
   "legal.privacy": "隐私政策",
-  "legal.refunds": "退款政策"
+  "legal.refunds": "退款政策",
+  "share.system": "分享到其他应用",
+  "share.caption.default": "在中国的 72 小时：中午一碗面，夜里一趟轮渡，还有一位认得每条巷子的朋友。用 Along 制作。",
+  "you.audience": "我是",
+  "you.audience.note": "决定价格用人民币还是美元显示，以及出行提示的内容。",
+  "audience.domestic": "国内游客",
+  "audience.inbound": "来华游客",
+  "audience.changed.domestic": "已切换为国内游客：价格以人民币显示。",
+  "audience.changed.inbound": "已切换为来华游客：价格以美元显示。"
 }

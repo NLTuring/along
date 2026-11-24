@@ -23,7 +23,15 @@ export function parseHash(hash) {
   if (head === 'orders') return { name: 'orders', param: null, tab: 'you', nav: true, key: 'orders' };
   if (head === 'library') return { name: 'library', param: null, tab: 'you', nav: true, key: 'library' };
   if (head === 'saved') return { name: 'saved', param: null, tab: 'you', nav: true, key: 'saved' };
+  // Food and stays, optionally for one city: #/travel, #/travel/nanjing.
+  if (head === 'travel') return { name: 'travel', param: param || null, tab: 'trip', nav: true, key: param ? `travel/${param}` : 'travel' };
   if (head === 'crafts') return { name: 'crafts', param: null, tab: 'you', nav: true, key: 'crafts' };
+  // The craft workshop: home, points, bead patterns, the clay bench and the shared gallery.
+  if (head === 'workshop') return { name: 'workshop', param: null, tab: 'trip', nav: true, key: 'workshop' };
+  if (head === 'points') return { name: 'points', param: null, tab: 'you', nav: true, key: 'points' };
+  if (head === 'beads') return { name: 'beads', param: param || null, tab: 'trip', nav: false, key: param ? `beads/${param}` : 'beads' };
+  if (head === 'clay') return { name: 'clay', param: param || 'new', tab: 'trip', nav: false, key: `clay/${param || 'new'}` };
+  if (head === 'gallery') return { name: 'gallery', param: param || null, tab: 'stories', nav: !param, key: param ? `gallery/${param}` : 'gallery' };
   if (head === 'apply') return { name: 'apply', param: null, tab: 'you', nav: false, key: 'apply' };
   if (head === 'map') return { name: 'map', param: param || null, tab: 'trip', nav: false, key: param ? `map/${param}` : 'map' };
   if (head === 'posts' && param) return { name: 'post', param, tab: 'stories', nav: false, key: `posts/${param}` };

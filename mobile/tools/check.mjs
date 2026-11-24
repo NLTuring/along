@@ -12,7 +12,7 @@ const fail = (msg) => { problems += 1; console.log('  ' + msg); };
 // 1. language files
 function messages(locale) {
   const merged = {};
-  for (const name of [`${locale}.json`, ...['online', 'community', 'craft-online', 'native-map', 'assistant', 'social', 'pay'].map((feature) => `${feature}.${locale}.json`)]) {
+  for (const name of [`${locale}.json`, ...['online', 'community', 'craft-online', 'native-map', 'assistant', 'social', 'pay', 'travel', 'workshop'].map((feature) => `${feature}.${locale}.json`)]) {
     const values = JSON.parse(read(`messages/${name}`));
     for (const [key, value] of Object.entries(values)) {
       if (key in merged) fail(`duplicate message key in ${name}: ${key}`);
@@ -32,6 +32,21 @@ for (const k of Object.keys(en)) {
   if (en[k].includes('!')) fail(`exclamation mark in en: ${k}`);
 }
 for (const k of Object.keys(zh)) if (!(k in en)) fail(`only in zh: ${k}`);
+
+// 1b. copy for travellers who live in China: it may only replace keys that exist, in both languages
+const overlay = Object.fromEntries(['en', 'zh'].map((locale) => [locale, JSON.parse(read(`messages/domestic.${locale}.json`))]));
+const base = { en, zh };
+console.log(`domestic overrides: en ${Object.keys(overlay.en).length}, zh ${Object.keys(overlay.zh).length}`);
+for (const locale of ['en', 'zh']) {
+  const other = locale === 'en' ? 'zh' : 'en';
+  for (const [k, value] of Object.entries(overlay[locale])) {
+    if (typeof value !== 'string') fail(`non-text message in domestic.${locale}.json: ${k}`);
+    else if (!(k in base[locale])) fail(`domestic.${locale}.json replaces an unknown key: ${k}`);
+    else if (holes(value) !== holes(base[locale][k])) fail(`placeholder mismatch in domestic.${locale}.json: ${k}`);
+    if (!(k in overlay[other])) fail(`only in domestic.${locale}.json: ${k}`);
+    if (locale === 'en' && typeof value === 'string' && value.includes('!')) fail(`exclamation mark in domestic.en.json: ${k}`);
+  }
+}
 
 // 2. text keys used in scripts
 const files = readdirSync(dir + 'js').filter((f) => f.endsWith('.js'));

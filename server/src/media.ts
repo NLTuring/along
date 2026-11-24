@@ -35,12 +35,13 @@ export async function normalizeImage(bytes: Buffer, config: Config) {
     return { bytes: data, width: info.width, height: info.height };
   } catch (e: any) { if (e.code) throw e; return fail(422, 'IMAGE_DECODE_FAILED'); }
 }
-export async function readMultipart(req: FastifyRequest, names: string[], fileBytes: number, maxFields = 3) {
+export async function readMultipart(req: FastifyRequest, names: string[], fileBytes: number, maxFields = 3, optional: string[] = [], fieldBytes = 16 * 1024) {
   const files = new Map<string, Buffer>(), fields: Record<string, string> = {};
   if (!req.isMultipart()) fail(415, 'MULTIPART_REQUIRED');
-  for await (const part of req.parts({ limits: { files: names.length, fields: maxFields, parts: names.length + maxFields, fileSize: fileBytes, fieldSize: 16 * 1024 } })) {
+  const allowed = [...names, ...optional];
+  for await (const part of req.parts({ limits: { files: allowed.length, fields: maxFields, parts: allowed.length + maxFields, fileSize: fileBytes, fieldSize: fieldBytes } })) {
     if (part.type === 'file') {
-      if (!names.includes(part.fieldname) || files.has(part.fieldname)) fail(400, 'UNEXPECTED_FILE');
+      if (!allowed.includes(part.fieldname) || files.has(part.fieldname)) fail(400, 'UNEXPECTED_FILE');
       const bytes = await part.toBuffer();
       if (part.file.truncated || !bytes.length) fail(413, 'FILE_TOO_LARGE_OR_EMPTY');
       files.set(part.fieldname, bytes);
@@ -49,7 +50,7 @@ export async function readMultipart(req: FastifyRequest, names: string[], fileBy
       fields[part.fieldname] = part.value;
     }
   }
-  if (files.size !== names.length) fail(400, 'MISSING_FILE');
+  if (names.some(name => !files.has(name))) fail(400, 'MISSING_FILE');
   return { files, fields };
 }
 export function mediaRoutes(app: App, s: Services) {
