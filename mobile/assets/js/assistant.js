@@ -22,9 +22,10 @@ import { clientActions, stashFriendsFilter, filterTopic, createPressGesture, cre
 import { parseCommand, asksToGo } from './assistant-commands.js';
 import { guideText } from './seed-text.js';
 import { TRAVEL_PLACES } from './seed-food.js';
+import { getAvatar, getSnapshot, showsSnapshot, onAvatarChange, loadModel } from './avatar-store.js';
 
 // Flow pages keep their own controls at the bottom; 小游 steps aside there.
-const HIDDEN_ON = new Set(['map', 'craft', 'film', 'studio', 'checkout', 'messages', 'guide', 'apply', 'post', 'make-order', 'example', 'dm']);
+const HIDDEN_ON = new Set(['map', 'craft', 'film', 'studio', 'checkout', 'messages', 'guide', 'apply', 'post', 'make-order', 'example', 'dm', 'avatar']);
 const CHIPS = ['howto', 'navigate', 'translate', 'recommend', 'friends'];
 const history = [];
 let host = null, current = { name: 'trip' }, busy = false, sheet = null, recognizer = null, settle = null, idleTimer = 0;
@@ -59,7 +60,7 @@ function renderHost() {
   host.id = 'assistant';
   host.innerHTML = `<button class="xy-fab" type="button" data-assistant-fab aria-haspopup="dialog" aria-label="${te('assistant.fab')}" aria-describedby="assistant-hint">
       <svg class="xy-ring" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="29"/></svg>
-      <span class="xy-lens">${mascotSvg({ expression: 'happy', action: 'idle', crop: 'avatar' })}</span>
+      <span class="xy-lens">${lensArt()}</span>
     </button><p class="sr-only" id="assistant-hint">${te('assistant.fab.hint')}</p>`;
   document.body.append(host);
   const fab = host.querySelector('[data-assistant-fab]'), ring = host.querySelector('.xy-ring circle');
@@ -86,6 +87,30 @@ function renderHost() {
   // Keyboard and screen readers: Enter/Space open the chat; the mic is inside the dialog.
   fab.addEventListener('click', (event) => { if (event.detail === 0) openChat(); });
   return host;
+}
+
+// The drawn 小游 by default; once the look was changed and saved, a snapshot of the 3D figure.
+function lensArt() {
+  const snap = showsSnapshot() && getSnapshot();
+  return snap ? `<img class="xy-lens__snap" src="${esc(snap)}" alt="" draggable="false" />` : mascotSvg({ expression: 'happy', action: 'idle', crop: 'avatar' });
+}
+
+// A small live 3D view in the chat's hello area, only when the look was changed. Loaded on
+// demand; on any failure the drawn 小游 already there simply stays.
+async function mountMiniStage(panel) {
+  const art = panel.querySelector('[data-xy-art]');
+  if (!art || !showsSnapshot()) return null;
+  try {
+    const { createAvatarStage } = await import('./avatar-stage.js');
+    const avatar = getAvatar(), record = avatar.kind === 'custom' ? await loadModel() : null;
+    if (!panel.isConnected) return null;
+    const box = document.createElement('span'); box.className = 'xy-hello__3d'; box.hidden = true; art.append(box);
+    const stage = createAvatarStage(box, { interactive: false, onState(code) { if (code === 'WEBGL_LOST' || code === 'LOAD_FAILED' || code === 'WEBGL_UNAVAILABLE') { box.remove(); art.classList.remove('is-3d'); } } });
+    stage.dress(avatar.outfit, avatar.size);
+    if (!(await stage.load(record ? 'custom' : 'xiaoyou', record?.bytes || null)) || !panel.isConnected) { stage.dispose(); box.remove(); return null; }
+    box.hidden = false; art.classList.add('is-3d');
+    return stage;
+  } catch { return null; }
 }
 
 function updateVisibility() {
@@ -230,8 +255,9 @@ function openChat({ voice = false } = {}) {
   const body = `
     <div class="xy-chat">
       <div class="xy-hello">
-        <span class="xy-hello__art">${mascotSvg({ expression: 'happy', action: 'wave' })}</span>
+        <span class="xy-hello__art" data-xy-art>${mascotSvg({ expression: 'happy', action: 'wave' })}</span>
         <p class="t-body">${te('assistant.hello')}</p>
+        <button class="btn btn--small btn--outline xy-dress" type="button" data-xy-dress aria-label="${te('assistant.dress.label')}">${te('assistant.dress')}</button>
       </div>
       <ol class="bubbles xy-list" data-xy-list aria-live="polite" aria-label="${te('assistant.conversation')}"></ol>
       <p class="t-small xy-status" data-xy-status role="status"></p>
@@ -274,7 +300,10 @@ function openChat({ voice = false } = {}) {
     const mic = panel.querySelector('[data-xy-mic]');
     mic.addEventListener('pointerdown', (event) => { if (listenMode() === 'keyboard' && document.activeElement === input) event.preventDefault(); });
     mic.addEventListener('click', () => (recognizer ? stopVoice(true) : startVoice({ fromSheet: true })));
-    const observer = new MutationObserver(() => { if (!panel.isConnected) { observer.disconnect(); sheet = null; settle?.disarm(); settle = null; stopVoice(false); host?.querySelector('.xy-fab')?.setAttribute('aria-expanded', 'false'); } });
+    panel.querySelector('[data-xy-dress]').addEventListener('click', () => { closeSheet(); go('avatar'); });
+    let mini = null;
+    void mountMiniStage(panel).then((stage) => { if (panel.isConnected) mini = stage; else stage?.dispose(); });
+    const observer = new MutationObserver(() => { if (!panel.isConnected) { observer.disconnect(); mini?.dispose(); mini = null; sheet = null; settle?.disarm(); settle = null; stopVoice(false); host?.querySelector('.xy-fab')?.setAttribute('aria-expanded', 'false'); } });
     observer.observe(panel.parentElement, { childList: true });
     host?.querySelector('.xy-fab')?.setAttribute('aria-expanded', 'true');
     mood('happy', 'wave', 1800);
@@ -361,6 +390,8 @@ export function initAssistant() {
   onSettingsChange((key) => { if (key === 'assistant' || key === 'senior') { host?.remove(); host = null; updateVisibility(); } });
   onLocaleChange(() => { host?.remove(); host = null; if (sheet) closeSheet(); updateVisibility(); });
   onSessionChange(() => { if (!getSession()) history.length = 0; });
+  // A saved new look shows on the button straight away.
+  onAvatarChange(() => { const lens = host?.querySelector('.xy-lens'); if (lens) lens.innerHTML = lensArt(); });
   // The welcome overlay and the native map own the screen while they show.
   new MutationObserver(updateVisibility).observe(document.documentElement, { attributes: true, attributeFilter: ['data-native-map', 'data-nav'] });
   updateVisibility();

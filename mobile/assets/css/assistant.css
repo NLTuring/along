@@ -157,3 +157,62 @@ svg.xy.is-live .pr-heart g { animation: xy-float 2.4s ease-in-out infinite; }
 :root[data-motion='reduced'] svg.xy *, :root[data-motion='reduced'] .xy-dots i, :root[data-motion='reduced'] .xy-mic.is-on { animation: none !important; transition: none !important; }
 @media (prefers-reduced-motion: reduce) { svg.xy *, .xy-dots i, .xy-mic.is-on { animation: none !important; transition: none !important; } }
 @media (forced-colors: active) { .xy-fab { border: 2px solid CanvasText; } .xy-ring circle { stroke: Highlight; } }
+
+/* ---------- 小游's look: the button snapshot, the chat's mini figure, the wardrobe page ---------- */
+.xy-lens__snap { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.xy-hello { position: relative; }
+.xy-hello .t-body { flex: 1; min-width: 0; }
+.xy-hello__art { position: relative; aspect-ratio: 1; }
+.xy-hello__art.is-3d > svg { visibility: hidden; }
+.xy-hello__3d { position: absolute; inset: -6px; }
+.xy-hello__3d canvas { width: 100%; height: 100%; display: block; }
+/* .btn--outline is full width by default; here it is a small pill beside the greeting. */
+.xy-dress { flex: none; align-self: flex-start; width: auto; height: auto; min-height: 36px; padding: 0 var(--sp-12); white-space: nowrap; }
+
+.avatar-page { display: flex; flex-direction: column; gap: var(--sp-16); }
+.avatar-stage {
+  position: relative; margin: 0 var(--page-x); height: min(52vh, 420px); border-radius: var(--r-26); overflow: hidden;
+  /* Warm paper under frosted glass: a sunny window sill, not a lit-up screen. */
+  background: radial-gradient(120% 80% at 50% 18%, rgba(255, 253, 248, .9), rgba(242, 226, 216, .55) 62%, rgba(229, 220, 203, .6));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .7), 0 10px 26px rgba(60, 42, 20, .10);
+}
+.avatar-stage__view, .avatar-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: pan-y; }
+.avatar-stage__note { position: absolute; left: var(--sp-16); right: var(--sp-16); top: var(--sp-16); margin: 0; padding: 10px 12px; border-radius: var(--r-16); background: rgba(var(--glass-rgb), .9); color: var(--body); }
+.avatar-stage__note[hidden] { display: none; }
+.avatar-stage__hint { position: absolute; left: 0; right: 0; bottom: var(--sp-12); margin: 0; text-align: center; color: var(--muted-strong); pointer-events: none; }
+.avatar-controls { display: flex; flex-direction: column; gap: var(--sp-12); padding: 0 var(--page-x); }
+.avatar-who, .avatar-wear { display: flex; flex-direction: column; gap: var(--sp-12); padding: var(--sp-16); }
+.avatar-who .section-label { margin: 0; }
+.avatar-who .segmented__item > input, .avatar-wear .segmented__item > input { position: absolute; opacity: 0; pointer-events: none; }
+.avatar-who .segmented__item > input:disabled + span { opacity: .45; }
+.avatar-who__mine { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-8); }
+.avatar-who__name { color: var(--muted-strong); flex: 1 1 140px; min-width: 0; overflow-wrap: anywhere; }
+.avatar-upload { cursor: pointer; display: inline-flex; align-items: center; gap: var(--sp-8); }
+.avatar-slots { overflow-x: auto; scrollbar-width: none; }
+.avatar-slots .segmented__item { flex: 1 0 auto; }
+.avatar-items { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: var(--sp-8); }
+.avatar-item { cursor: pointer; }
+.avatar-item__card {
+  display: flex; align-items: center; justify-content: center; gap: 6px; min-height: var(--tap); padding: 8px 10px; border-radius: var(--r-16);
+  background: rgba(var(--glass-rgb), .6); box-shadow: inset 0 0 0 1px var(--line); color: var(--body); font-size: var(--fs-13); font-weight: 600; text-align: center;
+  transition: transform var(--t-state) var(--ease-snap), box-shadow var(--t-state) var(--ease-snap), background-color var(--t-state) var(--ease-snap);
+}
+.avatar-item:nth-child(odd) > input:checked + .avatar-item__card { transform: rotate(-1.2deg); }
+.avatar-item:nth-child(even) > input:checked + .avatar-item__card { transform: rotate(1deg); }
+.avatar-item > input:checked + .avatar-item__card { background: var(--surface); color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink), 0 2px 6px rgba(60, 42, 20, .12); }
+.avatar-item > input:focus-visible + .avatar-item__card, .avatar-swatch > input:focus-visible + span { outline: 2px solid var(--ink); outline-offset: 2px; }
+.avatar-item__dot { width: 14px; height: 14px; border-radius: 50%; background: var(--swatch); box-shadow: inset 0 0 0 1px rgba(27, 24, 19, .25); }
+.avatar-colors { display: flex; flex-wrap: wrap; gap: var(--sp-8); }
+.avatar-colors[hidden] { display: none; }
+.avatar-swatch { cursor: pointer; display: grid; place-items: center; width: var(--tap); height: var(--tap); }
+.avatar-swatch > span:first-of-type { width: 30px; height: 30px; border-radius: 50%; background: var(--swatch); box-shadow: inset 0 0 0 1px rgba(27, 24, 19, .22), inset 0 -4px 6px rgba(27, 24, 19, .10); transition: transform var(--t-state) var(--ease-snap); }
+.avatar-swatch > span.is-original { background: conic-gradient(#B24A2C 0 25%, #D9A441 0 50%, #6F7F63 0 75%, #F2E6CF 0); }
+.avatar-swatch > input:checked + span { transform: scale(1.12); box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--ink); }
+.avatar-slider { display: flex; align-items: center; gap: var(--sp-8); font-size: var(--fs-13); color: var(--body); white-space: nowrap; }
+.avatar-slider input { flex: 1 1 auto; min-height: var(--tap); accent-color: var(--accent); }
+/* One slim row: the bar floats over the wardrobe, so it must stay short. */
+.avatar-actions { display: flex; flex-wrap: nowrap; align-items: center; gap: var(--sp-8); position: sticky; bottom: calc(var(--safe-bottom) + var(--sp-12)); padding: var(--sp-8); border-radius: var(--r-20); }
+.avatar-actions .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; width: auto; flex: 0 0 auto; min-height: 44px; padding-inline: var(--sp-12); white-space: nowrap; }
+.avatar-actions .btn--primary { flex: 1 1 auto; }
+:root[data-motion='reduced'] :is(.avatar-item__card, .avatar-swatch > span) { transition: none; transform: none !important; }
+@media (prefers-reduced-motion: reduce) { :is(.avatar-item__card, .avatar-swatch > span) { transition: none; transform: none !important; } }

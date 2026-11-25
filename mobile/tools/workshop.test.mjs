@@ -12,7 +12,7 @@ function memoryStorage() {
 test('the tiers match the offer: ¥30 → 600, ¥60 → 1200 + 100, 50 free a month', () => {
   assert.deepEqual(TOPUP_TIERS.map((t) => [t.yuan, tierPoints(t)]), [[30, 600], [60, 1300]]);
   assert.equal(MONTHLY_GRANT, 50);
-  assert.deepEqual(PRICES, { MAGNET: 5, KEYCHAIN: 5, BEADS: 5, AI_MODEL: 20 });
+  assert.deepEqual(PRICES, { MAGNET: 5, KEYCHAIN: 5, BEADS: 5, AI_MODEL: 20, AI_MODEL_TRIPO: 40 });
   assert.equal(authorEarning(10), 5);
   assert.equal(authorEarning(1), 0);
 });

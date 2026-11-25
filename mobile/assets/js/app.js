@@ -41,6 +41,7 @@ import { renderPoints } from './page-points.js';
 import { renderBeads } from './page-beads.js';
 import { renderClay } from './page-clay.js';
 import { renderGallery } from './page-gallery.js';
+import { renderAvatar } from './page-avatar.js';
 import { maybeWelcome } from './welcome.js';
 import { initAssistant, assistantRoute } from './assistant.js';
 
@@ -76,6 +77,7 @@ const PAGES = {
   beads: renderBeads,
   clay: renderClay,
   gallery: renderGallery,
+  avatar: renderAvatar,
 };
 
 const DESTINATION_TZ = 'Asia/Shanghai';

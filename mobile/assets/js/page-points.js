@@ -43,7 +43,7 @@ export function renderPoints(root) {
       </button>`).join('')}</div>
       <h2 class="t-heading">${te('points.prices.title')}</h2>
       <ul class="price-list">
-        ${[['MAGNET', PRICES.MAGNET], ['KEYCHAIN', PRICES.KEYCHAIN], ['BEADS', PRICES.BEADS], ['AI_MODEL', PRICES.AI_MODEL]].map(([item, n]) => `<li><span>${te(`points.item.${item}`)}</span><strong class="t-num">${te('points.amount', { n })}</strong></li>`).join('')}
+        ${[['MAGNET', PRICES.MAGNET], ['KEYCHAIN', PRICES.KEYCHAIN], ['BEADS', PRICES.BEADS], ['AI_MODEL', PRICES.AI_MODEL], ['AI_MODEL_TRIPO', PRICES.AI_MODEL_TRIPO]].map(([item, n]) => `<li><span>${te(`points.item.${item}`)}</span><strong class="t-num">${te('points.amount', { n })}</strong></li>`).join('')}
         <li><span>${te('points.item.GALLERY')}</span><strong class="t-num">${te('points.gallery.range', { min: GALLERY_PRICE.min, max: GALLERY_PRICE.max })}</strong></li>
         <li><span>${te('points.price.clay')}</span><strong>${te('workshop.free')}</strong></li>
       </ul>

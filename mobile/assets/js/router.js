@@ -32,6 +32,8 @@ export function parseHash(hash) {
   if (head === 'beads') return { name: 'beads', param: param || null, tab: 'trip', nav: false, key: param ? `beads/${param}` : 'beads' };
   if (head === 'clay') return { name: 'clay', param: param || 'new', tab: 'trip', nav: false, key: `clay/${param || 'new'}` };
   if (head === 'gallery') return { name: 'gallery', param: param || null, tab: 'stories', nav: !param, key: param ? `gallery/${param}` : 'gallery' };
+  // 小游's wardrobe has its own Save bar at the bottom.
+  if (head === 'avatar') return { name: 'avatar', param: null, tab: 'you', nav: false, key: 'avatar' };
   if (head === 'apply') return { name: 'apply', param: null, tab: 'you', nav: false, key: 'apply' };
   if (head === 'map') return { name: 'map', param: param || null, tab: 'trip', nav: false, key: param ? `map/${param}` : 'map' };
   if (head === 'posts' && param) return { name: 'post', param, tab: 'stories', nav: false, key: `posts/${param}` };

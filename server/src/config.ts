@@ -65,12 +65,21 @@ function loadAI(env: NodeJS.ProcessEnv) {
 }
 // Photo-to-3D for the clay workshop (PINCH adapter). Keys stay in server .env; result downloads
 // are restricted to an exact CDN hostname allowlist because providers return signed URLs.
-const meshBases = { tripo: 'https://api.tripo3d.ai/v2/openapi', meshy: 'https://api.meshy.ai/openapi' } as const;
+const meshBases = { meshy: 'https://api.meshy.ai/openapi' } as const;
+// Tripo's v3 API; the older api.tripo3d.ai/v2 host is not reachable from mainland China.
+const TRIPO_BASE = 'https://openapi.tripo3d.com/v3';
 const modelName = z.string().max(128).regex(/^[a-zA-Z0-9][a-zA-Z0-9._:/-]*$/);
 function loadMesh(env: NodeJS.ProcessEnv) {
   // openai-layout: an OpenAI-compatible vision model lays the photo out as clay parts (the PINCH method);
   // tripo / meshy: a mesh-generation service returns a GLB.
   const provider = z.enum(['disabled', 'tripo', 'meshy', 'openai-layout']).parse(env.MESH_PROVIDER || 'disabled');
+  // Tripo is offered next to the two-AI relay whenever its key is set (MESH_TRIPO_API_KEY; TRIPO_API_KEY is still read).
+  const tripoKey = provider === 'disabled' ? '' : env.MESH_TRIPO_API_KEY || env.TRIPO_API_KEY || '';
+  const tripo = tripoKey ? {
+    apiKey: tripoKey, baseUrl: TRIPO_BASE, model: modelName.parse(env.MESH_TRIPO_MODEL || 'v3.1-20260211'),
+    // Signed result links come from Tripo's own CDN only.
+    resultHosts: env.MESH_TRIPO_RESULT_HOSTS ? hostList(env.MESH_TRIPO_RESULT_HOSTS) : ['openapi.cdn.tripo3d.com'],
+  } : null;
   const layout = provider === 'openai-layout';
   const llmBaseUrl = layout ? endpoint(env.MESH_LLM_BASE_URL) : '';
   const llmHosts = layout ? hostList(env.MESH_LLM_ALLOWED_HOSTS) : [];
@@ -79,9 +88,25 @@ function loadMesh(env: NodeJS.ProcessEnv) {
     if (!/^\/v1\/?$/.test(url.pathname) || url.search) throw new Error('MESH_LLM_BASE_URL must use the /v1 path without a query');
     if (llmHosts.length && !llmHosts.includes(url.hostname)) throw new Error('MESH_LLM_BASE_URL is not in MESH_LLM_ALLOWED_HOSTS');
   }
-  const apiKey = provider === 'tripo' ? env.TRIPO_API_KEY || '' : provider === 'meshy' ? env.MESHY_API_KEY || '' : layout ? env.MESH_LLM_API_KEY || '' : '';
+  const apiKey = provider === 'tripo' ? tripoKey : provider === 'meshy' ? env.MESHY_API_KEY || '' : layout ? env.MESH_LLM_API_KEY || '' : '';
+  // Optional second AI that repairs and details the first AI's rough layout (OpenAI-compatible chat).
+  // Blank base URL / hosts / key reuse the draft model's gateway settings.
+  const refineModel = layout && env.MESH_REFINE_MODEL ? modelName.parse(env.MESH_REFINE_MODEL) : '';
+  const refineBaseUrl = refineModel ? endpoint(env.MESH_REFINE_BASE_URL) || llmBaseUrl : '';
+  const refineHosts = refineModel ? (env.MESH_REFINE_ALLOWED_HOSTS ? hostList(env.MESH_REFINE_ALLOWED_HOSTS) : llmHosts) : [];
+  if (refineBaseUrl) {
+    const url = new URL(refineBaseUrl);
+    if (!/^\/v1\/?$/.test(url.pathname) || url.search) throw new Error('MESH_REFINE_BASE_URL must use the /v1 path without a query');
+    if (!refineHosts.includes(url.hostname)) throw new Error('MESH_REFINE_BASE_URL is not in MESH_REFINE_ALLOWED_HOSTS');
+  }
+  const refine = refineModel && refineBaseUrl ? {
+    model: refineModel, baseUrl: refineBaseUrl, hosts: refineHosts, apiKey: env.MESH_REFINE_API_KEY || env.MESH_LLM_API_KEY || '',
+    // Each extra round sends the refined layout back to the refiner with the remaining problems.
+    rounds: z.coerce.number().int().min(1).max(3).parse(env.MESH_REFINE_ROUNDS || 2),
+  } : null;
   return {
-    provider, apiKey, baseUrl: provider === 'tripo' || provider === 'meshy' ? meshBases[provider] : llmBaseUrl,
+    provider, apiKey, baseUrl: provider === 'tripo' ? TRIPO_BASE : provider === 'meshy' ? meshBases.meshy : llmBaseUrl,
+    refine: refine?.apiKey ? refine : null, tripo,
     llmHosts, llmModel: layout && env.MESH_LLM_MODEL ? modelName.parse(env.MESH_LLM_MODEL) : '',
     llmTimeoutMs: z.coerce.number().int().min(10_000).max(300_000).parse(env.MESH_LLM_TIMEOUT_MS || 150_000),
     resultHosts: hostList(env.MESH_RESULT_HOSTS),
@@ -113,9 +138,9 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env) {
   // The in-app assistant reuses the openai-person chat gateway with its own (smaller, faster) model.
   const assistantReady = ai.provider === 'openai-person' && Boolean(ai.openaiBaseUrl && ai.openaiHosts.length && ai.assistantModel && ai.openaiApiKey);
   const mesh = loadMesh(env);
-  const meshReady = mesh.provider === 'openai-layout'
-    ? Boolean(mesh.apiKey && mesh.baseUrl && mesh.llmHosts.length && mesh.llmModel)
-    : mesh.provider !== 'disabled' && Boolean(mesh.apiKey && mesh.resultHosts.length);
+  // Two ways to make the clay model: the two-AI relay (openai-layout) and Tripo; either one switches the feature on.
+  const meshLayoutReady = mesh.provider === 'openai-layout' && Boolean(mesh.apiKey && mesh.baseUrl && mesh.llmHosts.length && mesh.llmModel);
+  const meshReady = meshLayoutReady || Boolean(mesh.tripo) || (mesh.provider === 'meshy' && Boolean(mesh.apiKey && mesh.resultHosts.length));
   // Local test mode never calls out, except the clay photo-to-3D gateway when explicitly allowed for a demo.
   const localMesh = local && flag(env.DEVELOPMENT_LOCAL_ALLOW_MESH);
   if (local && (smtpReady || aiDetectReady || aiEditReady || assistantReady || (meshReady && !localMesh))) throw new Error('DEVELOPMENT_LOCAL forbids external mail/AI calls');
@@ -131,7 +156,7 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env) {
     smtp: { host: env.SMTP_HOST || '', port: Number(env.SMTP_PORT || 465), secure: env.SMTP_SECURE !== 'false', user: env.SMTP_USER || '', password: env.SMTP_PASSWORD || '', from: env.SMTP_FROM || '' },
     smtpReady, aiReady, aiDetectReady, aiEditReady, assistantReady,
     workerConcurrency: z.coerce.number().int().min(1).max(4).parse(env.WORKER_CONCURRENCY || 2),
-    ai, mesh, meshReady,
+    ai, mesh, meshReady, meshLayoutReady,
     // No payment processor is connected: top-ups are labelled demo purchases and never charge.
     pointsDemoTopup: env.POINTS_DEMO_TOPUP !== 'false',
     ffmpeg: env.FFMPEG_PATH || 'ffmpeg', ffprobe: env.FFPROBE_PATH || 'ffprobe',

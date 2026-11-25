@@ -30,7 +30,9 @@ const PAGES = [
   ['workshop', ['文创工坊', '手作工坊', '工坊', '做手工', '手作'], ['workshop', 'craft workshop', 'crafts workshop']],
   ['points', ['积分', '充值', '我的积分', '积分充值'], ['points', 'top up', 'my points']],
   ['beads', ['拼豆', '拼豆图纸', '做拼豆', '拼豆材料'], ['perler', 'perler beads', 'fuse beads', 'bead pattern']],
-  ['clay-new', ['捏泥', '捏个', '捏泥巴', '3d建模', '捏模型', '捏一个', '图生3d', '照片生成3d'], ['clay', 'sculpt', 'pinch clay', '3d model']],
+  ['clay-new', ['捏泥', '捏个', '捏泥巴', '3d建模', '捏模型', '捏一个', '图生3d', '照片生成3d', '文字生成3d', '视频生成3d'], ['clay', 'sculpt', 'pinch clay', '3d model']],
+  // 小游's wardrobe; the bare verb 换装 counts too, since it only means one thing here.
+  ['avatar', ['换装', '给小游换衣服', '给小游换装', '小游换装', '换衣服', '换形象', '小助手形象', '换个形象'], ['outfit', 'outfits', 'avatar', 'wardrobe', 'dress up']],
   ['gallery', ['文创画廊', '画廊', '作品画廊', '二创'], ['gallery', 'craft gallery', 'remix']],
 ];
 const ACTIONS = [

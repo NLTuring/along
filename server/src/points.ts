@@ -10,7 +10,8 @@ export const TOPUP_TIERS = [
   { id: 'T30', yuan: 30, points: 600, bonus: 0 },
   { id: 'T60', yuan: 60, points: 1200, bonus: 100 },
 ] as const;
-export const PRICES = { MAGNET: 5, KEYCHAIN: 5, BEADS: 5, AI_MODEL: 20 } as const;
+// AI_MODEL: two AIs relay (draft + repair). AI_MODEL_TRIPO: Tripo generates the mesh directly and costs more.
+export const PRICES = { MAGNET: 5, KEYCHAIN: 5, BEADS: 5, AI_MODEL: 20, AI_MODEL_TRIPO: 40 } as const;
 export const GALLERY_PRICE = { min: 0, max: 50, default: 10 } as const;
 // Share of a gallery unlock paid to the creator; the rest is the platform's.
 export const AUTHOR_SHARE = 0.5;

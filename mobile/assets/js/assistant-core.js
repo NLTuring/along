@@ -6,7 +6,7 @@ export const ASSISTANT_ROUTES = ['trip', 'friends', 'stories', 'you', 'support',
   'wallet', 'social', 'profile', 'library', 'make-orders', 'apply', 'craft-new'];
 // Pages a plain command on the phone can open as well. These are newer than the server, so an
 // AI answer cannot point at them, but "美食" or "where to eat" still opens them at once.
-export const LOCAL_ROUTES = [...ASSISTANT_ROUTES, 'travel', 'workshop', 'points', 'beads', 'clay-new', 'gallery'];
+export const LOCAL_ROUTES = [...ASSISTANT_ROUTES, 'travel', 'workshop', 'points', 'beads', 'clay-new', 'gallery', 'avatar'];
 // Most routes are their own path; these few live elsewhere.
 const ROUTE_PATHS = { profile: 'u/me', 'craft-new': 'craft/new', 'clay-new': 'clay/new' };
 export const routePath = (route) => ROUTE_PATHS[route] || route;

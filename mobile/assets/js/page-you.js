@@ -101,6 +101,7 @@ export function renderYou(root) {
           <span class="row__text"><strong>${te('you.assistant')}</strong><span class="t-small" id="assistant-setting-note">${te('you.assistant.note')}</span></span>
           <span class="switch" aria-hidden="true"><i></i></span>
         </button>
+        <button class="row" data-you-route="avatar" data-track="you_avatar"><span class="row__icon">${icon('spark')}</span><span class="row__text"><strong>${te('you.avatar')}</strong><span class="t-small">${te('you.avatar.note')}</span></span>${icon('chevron', { size: 20 })}</button>
         ${toggle('senior', !!settings.senior)}
         ${toggle('motion', settings.motion === 'reduced')}
         ${toggle('glass', settings.glass === 'solid')}

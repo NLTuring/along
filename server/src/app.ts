@@ -17,10 +17,11 @@ import { profileRoutes } from './profiles.js';
 import { pointRoutes } from './points.js';
 import { beadRoutes } from './beads.js';
 import { galleryRoutes } from './gallery.js';
-import { aiModelRoutes, createMeshProvider, type MeshProvider } from './ai-models.js';
+import { aiModelRoutes, createMeshProviders, meshEngines, type MeshEngines, type MeshProvider } from './ai-models.js';
 
-// The assistant transport and the 3D provider are injectable so tests never reach a real model gateway.
-export async function createApp(s: Services, options: { assistantTransport?: ProviderTransport; meshProvider?: MeshProvider | null } = {}) {
+// The assistant transport and the 3D providers are injectable so tests never reach a real model gateway.
+// meshProvider: one provider, placed by its name (tripo → Tripo, anything else → the two-AI relay).
+export async function createApp(s: Services, options: { assistantTransport?: ProviderTransport; meshProvider?: MeshProvider | null; meshEngines?: MeshEngines } = {}) {
   // Disable automatic request/error logging: URLs, cookies, headers and bodies can contain PII/secrets.
   // Operators may record aggregate status metrics at the reverse proxy, not request bodies/query strings.
   const app = Fastify({ logger: false, disableRequestLogging: true, trustProxy: false, bodyLimit: 128 * 1024, requestTimeout: 180000, connectionTimeout: 10000, maxParamLength: 128 });
@@ -45,7 +46,7 @@ export async function createApp(s: Services, options: { assistantTransport?: Pro
   authRoutes(app, s); mediaRoutes(app, s); communityRoutes(app, s); profileRoutes(app, s); craftRoutes(app, s); modelRoutes(app, s); inquiryRoutes(app, s); mapRoutes(app, s);
   assistantRoutes(app, s, options.assistantTransport);
   pointRoutes(app, s); beadRoutes(app, s); galleryRoutes(app, s);
-  aiModelRoutes(app, s, options.meshProvider !== undefined ? options.meshProvider : createMeshProvider(s.config));
+  aiModelRoutes(app, s, options.meshEngines ?? (options.meshProvider !== undefined ? meshEngines(options.meshProvider) : createMeshProviders(s.config)));
   await app.ready();
   return app;
 }

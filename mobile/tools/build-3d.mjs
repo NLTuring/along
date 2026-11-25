@@ -13,7 +13,7 @@ await mkdir(output, { recursive: true });
 const shared = { bundle: true, minify: true, format: 'esm', target: ['es2020'], platform: 'browser', legalComments: 'inline' };
 await build({
   ...shared,
-  stdin: { contents: "export { Scene, PerspectiveCamera, WebGLRenderer, Group, AmbientLight, DirectionalLight, HemisphereLight, BufferGeometry, BufferAttribute, Mesh, MeshStandardMaterial, MeshBasicMaterial, CanvasTexture, SRGBColorSpace, Color, Vector2, Vector3, Raycaster, RingGeometry, CircleGeometry, DoubleSide } from 'three';", resolveDir: root, sourcefile: 'along-three-entry.js' },
+  stdin: { contents: "export { Scene, PerspectiveCamera, WebGLRenderer, Group, AmbientLight, DirectionalLight, HemisphereLight, BufferGeometry, BufferAttribute, Mesh, MeshStandardMaterial, MeshBasicMaterial, CanvasTexture, SRGBColorSpace, Color, Vector2, Vector3, Raycaster, RingGeometry, CircleGeometry, DoubleSide, Box3, Clock, SphereGeometry, CylinderGeometry, TorusGeometry, ConeGeometry, BoxGeometry, CapsuleGeometry, LatheGeometry, MeshPhysicalMaterial, AnimationMixer, LoopRepeat, RepeatWrapping, TextureLoader } from 'three'; export { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';", resolveDir: root, sourcefile: 'along-three-entry.js' },
   outfile: path.join(output, 'three.js'),
 });
 await build({

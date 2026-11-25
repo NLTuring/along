@@ -374,3 +374,55 @@
 .frame__mat--beads img, .work__frame--beads img { object-fit: contain; image-rendering: pixelated; background: #efe7d8; }
 .workshop__desk .row__text small { font-size: var(--fs-12); color: var(--muted-strong); }
 .clay-stage__note { background: rgba(247, 242, 232, .82); }
+
+/* ---------- clay AI: photo / video / words, and the two-AI process ---------- */
+/* A painted (coloured) model: look at it, or save a clay copy to pinch. */
+.clay-painted { display: flex; flex-direction: column; gap: var(--sp-8); padding: var(--sp-12) var(--sp-16); border-radius: var(--r-16); background: rgba(var(--glass-rgb), .62); border: 1px solid var(--stitch); }
+.clay-painted .btn { align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; }
+/* Two ways to make the model, each card showing its own price. */
+.clay-engines { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-8); }
+.clay-engine { position: relative; display: flex; cursor: pointer; }
+.clay-engine > input { position: absolute; opacity: 0; pointer-events: none; }
+.clay-engine > span { flex: 1; display: flex; flex-direction: column; gap: 4px; padding: var(--sp-12); border-radius: var(--r-12); border: 1.5px solid var(--stitch); background: rgba(var(--glass-rgb), .7); color: var(--kraft-ink); transition: border-color .15s ease, background-color .15s ease; }
+.clay-engine strong { font-size: var(--fs-15); color: var(--ink); }
+.clay-engine small { font-size: var(--fs-13); line-height: 1.4; }
+.clay-engine em { margin-top: auto; font-style: normal; font-weight: 600; color: var(--terracotta); }
+.clay-engine > input:checked + span { border-color: var(--ink); background: #fffdf8; box-shadow: 0 1px 3px rgba(90, 70, 48, .18); }
+.clay-engine > input:focus-visible + span { outline: 2px solid var(--ink); outline-offset: 2px; }
+.clay-engine.is-disabled { opacity: .45; pointer-events: none; }
+.clay-ai__kinds { align-self: stretch; }
+.clay-ai__kinds .segmented__item.is-disabled { opacity: .45; pointer-events: none; }
+.clay-ai__pane { display: flex; flex-direction: column; gap: var(--sp-8); }
+.clay-ai__pane[hidden] { display: none; }
+.clay-ai__duo { display: flex; align-items: flex-start; gap: 6px; padding: var(--sp-8) var(--sp-12); border-radius: var(--r-12); background: rgba(var(--glass-rgb), .62); border: 1px solid var(--stitch); color: var(--kraft-ink); }
+.clay-ai__duo[hidden] { display: none; }
+.clay-ai__duo svg { flex: none; margin-top: 2px; color: var(--terracotta); }
+.clay-ai__examples { display: flex; flex-wrap: wrap; gap: 6px; }
+/* Paper tags you can tap: each sits a little crooked, like labels pinned to the bench. */
+.clay-ai__example { min-height: 36px; padding: 0 var(--sp-12); border: 1px dashed var(--kraft-deep); border-radius: var(--r-pill); background: rgba(var(--glass-rgb), .7); color: var(--kraft-ink); font: inherit; font-size: var(--fs-13); cursor: pointer; transform: rotate(-1deg); transition: transform .15s ease, background-color .15s ease; }
+.clay-ai__example:nth-child(even) { transform: rotate(1deg); }
+.clay-ai__example:active { transform: scale(.97); background: var(--kraft); }
+.clay-ai__example:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.clay-ai__example:disabled { opacity: .5; cursor: default; }
+.clay-ai__frames { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.clay-ai__frames img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; border-radius: var(--r-12); border: 3px solid #fffdf8; box-shadow: 0 1px 3px rgba(90, 70, 48, .25); }
+.clay-ai__frames li:nth-child(odd) img { transform: rotate(-2deg); }
+.clay-ai__frames li:nth-child(even) img { transform: rotate(1.5deg); }
+.ai-job__kind { font-style: normal; display: inline-block; margin-right: 6px; padding: 0 6px; border-radius: var(--r-pill); background: var(--kraft); color: var(--kraft-ink); font-size: var(--fs-11); }
+.ai-steps { list-style: none; margin: 0 0 var(--sp-4); padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.ai-step { display: flex; align-items: flex-start; gap: var(--sp-8); padding: var(--sp-8) var(--sp-12); border-radius: var(--r-12); background: rgba(var(--glass-rgb), .55); border: 1px solid transparent; color: var(--muted-strong); }
+.ai-step strong { display: block; font-size: var(--fs-13); color: var(--body); }
+.ai-step small { display: block; font-size: var(--fs-12); }
+.ai-step__dot { flex: none; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-size: var(--fs-12); font-weight: 600; background: var(--kraft); color: var(--kraft-ink); }
+.ai-step.is-now { border-color: var(--kraft-deep); background: rgba(var(--glass-rgb), .85); }
+.ai-step.is-now .ai-step__dot { background: var(--terracotta); color: #fff; animation: clay-knead 1.4s ease-in-out infinite; }
+.ai-step.is-done .ai-step__dot { background: var(--glaze-sage); color: #fff; }
+@keyframes clay-knead { 50% { transform: scale(.88, 1.08); } }
+@media (prefers-reduced-motion: reduce) { .ai-step.is-now .ai-step__dot { animation: none; } }
+:root[data-motion='reduced'] .ai-step.is-now .ai-step__dot { animation: none; }
+.clay-notes { border-radius: var(--r-16); border: 1px solid var(--stitch); background: rgba(var(--glass-rgb), .66); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); padding: var(--sp-8) var(--sp-12); }
+.clay-notes summary { display: flex; align-items: center; gap: 6px; min-height: 36px; cursor: pointer; font-weight: 600; color: var(--kraft-ink); list-style: none; }
+.clay-notes summary::-webkit-details-marker { display: none; }
+.clay-notes summary small { margin-left: auto; font-weight: 400; color: var(--muted-strong); }
+.clay-notes summary svg { color: var(--terracotta); }
+.clay-notes ul { margin: var(--sp-4) 0 var(--sp-4); padding-left: 1.2em; display: flex; flex-direction: column; gap: 4px; font-size: var(--fs-13); color: var(--body); }

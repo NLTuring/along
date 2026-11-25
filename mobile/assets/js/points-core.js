@@ -6,10 +6,11 @@ export const TOPUP_TIERS = Object.freeze([
   Object.freeze({ id: 'T30', yuan: 30, points: 600, bonus: 0 }),
   Object.freeze({ id: 'T60', yuan: 60, points: 1200, bonus: 100 }),
 ]);
-export const PRICES = Object.freeze({ MAGNET: 5, KEYCHAIN: 5, BEADS: 5, AI_MODEL: 20 });
+// AI_MODEL: two AIs relay (draft + repair). AI_MODEL_TRIPO: Tripo makes the mesh directly and costs more.
+export const PRICES = Object.freeze({ MAGNET: 5, KEYCHAIN: 5, BEADS: 5, AI_MODEL: 20, AI_MODEL_TRIPO: 40 });
 export const GALLERY_PRICE = Object.freeze({ min: 0, max: 50, default: 10 });
 export const AUTHOR_SHARE = 0.5;
-const ITEMS = new Set(['MAGNET', 'KEYCHAIN', 'BEADS', 'AI_MODEL', 'GALLERY']);
+const ITEMS = new Set(['MAGNET', 'KEYCHAIN', 'BEADS', 'AI_MODEL', 'AI_MODEL_TRIPO', 'GALLERY']);
 const MAX_LEDGER = 200;
 
 export function grantMonth(date = new Date()) {

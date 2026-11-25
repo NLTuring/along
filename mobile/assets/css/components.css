@@ -112,6 +112,8 @@
   border: 1.5px solid var(--ink);
   background: transparent;
 }
+/* btn--small is dark with white text; an outlined small button keeps ink text on a clear face. */
+.btn--small.btn--outline { color: var(--ink); }
 
 .btn--danger {
   width: 100%;
